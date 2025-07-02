@@ -3662,16 +3662,6 @@
 	)
 	(wire
 		(pts
-			(xy 81.28 140.97) (xy 81.28 147.32)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "27831039-6ef4-4d8a-afcc-3d03a7703271")
-	)
-	(wire
-		(pts
 			(xy 29.21 54.61) (xy 43.18 54.61)
 		)
 		(stroke
@@ -3679,16 +3669,6 @@
 			(type default)
 		)
 		(uuid "2960e34e-22c9-4d6c-82e0-ecfb023a9ede")
-	)
-	(wire
-		(pts
-			(xy 83.82 140.97) (xy 83.82 147.32)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2ae88c1a-f6a8-4dc3-b22b-e38df536ba21")
 	)
 	(wire
 		(pts
@@ -3819,16 +3799,6 @@
 			(type default)
 		)
 		(uuid "65c187d9-8585-4c21-9564-a0d7dfaae1dc")
-	)
-	(wire
-		(pts
-			(xy 78.74 140.97) (xy 78.74 147.32)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6ff0f2c2-6da2-463f-bdad-83257a841d6a")
 	)
 	(bus
 		(pts
@@ -4140,16 +4110,6 @@
 		)
 		(uuid "da71b9e0-80bc-4066-a012-cda6d06a5fd0")
 	)
-	(wire
-		(pts
-			(xy 76.2 140.97) (xy 76.2 147.32)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "db33f306-a1a3-4016-a19a-b410cd8e4f95")
-	)
 	(bus
 		(pts
 			(xy 26.67 95.25) (xy 26.67 97.79)
@@ -4282,7 +4242,7 @@
 	)
 	(bus
 		(pts
-			(xy 26.67 31.75) (xy 26.67 41.91)
+			(xy 26.67 27.94) (xy 26.67 41.91)
 		)
 		(stroke
 			(width 0)
@@ -4569,61 +4529,6 @@
 			(justify left bottom)
 		)
 		(uuid "fbeb81a7-2f63-4f9d-b020-93861561997a")
-	)
-	(hierarchical_label "SCK"
-		(shape input)
-		(at 78.74 140.97 90)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "482e6d84-0bcf-459b-b64e-f0aaf7a9ecb8")
-	)
-	(hierarchical_label "SS"
-		(shape input)
-		(at 76.2 140.97 90)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "4c956df2-81cb-417f-8af3-e4c2a2ad5d6b")
-	)
-	(hierarchical_label "MISO"
-		(shape output)
-		(at 83.82 140.97 90)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "75defc97-197c-4806-bd7d-f06433236c10")
-	)
-	(hierarchical_label "TRIG_IN_[0..23]"
-		(shape output)
-		(at 26.67 31.75 90)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "85c4d27e-d609-4dcc-8bd4-5e8852024785")
-	)
-	(hierarchical_label "MOSI"
-		(shape input)
-		(at 81.28 140.97 90)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "c53bc90b-c646-4326-a162-e7b70ca8250c")
 	)
 	(symbol
 		(lib_id "FPGA_Lattice:ICE40HX4K-TQ144")

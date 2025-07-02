@@ -2193,12 +2193,6 @@
 		(uuid "64c7c7e1-2007-4fdf-8e0b-88a892c9b78b")
 	)
 	(junction
-		(at 72.39 157.48)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "80c4bd1d-2254-46b3-ba89-1d4cf070bdf6")
-	)
-	(junction
 		(at 100.33 77.47)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2215,6 +2209,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "cb064780-e2d3-4928-8960-986bff8bcada")
+	)
+	(junction
+		(at 73.66 157.48)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "e25c2fdf-e76c-4986-bd0a-016cb4b68018")
 	)
 	(no_connect
 		(at 110.49 142.24)
@@ -2314,7 +2314,7 @@
 	)
 	(wire
 		(pts
-			(xy 72.39 170.18) (xy 72.39 168.91)
+			(xy 73.66 170.18) (xy 73.66 168.91)
 		)
 		(stroke
 			(width 0)
@@ -2414,7 +2414,7 @@
 	)
 	(wire
 		(pts
-			(xy 72.39 157.48) (xy 72.39 161.29)
+			(xy 73.66 157.48) (xy 73.66 161.29)
 		)
 		(stroke
 			(width 0)
@@ -2504,16 +2504,6 @@
 	)
 	(wire
 		(pts
-			(xy 72.39 157.48) (xy 73.66 157.48)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7b1bf21a-a481-4280-9fd9-0778bf955b06")
-	)
-	(wire
-		(pts
 			(xy 167.64 82.55) (xy 226.06 82.55)
 		)
 		(stroke
@@ -2531,6 +2521,16 @@
 			(type default)
 		)
 		(uuid "822e800a-23c9-443a-9ab9-e45ce8486637")
+	)
+	(wire
+		(pts
+			(xy 73.66 157.48) (xy 68.58 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "829717ec-153a-49c2-9253-95507ca423a9")
 	)
 	(wire
 		(pts
@@ -2574,7 +2574,7 @@
 	)
 	(wire
 		(pts
-			(xy 72.39 170.18) (xy 80.01 170.18)
+			(xy 73.66 170.18) (xy 80.01 170.18)
 		)
 		(stroke
 			(width 0)
@@ -2711,16 +2711,6 @@
 			(type default)
 		)
 		(uuid "e03bcafe-4657-4a62-9e18-f6863f52f57e")
-	)
-	(wire
-		(pts
-			(xy 72.39 157.48) (xy 68.58 157.48)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e0ecc731-1ace-4aa2-b760-c5ff1b9759f8")
 	)
 	(wire
 		(pts
@@ -3147,7 +3137,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 72.39 165.1 0)
+		(at 73.66 165.1 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3155,7 +3145,7 @@
 		(dnp no)
 		(uuid "300ec029-df1a-4beb-905a-2c9dbb8906b0")
 		(property "Reference" "C38"
-			(at 74.676 160.782 0)
+			(at 68.072 162.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3163,8 +3153,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "100n"
-			(at 73.914 163.068 0)
+		(property "Value" "C"
+			(at 68.072 165.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3173,7 +3163,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 73.3552 168.91 0)
+			(at 74.6252 168.91 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3182,7 +3172,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 72.39 165.1 0)
+			(at 73.66 165.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3191,7 +3181,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
-			(at 72.39 165.1 0)
+			(at 73.66 165.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4175,7 +4165,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "100n"
+		(property "Value" "C"
 			(at 129.54 166.3699 0)
 			(effects
 				(font
