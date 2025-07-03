@@ -393,6 +393,16 @@
 			(embedded_fonts no)
 		)
 	)
+	(text "SMA CONNECTORS INPUT"
+		(exclude_from_sim no)
+		(at 59.69 30.48 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "43a1e171-91a1-4989-92c6-b25127af16ce")
+	)
 	(junction
 		(at 72.39 62.23)
 		(diameter 0)
