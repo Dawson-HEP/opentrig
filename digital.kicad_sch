@@ -2569,7 +2569,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_Coaxial_Small")
-		(at 30.48 39.37 90)
+		(at 30.48 39.37 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2578,21 +2578,21 @@
 		(fields_autoplaced yes)
 		(uuid "1f05a218-99bf-41a4-a4b0-b88b25d410c0")
 		(property "Reference" "J1"
-			(at 33.02 38.6194 90)
+			(at 33.02 38.2153 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Value" "~"
-			(at 33.02 41.1594 90)
+			(at 33.02 40.1204 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -2705,7 +2705,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_Coaxial_Small")
-		(at 64.77 55.88 90)
+		(at 64.77 55.88 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2714,21 +2714,21 @@
 		(fields_autoplaced yes)
 		(uuid "2af49e02-8d79-4aad-86e8-bbacadd53cd9")
 		(property "Reference" "J8"
-			(at 67.31 55.1294 90)
+			(at 67.31 54.7253 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Value" "~"
-			(at 67.31 57.6694 90)
+			(at 67.31 56.6304 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -2775,7 +2775,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_Coaxial_Small")
-		(at 53.34 55.88 90)
+		(at 53.34 55.88 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2784,21 +2784,21 @@
 		(fields_autoplaced yes)
 		(uuid "30477b58-7aac-4b37-9efa-f9ab0fa8ed61")
 		(property "Reference" "J7"
-			(at 55.88 55.1294 90)
+			(at 55.88 54.7253 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Value" "~"
-			(at 55.88 57.6694 90)
+			(at 55.88 56.6304 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -2845,7 +2845,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_Coaxial_Small")
-		(at 64.77 91.44 90)
+		(at 64.77 91.44 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2854,21 +2854,21 @@
 		(fields_autoplaced yes)
 		(uuid "3b514d7d-9fdb-4cfd-a4dd-bc4fe9ead840")
 		(property "Reference" "J16"
-			(at 67.31 90.6894 90)
+			(at 67.31 90.2853 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Value" "~"
-			(at 67.31 93.2294 90)
+			(at 67.31 92.1904 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -2915,7 +2915,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_Coaxial_Small")
-		(at 64.77 39.37 90)
+		(at 64.77 39.37 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2924,21 +2924,21 @@
 		(fields_autoplaced yes)
 		(uuid "42728dd7-5b65-4a45-bed5-631fbccfd0f9")
 		(property "Reference" "J4"
-			(at 67.31 38.6194 90)
+			(at 67.31 38.2153 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Value" "~"
-			(at 67.31 41.1594 90)
+			(at 67.31 40.1204 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -2985,7 +2985,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_Coaxial_Small")
-		(at 41.91 91.44 90)
+		(at 41.91 91.44 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2994,21 +2994,21 @@
 		(fields_autoplaced yes)
 		(uuid "4cb725ab-08c3-441f-a6f9-6c0114631cb0")
 		(property "Reference" "J14"
-			(at 44.45 90.6894 90)
+			(at 44.45 90.2853 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Value" "~"
-			(at 44.45 93.2294 90)
+			(at 44.45 92.1904 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -3055,7 +3055,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_Coaxial_Small")
-		(at 53.34 73.66 90)
+		(at 53.34 73.66 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3064,21 +3064,21 @@
 		(fields_autoplaced yes)
 		(uuid "4faedb20-d6e6-4885-b5aa-5b5ba1040296")
 		(property "Reference" "J11"
-			(at 55.88 72.9094 90)
+			(at 55.88 72.5053 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Value" "~"
-			(at 55.88 75.4494 90)
+			(at 55.88 74.4104 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -3125,7 +3125,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_Coaxial_Small")
-		(at 30.48 109.22 90)
+		(at 30.48 109.22 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3134,21 +3134,21 @@
 		(fields_autoplaced yes)
 		(uuid "56df4987-243e-4708-8d0b-cf6af5238b7a")
 		(property "Reference" "J17"
-			(at 33.02 108.4694 90)
+			(at 33.02 108.0653 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Value" "~"
-			(at 33.02 111.0094 90)
+			(at 33.02 109.9704 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -3195,7 +3195,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_Coaxial_Small")
-		(at 53.34 91.44 90)
+		(at 53.34 91.44 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3204,21 +3204,21 @@
 		(fields_autoplaced yes)
 		(uuid "5af3bffc-8544-4188-b896-ae22ffa8e568")
 		(property "Reference" "J15"
-			(at 55.88 90.6894 90)
+			(at 55.88 90.2853 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Value" "~"
-			(at 55.88 93.2294 90)
+			(at 55.88 92.1904 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -3265,7 +3265,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_Coaxial_Small")
-		(at 30.48 73.66 90)
+		(at 30.48 73.66 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3274,21 +3274,21 @@
 		(fields_autoplaced yes)
 		(uuid "6022ab11-e357-4b94-8b81-1dc320fe5423")
 		(property "Reference" "J9"
-			(at 33.02 72.9094 90)
+			(at 33.02 72.5053 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Value" "~"
-			(at 33.02 75.4494 90)
+			(at 33.02 74.4104 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -3335,7 +3335,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_Coaxial_Small")
-		(at 64.77 109.22 90)
+		(at 64.77 109.22 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3344,21 +3344,21 @@
 		(fields_autoplaced yes)
 		(uuid "6856233c-dd63-47bb-844c-c5ab6bcaa35e")
 		(property "Reference" "J20"
-			(at 67.31 108.4694 90)
+			(at 67.31 108.0653 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Value" "~"
-			(at 67.31 111.0094 90)
+			(at 67.31 109.9704 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -3405,7 +3405,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_Coaxial_Small")
-		(at 30.48 55.88 90)
+		(at 30.48 55.88 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3414,21 +3414,21 @@
 		(fields_autoplaced yes)
 		(uuid "7b9b4f70-daae-4f43-acc7-add00157ee82")
 		(property "Reference" "J5"
-			(at 33.02 55.1294 90)
+			(at 33.02 54.7253 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Value" "~"
-			(at 33.02 57.6694 90)
+			(at 33.02 56.6304 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -3475,7 +3475,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_Coaxial_Small")
-		(at 41.91 55.88 90)
+		(at 41.91 55.88 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3484,21 +3484,21 @@
 		(fields_autoplaced yes)
 		(uuid "838d22f8-3970-40e0-9271-21b94c3358d4")
 		(property "Reference" "J6"
-			(at 44.45 55.1294 90)
+			(at 44.45 54.7253 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Value" "~"
-			(at 44.45 57.6694 90)
+			(at 44.45 56.6304 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -3545,7 +3545,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_Coaxial_Small")
-		(at 41.91 109.22 90)
+		(at 41.91 109.22 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3554,21 +3554,21 @@
 		(fields_autoplaced yes)
 		(uuid "872cbe8d-581f-46a4-a049-3523a49f1362")
 		(property "Reference" "J18"
-			(at 44.45 108.4694 90)
+			(at 44.45 108.0653 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Value" "~"
-			(at 44.45 111.0094 90)
+			(at 44.45 109.9704 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -3682,7 +3682,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_Coaxial_Small")
-		(at 41.91 73.66 90)
+		(at 41.91 73.66 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3691,21 +3691,21 @@
 		(fields_autoplaced yes)
 		(uuid "983f0c44-f02c-403e-a9ae-f1ca8059adf2")
 		(property "Reference" "J10"
-			(at 44.45 72.9094 90)
+			(at 44.45 72.5053 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Value" "~"
-			(at 44.45 75.4494 90)
+			(at 44.45 74.4104 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -3819,7 +3819,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_Coaxial_Small")
-		(at 30.48 127 90)
+		(at 30.48 127 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3828,21 +3828,21 @@
 		(fields_autoplaced yes)
 		(uuid "9b2b33f8-4ebf-4f68-b3a1-5257e942561a")
 		(property "Reference" "J21"
-			(at 33.02 126.2494 90)
+			(at 33.02 125.8453 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Value" "~"
-			(at 33.02 128.7894 90)
+			(at 33.02 127.7504 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -3889,7 +3889,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_Coaxial_Small")
-		(at 41.91 39.37 90)
+		(at 41.91 39.37 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3898,21 +3898,21 @@
 		(fields_autoplaced yes)
 		(uuid "a9ded870-a8fb-44be-81ba-9f6b892eca6c")
 		(property "Reference" "J2"
-			(at 44.45 38.6194 90)
+			(at 44.45 38.2153 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Value" "~"
-			(at 44.45 41.1594 90)
+			(at 44.45 40.1204 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -4091,7 +4091,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_Coaxial_Small")
-		(at 53.34 109.22 90)
+		(at 53.34 109.22 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4100,21 +4100,21 @@
 		(fields_autoplaced yes)
 		(uuid "b0c01bef-da11-42ac-90d8-eeeabb53bb18")
 		(property "Reference" "J19"
-			(at 55.88 108.4694 90)
+			(at 55.88 108.0653 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Value" "~"
-			(at 55.88 111.0094 90)
+			(at 55.88 109.9704 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -4161,7 +4161,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_Coaxial_Small")
-		(at 30.48 91.44 90)
+		(at 30.48 91.44 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4170,21 +4170,21 @@
 		(fields_autoplaced yes)
 		(uuid "b2e30236-9138-4ee9-a01a-b190c332d162")
 		(property "Reference" "J13"
-			(at 33.02 90.6894 90)
+			(at 33.02 90.2853 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Value" "~"
-			(at 33.02 93.2294 90)
+			(at 33.02 92.1904 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -4297,7 +4297,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_Coaxial_Small")
-		(at 64.77 127 90)
+		(at 64.77 127 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4306,21 +4306,21 @@
 		(fields_autoplaced yes)
 		(uuid "bbaf931c-2ccb-4647-a3f5-6b09aa5f57b4")
 		(property "Reference" "J24"
-			(at 67.31 126.2494 90)
+			(at 67.31 125.8453 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Value" "~"
-			(at 67.31 128.7894 90)
+			(at 67.31 127.7504 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -4367,7 +4367,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_Coaxial_Small")
-		(at 53.34 127 90)
+		(at 53.34 127 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4376,21 +4376,21 @@
 		(fields_autoplaced yes)
 		(uuid "bbc33e66-cb5b-45e8-b5e4-b4338e0f6fe2")
 		(property "Reference" "J23"
-			(at 55.88 126.2494 90)
+			(at 55.88 125.8453 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Value" "~"
-			(at 55.88 128.7894 90)
+			(at 55.88 127.7504 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -4437,7 +4437,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_Coaxial_Small")
-		(at 53.34 39.37 90)
+		(at 53.34 39.37 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4446,21 +4446,21 @@
 		(fields_autoplaced yes)
 		(uuid "d21592d1-35ab-4529-953b-2402690ea7e5")
 		(property "Reference" "J3"
-			(at 55.88 38.6194 90)
+			(at 55.88 38.2153 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Value" "~"
-			(at 55.88 41.1594 90)
+			(at 55.88 40.1204 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -4840,7 +4840,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_Coaxial_Small")
-		(at 41.91 127 90)
+		(at 41.91 127 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4849,21 +4849,21 @@
 		(fields_autoplaced yes)
 		(uuid "f232c3e8-fcda-4c0b-bfd5-9add95168005")
 		(property "Reference" "J22"
-			(at 44.45 126.2494 90)
+			(at 44.45 125.8453 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Value" "~"
-			(at 44.45 128.7894 90)
+			(at 44.45 127.7504 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -4910,7 +4910,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_Coaxial_Small")
-		(at 64.77 73.66 90)
+		(at 64.77 73.66 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4919,21 +4919,21 @@
 		(fields_autoplaced yes)
 		(uuid "f7b30a46-4a35-4320-900e-f923ed04823b")
 		(property "Reference" "J12"
-			(at 67.31 72.9094 90)
+			(at 67.31 72.5053 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Value" "~"
-			(at 67.31 75.4494 90)
+			(at 67.31 74.4104 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -5040,6 +5040,48 @@
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d"
 					(reference "#PWR050")
 					(unit 1)
+				)
+			)
+		)
+	)
+	(sheet
+		(at 78.74 134.62)
+		(size 12.7 10.16)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "0be83137-3546-49aa-a3b0-fa8ecc02ba36")
+		(property "Sheetname" "power_sipm"
+			(at 78.74 133.9084 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "power_sipm.kicad_sch"
+			(at 78.74 145.3646 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "digital"
+				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d"
+					(page "8")
 				)
 			)
 		)
@@ -5269,7 +5311,7 @@
 		)
 	)
 	(sheet
-		(at 36.83 156.21)
+		(at 20.32 156.21)
 		(size 34.29 31.75)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5284,8 +5326,8 @@
 			(color 0 0 0 0.0000)
 		)
 		(uuid "679bd25b-959e-4fa5-97a0-e7c13c15ad82")
-		(property "Sheetname" "Power"
-			(at 36.83 155.4984 0)
+		(property "Sheetname" "power"
+			(at 20.32 155.4984 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5294,7 +5336,7 @@
 			)
 		)
 		(property "Sheetfile" "power.kicad_sch"
-			(at 36.83 188.5446 0)
+			(at 20.32 188.5446 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5306,6 +5348,48 @@
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d"
 					(page "6")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 66.04 152.4)
+		(size 12.7 20.32)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "6e83fa56-1de6-4a8a-b621-b1c47cfad8d5")
+		(property "Sheetname" "usb"
+			(at 66.04 151.6884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "usb.kicad_sch"
+			(at 66.04 173.3046 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "digital"
+				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d"
+					(page "7")
 				)
 			)
 		)
