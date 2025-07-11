@@ -2,7 +2,7 @@
 	(version 20250114)
 	(generator "eeschema")
 	(generator_version "9.0")
-	(uuid "d8b5e6ae-d748-47e3-8363-20d96aa1c646")
+	(uuid "b4659b61-ef1d-4e81-a68b-c808111cab9c")
 	(paper "A4")
 	(lib_symbols
 		(symbol "Connector:Conn_Coaxial_Small"
