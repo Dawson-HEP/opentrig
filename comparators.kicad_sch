@@ -2,7 +2,7 @@
 	(version 20250114)
 	(generator "eeschema")
 	(generator_version "9.0")
-	(uuid "072054b0-7991-4a3a-8856-dd140b9344a7")
+	(uuid "8ba703a0-96c4-4571-b8ec-460880f69d37")
 	(paper "A4")
 	(lib_symbols
 		(symbol "Connector:Conn_Coaxial_Small"
@@ -1789,6 +1789,16 @@
 			)
 			(embedded_fonts no)
 		)
+	)
+	(text "Set to +3V3"
+		(exclude_from_sim no)
+		(at 259.588 139.446 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "9a59fb9e-a2f9-49cb-8737-133142d8266d")
 	)
 	(junction
 		(at 41.91 39.37)

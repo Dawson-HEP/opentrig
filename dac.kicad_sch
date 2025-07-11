@@ -2,7 +2,7 @@
 	(version 20250114)
 	(generator "eeschema")
 	(generator_version "9.0")
-	(uuid "157ae8f2-0de8-407e-93ff-193b219fa368")
+	(uuid "15013a60-f9da-4917-9be3-2be49ca456cd")
 	(paper "A4")
 	(lib_symbols
 		(symbol "Analog_DAC:MCP4728"
@@ -1517,6 +1517,46 @@
 			(embedded_fonts no)
 		)
 	)
+	(text "Set to VREF_SELECT"
+		(exclude_from_sim no)
+		(at 149.606 35.052 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "73789e89-2469-4a09-8bda-968c3b982ec4")
+	)
+	(text "Set to VREF 3V"
+		(exclude_from_sim no)
+		(at 190.246 108.712 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "caa41ed1-d840-493c-9a0d-1cb2ad9f4d6d")
+	)
+	(text "Set to VREF_SELECT"
+		(exclude_from_sim no)
+		(at 150.368 108.458 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "d6b98a31-b35e-4878-91a1-6b315efd9b58")
+	)
+	(text "Set to VREF 3V"
+		(exclude_from_sim no)
+		(at 190.246 35.052 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "daebf62c-eadd-4106-bc43-a45af481b520")
+	)
 	(junction
 		(at 139.7 113.03)
 		(diameter 0)
@@ -2571,6 +2611,16 @@
 	)
 	(wire
 		(pts
+			(xy 139.7 113.03) (xy 130.81 113.03)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "332c08b6-29c5-4a7a-9f4b-0796fbdc59a9")
+	)
+	(wire
+		(pts
 			(xy 35.56 27.94) (xy 87.63 27.94)
 		)
 		(stroke
@@ -2888,16 +2938,6 @@
 			(type default)
 		)
 		(uuid "4bcc71ea-b396-49e3-9b13-26ced2288508")
-	)
-	(wire
-		(pts
-			(xy 130.81 39.37) (xy 139.7 39.37)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4dcbdc80-0e9f-49b0-81f8-4d8a01f9540c")
 	)
 	(wire
 		(pts
@@ -3641,16 +3681,6 @@
 	)
 	(wire
 		(pts
-			(xy 130.81 113.03) (xy 139.7 113.03)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9a1c9cd6-2505-4d7b-82a9-6379ea216963")
-	)
-	(wire
-		(pts
 			(xy 111.76 87.63) (xy 116.84 87.63)
 		)
 		(stroke
@@ -4351,6 +4381,16 @@
 	)
 	(wire
 		(pts
+			(xy 139.7 39.37) (xy 130.81 39.37)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e1e39c18-edfe-4e0b-a206-c4da37e766c8")
+	)
+	(wire
+		(pts
 			(xy 45.72 93.98) (xy 54.61 93.98)
 		)
 		(stroke
@@ -4679,6 +4719,16 @@
 		)
 		(uuid "176a043a-9726-4b92-8301-cfaa04b77de8")
 	)
+	(label "VREF_A_5V"
+		(at 200.66 41.91 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "2c047835-46a5-44a9-a839-1baae49c9987")
+	)
 	(label "VREF1"
 		(at 45.72 48.26 0)
 		(effects
@@ -4699,6 +4749,16 @@
 		)
 		(uuid "3282693e-93bc-49c8-8bad-ab55c1cb4ab4")
 	)
+	(label "VREF_B_3V"
+		(at 201.93 113.03 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "32ba8e56-2be3-463d-8f21-8c5432f83c7b")
+	)
 	(label "VREF11"
 		(at 45.72 101.6 0)
 		(effects
@@ -4708,6 +4768,16 @@
 			(justify left bottom)
 		)
 		(uuid "34baaded-208e-4dca-9da6-f3658906df2f")
+	)
+	(label "VREF_B"
+		(at 139.7 113.03 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "3cc6826f-fbb1-4850-8594-f5ae7c6b6a46")
 	)
 	(label "~{LDAC}2"
 		(at 102.87 99.06 180)
@@ -4729,6 +4799,16 @@
 		)
 		(uuid "44278dfb-7ada-4538-8496-ead296b6be21")
 	)
+	(label "VREF_SELECT_A"
+		(at 160.02 39.37 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "4906aa9b-5fb1-4383-a924-364710a15f2f")
+	)
 	(label "VREF16"
 		(at 45.72 143.51 0)
 		(effects
@@ -4748,6 +4828,16 @@
 			(justify right bottom)
 		)
 		(uuid "5522f8e5-6f18-46d6-8bec-b58caac01e0f")
+	)
+	(label "VREF_A_3V"
+		(at 200.66 39.37 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "5b5fe7ef-086b-4335-a458-ce5fdc13e79b")
 	)
 	(label "VREF19"
 		(at 45.72 151.13 0)
@@ -4798,6 +4888,16 @@
 			(justify left bottom)
 		)
 		(uuid "8dd32359-a5f2-4650-bea3-7ebf14c5007f")
+	)
+	(label "VREF_SELECT_B"
+		(at 161.29 113.03 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "9a9bb897-a668-4301-a4b6-2a4d221573bb")
 	)
 	(label "VREF6"
 		(at 45.72 74.93 0)
@@ -4879,6 +4979,16 @@
 		)
 		(uuid "cab7ffb2-2e14-4568-89b8-1d2dd3a7c53e")
 	)
+	(label "VREF_A"
+		(at 139.7 39.37 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "cd4f9ae8-cd83-48a5-9c3c-98c7591428a2")
+	)
 	(label "VREF20"
 		(at 45.72 167.64 0)
 		(effects
@@ -4908,6 +5018,16 @@
 			(justify left bottom)
 		)
 		(uuid "dbd17ee0-40b5-4c5e-b7d0-82924db5319d")
+	)
+	(label "VREF_B_5V"
+		(at 201.93 115.57 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "e3de8979-f486-41ed-9797-a026b12062a6")
 	)
 	(label "VREF0"
 		(at 45.72 45.72 0)
