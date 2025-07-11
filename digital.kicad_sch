@@ -5555,6 +5555,90 @@
 		)
 	)
 	(sheet
+		(at 248.92 24.13)
+		(size 27.94 16.51)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "b6e86a20-5564-401a-8139-5824a15d0408")
+		(property "Sheetname" "comparators"
+			(at 248.92 23.4184 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "comparators.kicad_sch"
+			(at 248.92 41.2246 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "digital"
+				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d"
+					(page "10")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 209.55 24.13)
+		(size 24.13 16.51)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "bc9ae2b7-8e24-4f39-995c-9325d382a50c")
+		(property "Sheetname" "dac"
+			(at 209.55 23.4184 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "dac.kicad_sch"
+			(at 209.55 41.2246 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "digital"
+				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d"
+					(page "9")
+				)
+			)
+		)
+	)
+	(sheet
 		(at 149.86 25.4)
 		(size 40.64 31.75)
 		(exclude_from_sim no)

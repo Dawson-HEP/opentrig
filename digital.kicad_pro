@@ -559,12 +559,42 @@
           "label": "Datasheet",
           "name": "Datasheet",
           "show": true
+        },
+        {
+          "group_by": false,
+          "label": "Sim.Device",
+          "name": "Sim.Device",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Sim.Pins",
+          "name": "Sim.Pins",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "LCSC",
+          "name": "LCSC",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Description",
+          "name": "Description",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "#",
+          "name": "${ITEM_NUMBER}",
+          "show": false
         }
       ],
       "filter_string": "",
       "group_symbols": true,
       "include_excluded_from_bom": true,
-      "name": "Default Editing",
+      "name": "",
       "sort_asc": true,
       "sort_field": "Reference"
     },
@@ -640,6 +670,14 @@
     [
       "0be83137-3546-49aa-a3b0-fa8ecc02ba36",
       "power_sipm"
+    ],
+    [
+      "bc9ae2b7-8e24-4f39-995c-9325d382a50c",
+      "dac"
+    ],
+    [
+      "b6e86a20-5564-401a-8139-5824a15d0408",
+      "comparators"
     ]
   ],
   "text_variables": {}
