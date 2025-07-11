@@ -2,7 +2,7 @@
 	(version 20250114)
 	(generator "eeschema")
 	(generator_version "9.0")
-	(uuid "31012a6d-0f1c-4963-9af0-4c12e7a86a37")
+	(uuid "9d7e213a-ab44-4753-abf0-5f451ce26654")
 	(paper "A4")
 	(lib_symbols
 		(symbol "Analog_DAC:MCP4728"
