@@ -5276,7 +5276,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "00e158a5-fed9-4771-9170-f7ac407ba067")
-		(property "Reference" "#FLG011"
+		(property "Reference" "#FLG012"
 			(at 139.7 122.555 0)
 			(effects
 				(font
@@ -5326,7 +5326,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "#FLG011")
+					(reference "#FLG012")
 					(unit 1)
 				)
 			)
@@ -5341,7 +5341,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "0217e733-3ec1-4835-bd7b-51b340ec5282")
-		(property "Reference" "#PWR0162"
+		(property "Reference" "#PWR0146"
 			(at 242.57 86.36 0)
 			(effects
 				(font
@@ -5391,7 +5391,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "#PWR0162")
+					(reference "#PWR0146")
 					(unit 1)
 				)
 			)
@@ -5406,7 +5406,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "031388ea-d917-457d-bcad-804c40389dae")
-		(property "Reference" "C118"
+		(property "Reference" "C103"
 			(at 117.094 40.64 0)
 			(effects
 				(font
@@ -5424,7 +5424,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
 			(at 117.8052 48.26 0)
 			(effects
 				(font
@@ -5451,6 +5451,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C307331"
+			(at 116.84 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "7cb9cc4c-9d4f-4c7d-86d6-11214455a875")
 		)
@@ -5460,7 +5469,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "C118")
+					(reference "C103")
 					(unit 1)
 				)
 			)
@@ -5475,7 +5484,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "066177fa-5bf6-4bcc-96c7-f6c5bf3968d0")
-		(property "Reference" "#PWR0179"
+		(property "Reference" "#PWR0163"
 			(at 69.85 162.56 0)
 			(effects
 				(font
@@ -5525,7 +5534,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "#PWR0179")
+					(reference "#PWR0163")
 					(unit 1)
 				)
 			)
@@ -5541,7 +5550,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "08780752-3c43-4ab0-8210-058fdfdc2308")
-		(property "Reference" "TP7"
+		(property "Reference" "TP6"
 			(at 226.06 77.47 90)
 			(effects
 				(font
@@ -5559,7 +5568,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
 			(at 229.87 80.01 0)
 			(effects
 				(font
@@ -5592,7 +5601,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "TP7")
+					(reference "TP6")
 					(unit 1)
 				)
 			)
@@ -5608,7 +5617,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "0a64b02b-4d82-46dc-8ef4-13cb6480b100")
-		(property "Reference" "#FLG010"
+		(property "Reference" "#FLG013"
 			(at 180.34 122.555 0)
 			(effects
 				(font
@@ -5658,7 +5667,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "#FLG010")
+					(reference "#FLG013")
 					(unit 1)
 				)
 			)
@@ -5673,7 +5682,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "0bf2c738-89e6-458d-bf4e-863aac115d56")
-		(property "Reference" "#PWR0172"
+		(property "Reference" "#PWR0156"
 			(at 111.76 130.81 0)
 			(effects
 				(font
@@ -5723,7 +5732,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "#PWR0172")
+					(reference "#PWR0156")
 					(unit 1)
 				)
 			)
@@ -5738,7 +5747,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "0e27e162-9430-4e76-a8a8-8228ebf2c0e5")
-		(property "Reference" "#PWR0178"
+		(property "Reference" "#PWR0162"
 			(at 242.57 160.02 0)
 			(effects
 				(font
@@ -5788,7 +5797,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "#PWR0178")
+					(reference "#PWR0162")
 					(unit 1)
 				)
 			)
@@ -5803,7 +5812,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "10f32d3c-a1a4-481e-aaa9-e71a197e3126")
-		(property "Reference" "#PWR0170"
+		(property "Reference" "#PWR0154"
 			(at 218.44 129.54 0)
 			(effects
 				(font
@@ -5853,7 +5862,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "#PWR0170")
+					(reference "#PWR0154")
 					(unit 1)
 				)
 			)
@@ -5868,7 +5877,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "10fe3cf8-35f6-4f8b-9018-79859aea129c")
-		(property "Reference" "C121"
+		(property "Reference" "C106"
 			(at 117.094 64.77 0)
 			(effects
 				(font
@@ -5886,7 +5895,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
 			(at 117.8052 72.39 0)
 			(effects
 				(font
@@ -5913,6 +5922,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C307331"
+			(at 116.84 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "cae9d02f-25c6-42a1-9aa0-288d071cd530")
 		)
@@ -5922,7 +5940,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "C121")
+					(reference "C106")
 					(unit 1)
 				)
 			)
@@ -5937,7 +5955,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "16b5085b-ef6c-4562-b4f7-5d6f395824f6")
-		(property "Reference" "C125"
+		(property "Reference" "C110"
 			(at 112.014 88.9 0)
 			(effects
 				(font
@@ -5955,7 +5973,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
 			(at 112.7252 96.52 0)
 			(effects
 				(font
@@ -5982,6 +6000,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C13585"
+			(at 111.76 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "534185e6-10f0-4f56-9d7c-49be48556469")
 		)
@@ -5991,7 +6018,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "C125")
+					(reference "C110")
 					(unit 1)
 				)
 			)
@@ -6006,7 +6033,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "1af45d0b-0c76-47b3-b95c-c0aab8d3a11d")
-		(property "Reference" "#PWR0161"
+		(property "Reference" "#PWR0145"
 			(at 218.44 86.36 0)
 			(effects
 				(font
@@ -6056,7 +6083,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "#PWR0161")
+					(reference "#PWR0145")
 					(unit 1)
 				)
 			)
@@ -6087,7 +6114,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Button_Switch_SMD:SW_DIP_SPSTx03_Slide_6.7x9.18mm_W8.61mm_P2.54mm_LowProfile"
 			(at 149.86 44.45 0)
 			(effects
 				(font
@@ -6106,6 +6133,15 @@
 			)
 		)
 		(property "Description" "3x DIP Switch, Single Pole Single Throw (SPST) switch, small symbol"
+			(at 149.86 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C129079"
 			(at 149.86 41.91 0)
 			(effects
 				(font
@@ -6150,7 +6186,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "1b897039-0862-47a3-8b7a-ebac7dcaf5fc")
-		(property "Reference" "#PWR0155"
+		(property "Reference" "#PWR0139"
 			(at 242.57 55.88 0)
 			(effects
 				(font
@@ -6200,7 +6236,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "#PWR0155")
+					(reference "#PWR0139")
 					(unit 1)
 				)
 			)
@@ -6215,7 +6251,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "1d108202-7451-48cc-8f05-d9b019763663")
-		(property "Reference" "#PWR0153"
+		(property "Reference" "#PWR0137"
 			(at 270.51 50.8 0)
 			(effects
 				(font
@@ -6265,7 +6301,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "#PWR0153")
+					(reference "#PWR0137")
 					(unit 1)
 				)
 			)
@@ -6280,7 +6316,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "1f077fdc-00d0-46ff-b49d-9f744f26214d")
-		(property "Reference" "C124"
+		(property "Reference" "C109"
 			(at 218.694 72.39 0)
 			(effects
 				(font
@@ -6298,7 +6334,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 219.4052 80.01 0)
 			(effects
 				(font
@@ -6325,6 +6361,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C28323"
+			(at 218.44 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "64d35742-b4ff-4350-8b2e-c7971f1e7d33")
 		)
@@ -6334,7 +6379,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "C124")
+					(reference "C109")
 					(unit 1)
 				)
 			)
@@ -6350,7 +6395,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "1fb9a987-6dd2-4026-be51-e29e3454d82b")
-		(property "Reference" "#PWR0158"
+		(property "Reference" "#PWR0142"
 			(at 242.57 66.04 0)
 			(effects
 				(font
@@ -6400,7 +6445,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "#PWR0158")
+					(reference "#PWR0142")
 					(unit 1)
 				)
 			)
@@ -6416,7 +6461,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "1fd85073-a455-4dec-892e-a6d435db241f")
-		(property "Reference" "#FLG013"
+		(property "Reference" "#FLG010"
 			(at 139.7 34.925 0)
 			(effects
 				(font
@@ -6466,7 +6511,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "#FLG013")
+					(reference "#FLG010")
 					(unit 1)
 				)
 			)
@@ -6482,7 +6527,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "2157f4fa-55b0-42e5-be66-6a5339f22f75")
-		(property "Reference" "TP11"
+		(property "Reference" "TP10"
 			(at 225.806 120.65 90)
 			(effects
 				(font
@@ -6500,7 +6545,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
 			(at 229.87 123.19 0)
 			(effects
 				(font
@@ -6533,7 +6578,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "TP11")
+					(reference "TP10")
 					(unit 1)
 				)
 			)
@@ -6548,7 +6593,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "25849688-35fb-4a6e-9fcf-ada39fe9c7e3")
-		(property "Reference" "C122"
+		(property "Reference" "C107"
 			(at 265.684 64.77 0)
 			(effects
 				(font
@@ -6566,7 +6611,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
 			(at 266.3952 72.39 0)
 			(effects
 				(font
@@ -6593,6 +6638,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C307331"
+			(at 265.43 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "42f8f612-bfe4-494b-9cbe-eee8b44638e1")
 		)
@@ -6602,7 +6656,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "C122")
+					(reference "C107")
 					(unit 1)
 				)
 			)
@@ -6618,7 +6672,7 @@
 		(on_board yes)
 		(dnp yes)
 		(uuid "2afda7e1-c76c-43aa-b1c2-481840c572c3")
-		(property "Reference" "U26"
+		(property "Reference" "U24"
 			(at 229.87 62.992 0)
 			(effects
 				(font
@@ -6691,7 +6745,7 @@
 		(instances
 			(project ""
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "U26")
+					(reference "U24")
 					(unit 1)
 				)
 			)
@@ -6707,7 +6761,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "301cd869-dcb9-4990-806c-2a8f9bcc0d00")
-		(property "Reference" "#PWR0168"
+		(property "Reference" "#PWR0152"
 			(at 156.21 118.11 0)
 			(effects
 				(font
@@ -6758,7 +6812,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "#PWR0168")
+					(reference "#PWR0152")
 					(unit 1)
 				)
 			)
@@ -6773,7 +6827,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "325b07f1-48f3-4223-9bee-23fb0517eacc")
-		(property "Reference" "C126"
+		(property "Reference" "C111"
 			(at 117.094 88.9 0)
 			(effects
 				(font
@@ -6791,7 +6845,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
 			(at 117.8052 96.52 0)
 			(effects
 				(font
@@ -6818,6 +6872,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C307331"
+			(at 116.84 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "c69e2378-801f-4a8c-8c47-4f181a75feb6")
 		)
@@ -6827,7 +6890,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "C126")
+					(reference "C111")
 					(unit 1)
 				)
 			)
@@ -6842,7 +6905,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "35690544-2673-42f2-977c-bc3d4e8fe5cd")
-		(property "Reference" "TP6"
+		(property "Reference" "TP5"
 			(at 250.19 68.072 90)
 			(effects
 				(font
@@ -6860,7 +6923,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
 			(at 250.19 77.47 0)
 			(effects
 				(font
@@ -6893,7 +6956,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "TP6")
+					(reference "TP5")
 					(unit 1)
 				)
 			)
@@ -6908,7 +6971,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "35c49cc1-008e-4327-bef2-02d63b10d403")
-		(property "Reference" "C127"
+		(property "Reference" "C112"
 			(at 265.684 107.95 0)
 			(effects
 				(font
@@ -6926,7 +6989,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
 			(at 266.3952 115.57 0)
 			(effects
 				(font
@@ -6953,6 +7016,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C307331"
+			(at 265.43 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "ba3b2627-4189-4373-9e0b-221882baa748")
 		)
@@ -6962,7 +7034,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "C127")
+					(reference "C112")
 					(unit 1)
 				)
 			)
@@ -6978,7 +7050,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "368dcd73-19a7-4bbd-b693-f65314e05b2a")
-		(property "Reference" "TP12"
+		(property "Reference" "TP11"
 			(at 91.44 131.572 90)
 			(effects
 				(font
@@ -6996,7 +7068,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
 			(at 91.44 121.92 0)
 			(effects
 				(font
@@ -7029,7 +7101,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "TP12")
+					(reference "TP11")
 					(unit 1)
 				)
 			)
@@ -7044,7 +7116,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "36e197c6-7e5f-4ba6-a39f-8f4f81f76e57")
-		(property "Reference" "C128"
+		(property "Reference" "C113"
 			(at 270.764 107.95 0)
 			(effects
 				(font
@@ -7062,7 +7134,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 271.4752 115.57 0)
 			(effects
 				(font
@@ -7089,6 +7161,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C28323"
+			(at 270.51 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "bb7bf45f-2a18-4f22-8119-0f7d6c4cc849")
 		)
@@ -7098,7 +7179,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "C128")
+					(reference "C113")
 					(unit 1)
 				)
 			)
@@ -7113,7 +7194,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "3d7cdd97-d52d-4baa-ae98-48853abf832f")
-		(property "Reference" "C136"
+		(property "Reference" "C121"
 			(at 218.694 146.05 0)
 			(effects
 				(font
@@ -7131,7 +7212,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 219.4052 153.67 0)
 			(effects
 				(font
@@ -7158,6 +7239,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C28323"
+			(at 218.44 149.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "9cfa2ca5-3e76-4960-a8f1-ca9f8f36692d")
 		)
@@ -7167,7 +7257,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "C136")
+					(reference "C121")
 					(unit 1)
 				)
 			)
@@ -7182,7 +7272,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "3eb827ce-5239-464e-aaa2-930d2a801a37")
-		(property "Reference" "C129"
+		(property "Reference" "C114"
 			(at 112.014 114.3 0)
 			(effects
 				(font
@@ -7200,7 +7290,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
 			(at 112.7252 121.92 0)
 			(effects
 				(font
@@ -7227,6 +7317,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C13585"
+			(at 111.76 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "3717ccb8-755c-43a0-8e35-399b2f4e8de6")
 		)
@@ -7236,7 +7335,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "C129")
+					(reference "C114")
 					(unit 1)
 				)
 			)
@@ -7251,7 +7350,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "41b31cd2-527e-4b33-baed-3ed99daa3b66")
-		(property "Reference" "#PWR0176"
+		(property "Reference" "#PWR0160"
 			(at 270.51 154.94 0)
 			(effects
 				(font
@@ -7301,7 +7400,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "#PWR0176")
+					(reference "#PWR0160")
 					(unit 1)
 				)
 			)
@@ -7316,7 +7415,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "45f6d29e-8ec0-4767-afae-ad504c26cacd")
-		(property "Reference" "#PWR0173"
+		(property "Reference" "#PWR0157"
 			(at 69.85 138.43 0)
 			(effects
 				(font
@@ -7366,7 +7465,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "#PWR0173")
+					(reference "#PWR0157")
 					(unit 1)
 				)
 			)
@@ -7381,7 +7480,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "45fb798d-4ef3-4489-8eda-323cb9bdea78")
-		(property "Reference" "C115"
+		(property "Reference" "C100"
 			(at 265.684 34.29 0)
 			(effects
 				(font
@@ -7399,7 +7498,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
 			(at 266.3952 41.91 0)
 			(effects
 				(font
@@ -7426,6 +7525,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C307331"
+			(at 265.43 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "ea6af41c-141b-4f74-a699-71e922b46f82")
 		)
@@ -7435,7 +7543,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "C115")
+					(reference "C100")
 					(unit 1)
 				)
 			)
@@ -7466,7 +7574,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Button_Switch_SMD:SW_DIP_SPSTx03_Slide_6.7x9.18mm_W8.61mm_P2.54mm_LowProfile"
 			(at 190.5 118.11 0)
 			(effects
 				(font
@@ -7485,6 +7593,15 @@
 			)
 		)
 		(property "Description" "3x DIP Switch, Single Pole Single Throw (SPST) switch, small symbol"
+			(at 190.5 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C129079"
 			(at 190.5 115.57 0)
 			(effects
 				(font
@@ -7529,7 +7646,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "4c012190-40d5-4c5b-9f1b-47f047edecfe")
-		(property "Reference" "TP10"
+		(property "Reference" "TP9"
 			(at 250.19 110.998 90)
 			(effects
 				(font
@@ -7547,7 +7664,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
 			(at 250.19 120.65 0)
 			(effects
 				(font
@@ -7580,7 +7697,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "TP10")
+					(reference "TP9")
 					(unit 1)
 				)
 			)
@@ -7595,7 +7712,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "4c4ef032-c436-4e09-a8f9-f127804e1f5b")
-		(property "Reference" "#PWR0177"
+		(property "Reference" "#PWR0161"
 			(at 218.44 160.02 0)
 			(effects
 				(font
@@ -7645,7 +7762,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "#PWR0177")
+					(reference "#PWR0161")
 					(unit 1)
 				)
 			)
@@ -7676,7 +7793,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Button_Switch_SMD:SW_DIP_SPSTx03_Slide_6.7x9.18mm_W8.61mm_P2.54mm_LowProfile"
 			(at 190.5 44.45 0)
 			(effects
 				(font
@@ -7695,6 +7812,15 @@
 			)
 		)
 		(property "Description" "3x DIP Switch, Single Pole Single Throw (SPST) switch, small symbol"
+			(at 190.5 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C129079"
 			(at 190.5 41.91 0)
 			(effects
 				(font
@@ -7740,7 +7866,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "50d1d9dd-9905-497c-97b7-8c51b261d72d")
-		(property "Reference" "U28"
+		(property "Reference" "U26"
 			(at 235.204 106.172 0)
 			(effects
 				(font
@@ -7788,6 +7914,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C2878155"
+			(at 240.03 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "5"
 			(uuid "99adff25-9b83-4865-bbb1-56ed7ef986ab")
 		)
@@ -7815,7 +7950,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "U28")
+					(reference "U26")
 					(unit 1)
 				)
 			)
@@ -7830,7 +7965,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "51cba852-32d1-4521-986c-a83e371f2030")
-		(property "Reference" "TP13"
+		(property "Reference" "TP12"
 			(at 250.19 141.732 90)
 			(effects
 				(font
@@ -7848,7 +7983,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
 			(at 250.19 151.13 0)
 			(effects
 				(font
@@ -7881,7 +8016,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "TP13")
+					(reference "TP12")
 					(unit 1)
 				)
 			)
@@ -7897,7 +8032,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "53df8410-9a5d-45ea-9540-6bb51adeab10")
-		(property "Reference" "TP4"
+		(property "Reference" "TP3"
 			(at 225.552 46.99 90)
 			(effects
 				(font
@@ -7915,7 +8050,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
 			(at 229.87 49.53 0)
 			(effects
 				(font
@@ -7948,7 +8083,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "TP4")
+					(reference "TP3")
 					(unit 1)
 				)
 			)
@@ -7963,7 +8098,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "583fe527-c1fa-4692-8dd1-abd1ccd2479e")
-		(property "Reference" "#PWR0160"
+		(property "Reference" "#PWR0144"
 			(at 270.51 81.28 0)
 			(effects
 				(font
@@ -8013,7 +8148,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "#PWR0160")
+					(reference "#PWR0144")
 					(unit 1)
 				)
 			)
@@ -8029,7 +8164,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "590bc653-02ef-4357-8ff8-46cddacd6539")
-		(property "Reference" "U25"
+		(property "Reference" "U23"
 			(at 57.15 64.77 0)
 			(effects
 				(font
@@ -8074,6 +8209,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C108207"
+			(at 69.85 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "4bfeec2a-8c1d-4433-89ea-499e6c4bb540")
 		)
@@ -8107,7 +8251,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "U25")
+					(reference "U23")
 					(unit 1)
 				)
 			)
@@ -8122,7 +8266,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "5be3846e-abc2-44da-bbf3-cf281677005d")
-		(property "Reference" "TP3"
+		(property "Reference" "TP2"
 			(at 250.19 37.338 90)
 			(effects
 				(font
@@ -8140,7 +8284,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
 			(at 250.19 46.99 0)
 			(effects
 				(font
@@ -8173,7 +8317,7 @@
 		(instances
 			(project ""
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "TP3")
+					(reference "TP2")
 					(unit 1)
 				)
 			)
@@ -8189,7 +8333,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "610efec9-f889-4314-ba73-de704dd3b7cb")
-		(property "Reference" "TP14"
+		(property "Reference" "TP13"
 			(at 226.06 151.13 90)
 			(effects
 				(font
@@ -8207,7 +8351,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
 			(at 229.87 153.67 0)
 			(effects
 				(font
@@ -8240,7 +8384,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "TP14")
+					(reference "TP13")
 					(unit 1)
 				)
 			)
@@ -8256,7 +8400,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "65a760d1-9fca-4e38-937e-f5b1b5ad95da")
-		(property "Reference" "#PWR0152"
+		(property "Reference" "#PWR0136"
 			(at 156.21 44.45 0)
 			(effects
 				(font
@@ -8307,7 +8451,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "#PWR0152")
+					(reference "#PWR0136")
 					(unit 1)
 				)
 			)
@@ -8322,7 +8466,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "67c93117-297e-4961-aef5-e55ca3e6c69d")
-		(property "Reference" "C131"
+		(property "Reference" "C116"
 			(at 218.694 115.57 0)
 			(effects
 				(font
@@ -8340,7 +8484,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 219.4052 123.19 0)
 			(effects
 				(font
@@ -8367,6 +8511,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C28323"
+			(at 218.44 119.38 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "47497db9-f534-4ee9-aff3-898a169f12b8")
 		)
@@ -8376,7 +8529,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "C131")
+					(reference "C116")
 					(unit 1)
 				)
 			)
@@ -8391,7 +8544,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "6cf2e8ac-cdb5-4a29-b90d-5c50db618342")
-		(property "Reference" "#PWR0154"
+		(property "Reference" "#PWR0138"
 			(at 218.44 55.88 0)
 			(effects
 				(font
@@ -8441,7 +8594,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "#PWR0154")
+					(reference "#PWR0138")
 					(unit 1)
 				)
 			)
@@ -8457,7 +8610,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "6e750933-183a-4dcd-b39b-7758a1ff571c")
-		(property "Reference" "U23"
+		(property "Reference" "U21"
 			(at 235.204 32.512 0)
 			(effects
 				(font
@@ -8505,6 +8658,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C2878155"
+			(at 240.03 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "5"
 			(uuid "b600c84f-d64a-4d54-ab0b-211831970527")
 		)
@@ -8532,7 +8694,7 @@
 		(instances
 			(project ""
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "U23")
+					(reference "U21")
 					(unit 1)
 				)
 			)
@@ -8548,7 +8710,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "7a3817e7-cbac-4ab2-a7c6-add472cdbbcb")
-		(property "Reference" "TP15"
+		(property "Reference" "TP14"
 			(at 91.44 155.702 90)
 			(effects
 				(font
@@ -8566,7 +8728,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
 			(at 91.44 146.05 0)
 			(effects
 				(font
@@ -8599,7 +8761,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "TP15")
+					(reference "TP14")
 					(unit 1)
 				)
 			)
@@ -8615,7 +8777,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "7bcbe46b-680b-4e8e-b9da-e625e741a237")
-		(property "Reference" "TP16"
+		(property "Reference" "TP15"
 			(at 91.44 179.832 90)
 			(effects
 				(font
@@ -8633,7 +8795,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
 			(at 91.44 170.18 0)
 			(effects
 				(font
@@ -8666,7 +8828,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "TP16")
+					(reference "TP15")
 					(unit 1)
 				)
 			)
@@ -8697,7 +8859,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Button_Switch_SMD:SW_DIP_SPSTx03_Slide_6.7x9.18mm_W8.61mm_P2.54mm_LowProfile"
 			(at 149.86 118.11 0)
 			(effects
 				(font
@@ -8716,6 +8878,15 @@
 			)
 		)
 		(property "Description" "3x DIP Switch, Single Pole Single Throw (SPST) switch, small symbol"
+			(at 149.86 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C129079"
 			(at 149.86 115.57 0)
 			(effects
 				(font
@@ -8760,7 +8931,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "92c1cb8f-6dc2-4d95-b39e-dbcffe222c96")
-		(property "Reference" "C123"
+		(property "Reference" "C108"
 			(at 270.764 64.77 0)
 			(effects
 				(font
@@ -8778,7 +8949,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 271.4752 72.39 0)
 			(effects
 				(font
@@ -8805,6 +8976,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C28323"
+			(at 270.51 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "d3e8532e-84d6-42f8-b836-cf99bfebf302")
 		)
@@ -8814,7 +8994,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "C123")
+					(reference "C108")
 					(unit 1)
 				)
 			)
@@ -8830,7 +9010,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9b46f9e2-d0d1-4f67-b446-57b2ab875344")
-		(property "Reference" "#PWR0165"
+		(property "Reference" "#PWR0149"
 			(at 242.57 109.22 0)
 			(effects
 				(font
@@ -8880,7 +9060,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "#PWR0165")
+					(reference "#PWR0149")
 					(unit 1)
 				)
 			)
@@ -8895,7 +9075,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "9cb0b793-52f1-4315-9f83-ac6f529271bb")
-		(property "Reference" "C138"
+		(property "Reference" "C123"
 			(at 117.094 162.56 0)
 			(effects
 				(font
@@ -8913,7 +9093,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
 			(at 117.8052 170.18 0)
 			(effects
 				(font
@@ -8940,6 +9120,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C307331"
+			(at 116.84 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "d28415e9-a3c6-4dd7-afc0-f30a493501d2")
 		)
@@ -8949,7 +9138,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "C138")
+					(reference "C123")
 					(unit 1)
 				)
 			)
@@ -8964,7 +9153,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "a0849cfa-31c9-43a4-bdcd-46481338db20")
-		(property "Reference" "#PWR0157"
+		(property "Reference" "#PWR0141"
 			(at 69.85 64.77 0)
 			(effects
 				(font
@@ -9014,7 +9203,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "#PWR0157")
+					(reference "#PWR0141")
 					(unit 1)
 				)
 			)
@@ -9030,7 +9219,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a385ca43-8f73-4030-938b-213ed29cc921")
-		(property "Reference" "#FLG09"
+		(property "Reference" "#FLG011"
 			(at 180.34 34.925 0)
 			(effects
 				(font
@@ -9080,7 +9269,7 @@
 		(instances
 			(project ""
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "#FLG09")
+					(reference "#FLG011")
 					(unit 1)
 				)
 			)
@@ -9095,7 +9284,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "a8ecd0da-40e3-47ae-a723-bfe9300ee96b")
-		(property "Reference" "C134"
+		(property "Reference" "C119"
 			(at 265.684 138.43 0)
 			(effects
 				(font
@@ -9113,7 +9302,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
 			(at 266.3952 146.05 0)
 			(effects
 				(font
@@ -9140,6 +9329,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C307331"
+			(at 265.43 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "90d612c3-c896-4550-b40f-0fd0fb6523e5")
 		)
@@ -9149,7 +9347,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "C134")
+					(reference "C119")
 					(unit 1)
 				)
 			)
@@ -9164,7 +9362,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "aba60c65-8569-4f75-b3ec-42343c234cca")
-		(property "Reference" "#PWR0180"
+		(property "Reference" "#PWR0164"
 			(at 111.76 179.07 0)
 			(effects
 				(font
@@ -9214,7 +9412,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "#PWR0180")
+					(reference "#PWR0164")
 					(unit 1)
 				)
 			)
@@ -9229,7 +9427,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "b3847715-45e4-4479-80aa-664ff334a80a")
-		(property "Reference" "C120"
+		(property "Reference" "C105"
 			(at 112.014 64.77 0)
 			(effects
 				(font
@@ -9247,7 +9445,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
 			(at 112.7252 72.39 0)
 			(effects
 				(font
@@ -9274,6 +9472,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C13585"
+			(at 111.76 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "9ea77cf5-4930-4b29-aaa9-1efaa6d6c36e")
 		)
@@ -9283,7 +9490,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "C120")
+					(reference "C105")
 					(unit 1)
 				)
 			)
@@ -9298,7 +9505,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "b80bf424-2671-4d8a-87e6-1b5747b671a3")
-		(property "Reference" "C135"
+		(property "Reference" "C120"
 			(at 270.764 138.43 0)
 			(effects
 				(font
@@ -9316,7 +9523,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 271.4752 146.05 0)
 			(effects
 				(font
@@ -9343,6 +9550,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C28323"
+			(at 270.51 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "ed5b7cc9-8ad8-4b42-b05b-cf4792002284")
 		)
@@ -9352,7 +9568,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "C135")
+					(reference "C120")
 					(unit 1)
 				)
 			)
@@ -9367,7 +9583,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "b9078b1c-e66d-4ccc-ba81-3c00bab89343")
-		(property "Reference" "#PWR0171"
+		(property "Reference" "#PWR0155"
 			(at 242.57 129.54 0)
 			(effects
 				(font
@@ -9417,7 +9633,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "#PWR0171")
+					(reference "#PWR0155")
 					(unit 1)
 				)
 			)
@@ -9433,7 +9649,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "bc4d6021-8b6e-4664-b4aa-23fc517c6191")
-		(property "Reference" "U27"
+		(property "Reference" "U25"
 			(at 57.15 88.9 0)
 			(effects
 				(font
@@ -9478,6 +9694,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C108207"
+			(at 69.85 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "4fd8f04e-f337-4700-ab0a-7e46234f9766")
 		)
@@ -9511,7 +9736,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "U27")
+					(reference "U25")
 					(unit 1)
 				)
 			)
@@ -9526,7 +9751,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "bda4ae13-509b-47cd-834b-c64184387c23")
-		(property "Reference" "C116"
+		(property "Reference" "C101"
 			(at 270.764 34.29 0)
 			(effects
 				(font
@@ -9544,7 +9769,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 271.4752 41.91 0)
 			(effects
 				(font
@@ -9571,6 +9796,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C28323"
+			(at 270.51 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "97abd4b2-05bd-4d43-bcbb-03d9d5aa2e65")
 		)
@@ -9580,7 +9814,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "C116")
+					(reference "C101")
 					(unit 1)
 				)
 			)
@@ -9595,7 +9829,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "c2c7327c-85a7-4e4d-87b2-1e8bf4255c12")
-		(property "Reference" "#PWR0167"
+		(property "Reference" "#PWR0151"
 			(at 156.21 115.57 0)
 			(effects
 				(font
@@ -9645,7 +9879,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "#PWR0167")
+					(reference "#PWR0151")
 					(unit 1)
 				)
 			)
@@ -9661,7 +9895,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "c3f37f1f-209b-4fc0-8654-9380e173e00d")
-		(property "Reference" "TP5"
+		(property "Reference" "TP4"
 			(at 91.44 57.912 90)
 			(effects
 				(font
@@ -9679,7 +9913,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
 			(at 91.44 48.26 0)
 			(effects
 				(font
@@ -9712,7 +9946,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "TP5")
+					(reference "TP4")
 					(unit 1)
 				)
 			)
@@ -9728,7 +9962,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "c93b785f-2cc9-41ed-823c-5c13038a270c")
-		(property "Reference" "TP8"
+		(property "Reference" "TP7"
 			(at 91.44 82.042 90)
 			(effects
 				(font
@@ -9746,7 +9980,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
 			(at 91.44 72.39 0)
 			(effects
 				(font
@@ -9779,7 +10013,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "TP8")
+					(reference "TP7")
 					(unit 1)
 				)
 			)
@@ -9794,7 +10028,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "ca4c12fd-5292-45ef-998f-87e4ba22855a")
-		(property "Reference" "#PWR0156"
+		(property "Reference" "#PWR0140"
 			(at 111.76 57.15 0)
 			(effects
 				(font
@@ -9844,7 +10078,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "#PWR0156")
+					(reference "#PWR0140")
 					(unit 1)
 				)
 			)
@@ -9860,7 +10094,7 @@
 		(on_board yes)
 		(dnp yes)
 		(uuid "cf72bcda-9424-4e9e-96d4-06386a100777")
-		(property "Reference" "U31"
+		(property "Reference" "U29"
 			(at 229.87 136.652 0)
 			(effects
 				(font
@@ -9933,7 +10167,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "U31")
+					(reference "U29")
 					(unit 1)
 				)
 			)
@@ -9949,7 +10183,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "d26452ed-e435-4519-8a9f-ddc3150863be")
-		(property "Reference" "U29"
+		(property "Reference" "U27"
 			(at 57.15 114.3 0)
 			(effects
 				(font
@@ -9994,6 +10228,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C108207"
+			(at 69.85 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "798b9828-676c-4364-8983-561aecd1d219")
 		)
@@ -10027,7 +10270,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "U29")
+					(reference "U27")
 					(unit 1)
 				)
 			)
@@ -10043,7 +10286,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "d42e4d28-5182-4d2e-9b7f-f593268569fb")
-		(property "Reference" "U30"
+		(property "Reference" "U28"
 			(at 57.15 138.43 0)
 			(effects
 				(font
@@ -10088,6 +10331,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C108207"
+			(at 69.85 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "eee29d22-a877-454e-80bc-a1e15cba2cdf")
 		)
@@ -10121,7 +10373,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "U30")
+					(reference "U28")
 					(unit 1)
 				)
 			)
@@ -10136,7 +10388,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "d80b38a0-e1c8-4cbb-83a9-da4708dfab27")
-		(property "Reference" "C130"
+		(property "Reference" "C115"
 			(at 117.094 114.3 0)
 			(effects
 				(font
@@ -10154,7 +10406,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
 			(at 117.8052 121.92 0)
 			(effects
 				(font
@@ -10181,6 +10433,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C307331"
+			(at 116.84 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "9f07efb7-1610-4d95-8596-99b868f414fa")
 		)
@@ -10190,7 +10451,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "C130")
+					(reference "C115")
 					(unit 1)
 				)
 			)
@@ -10205,7 +10466,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "d87d370d-87c1-4ddf-ad39-1d380555f73d")
-		(property "Reference" "C137"
+		(property "Reference" "C122"
 			(at 112.014 162.56 0)
 			(effects
 				(font
@@ -10223,7 +10484,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
 			(at 112.7252 170.18 0)
 			(effects
 				(font
@@ -10250,6 +10511,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C13585"
+			(at 111.76 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "4c06a31c-c718-4f08-a20c-03464f5c7478")
 		)
@@ -10259,7 +10529,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "C137")
+					(reference "C122")
 					(unit 1)
 				)
 			)
@@ -10274,7 +10544,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "db945f0f-e64b-40de-9d00-9121e901c115")
-		(property "Reference" "#PWR0151"
+		(property "Reference" "#PWR0135"
 			(at 156.21 41.91 0)
 			(effects
 				(font
@@ -10324,7 +10594,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "#PWR0151")
+					(reference "#PWR0135")
 					(unit 1)
 				)
 			)
@@ -10340,7 +10610,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "de8ffa90-813a-4ed3-9b5e-cdcd6f0d0eb3")
-		(property "Reference" "U32"
+		(property "Reference" "U30"
 			(at 57.15 162.56 0)
 			(effects
 				(font
@@ -10385,6 +10655,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C108207"
+			(at 69.85 170.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "7e0e856d-bc69-4bdd-b7a0-dc387b95466a")
 		)
@@ -10418,7 +10697,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "U32")
+					(reference "U30")
 					(unit 1)
 				)
 			)
@@ -10433,7 +10712,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "df8e4c28-34ef-46ab-8b62-1e38a0717116")
-		(property "Reference" "C132"
+		(property "Reference" "C117"
 			(at 112.014 138.43 0)
 			(effects
 				(font
@@ -10451,7 +10730,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
 			(at 112.7252 146.05 0)
 			(effects
 				(font
@@ -10478,6 +10757,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C13585"
+			(at 111.76 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "2b9134e4-eaff-498b-9a65-6c01b1c77038")
 		)
@@ -10487,7 +10775,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "C132")
+					(reference "C117")
 					(unit 1)
 				)
 			)
@@ -10502,7 +10790,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "e4e324ea-52bc-45de-b4fa-f52bacd3d3fa")
-		(property "Reference" "C133"
+		(property "Reference" "C118"
 			(at 117.094 138.43 0)
 			(effects
 				(font
@@ -10520,7 +10808,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
 			(at 117.8052 146.05 0)
 			(effects
 				(font
@@ -10547,6 +10835,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C307331"
+			(at 116.84 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "5f0ee53e-e76f-4c4c-b64f-970e397b8c36")
 		)
@@ -10556,7 +10853,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "C133")
+					(reference "C118")
 					(unit 1)
 				)
 			)
@@ -10571,7 +10868,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "e4e8f992-5f22-4d00-a16e-1d36fe58ba9d")
-		(property "Reference" "#PWR0166"
+		(property "Reference" "#PWR0150"
 			(at 69.85 113.03 0)
 			(effects
 				(font
@@ -10621,7 +10918,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "#PWR0166")
+					(reference "#PWR0150")
 					(unit 1)
 				)
 			)
@@ -10636,7 +10933,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "e5d84c8f-69de-48ff-b462-4b6de0bf675c")
-		(property "Reference" "#PWR0164"
+		(property "Reference" "#PWR0148"
 			(at 111.76 105.41 0)
 			(effects
 				(font
@@ -10686,7 +10983,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "#PWR0164")
+					(reference "#PWR0148")
 					(unit 1)
 				)
 			)
@@ -10701,7 +10998,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "ef07da0f-5318-40bb-aeb5-5fba2ff81ca7")
-		(property "Reference" "#PWR0159"
+		(property "Reference" "#PWR0143"
 			(at 111.76 81.28 0)
 			(effects
 				(font
@@ -10751,7 +11048,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "#PWR0159")
+					(reference "#PWR0143")
 					(unit 1)
 				)
 			)
@@ -10766,7 +11063,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "f06a698f-3bc9-43e6-8e59-2d6d0145dc5d")
-		(property "Reference" "#PWR0169"
+		(property "Reference" "#PWR0153"
 			(at 270.51 124.46 0)
 			(effects
 				(font
@@ -10816,7 +11113,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "#PWR0169")
+					(reference "#PWR0153")
 					(unit 1)
 				)
 			)
@@ -10832,7 +11129,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "f0e8666a-d99e-4bb1-9c6e-9ab201f9d5b1")
-		(property "Reference" "U24"
+		(property "Reference" "U22"
 			(at 57.15 40.64 0)
 			(effects
 				(font
@@ -10877,6 +11174,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C108207"
+			(at 69.85 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "69ac06a7-4e94-475e-9888-558950b9a7fb")
 		)
@@ -10910,7 +11216,7 @@
 		(instances
 			(project ""
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "U24")
+					(reference "U22")
 					(unit 1)
 				)
 			)
@@ -10926,7 +11232,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f4106cd6-ac26-436e-b34a-20dfb24304f4")
-		(property "Reference" "#PWR0150"
+		(property "Reference" "#PWR0134"
 			(at 242.57 35.56 0)
 			(effects
 				(font
@@ -10976,7 +11282,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "#PWR0150")
+					(reference "#PWR0134")
 					(unit 1)
 				)
 			)
@@ -10991,7 +11297,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "f596c3b6-e594-4290-9fe3-815b5441f62b")
-		(property "Reference" "#PWR0163"
+		(property "Reference" "#PWR0147"
 			(at 69.85 88.9 0)
 			(effects
 				(font
@@ -11041,7 +11347,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "#PWR0163")
+					(reference "#PWR0147")
 					(unit 1)
 				)
 			)
@@ -11057,7 +11363,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f5b249fa-58bd-4215-8b74-33d58723cee1")
-		(property "Reference" "#PWR0174"
+		(property "Reference" "#PWR0158"
 			(at 242.57 139.7 0)
 			(effects
 				(font
@@ -11107,7 +11413,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "#PWR0174")
+					(reference "#PWR0158")
 					(unit 1)
 				)
 			)
@@ -11122,7 +11428,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "f5dae543-7535-4b43-9d21-72efd73f864a")
-		(property "Reference" "#PWR0181"
+		(property "Reference" "#PWR0165"
 			(at 69.85 186.69 0)
 			(effects
 				(font
@@ -11172,7 +11478,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "#PWR0181")
+					(reference "#PWR0165")
 					(unit 1)
 				)
 			)
@@ -11188,7 +11494,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "f5f4f448-36fa-4da1-94be-8d3cc70cd458")
-		(property "Reference" "TP9"
+		(property "Reference" "TP8"
 			(at 91.44 106.172 90)
 			(effects
 				(font
@@ -11206,7 +11512,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
 			(at 91.44 96.52 0)
 			(effects
 				(font
@@ -11239,7 +11545,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "TP9")
+					(reference "TP8")
 					(unit 1)
 				)
 			)
@@ -11254,7 +11560,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "fb55bafa-a094-4a65-9da1-98cb4cbca8c9")
-		(property "Reference" "C117"
+		(property "Reference" "C102"
 			(at 112.014 40.64 0)
 			(effects
 				(font
@@ -11272,7 +11578,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
 			(at 112.7252 48.26 0)
 			(effects
 				(font
@@ -11299,6 +11605,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C13585"
+			(at 111.76 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "50bea84e-1859-4067-8520-ec849b099db4")
 		)
@@ -11308,7 +11623,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "C117")
+					(reference "C102")
 					(unit 1)
 				)
 			)
@@ -11323,7 +11638,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "fc5bcb52-52b3-4626-8552-f1751b1bb57d")
-		(property "Reference" "#PWR0175"
+		(property "Reference" "#PWR0159"
 			(at 111.76 154.94 0)
 			(effects
 				(font
@@ -11373,7 +11688,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "#PWR0175")
+					(reference "#PWR0159")
 					(unit 1)
 				)
 			)
@@ -11388,7 +11703,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "fe29a9f9-85d2-4025-9934-639f8924752c")
-		(property "Reference" "C119"
+		(property "Reference" "C104"
 			(at 218.694 41.91 0)
 			(effects
 				(font
@@ -11406,7 +11721,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 219.4052 49.53 0)
 			(effects
 				(font
@@ -11433,6 +11748,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C28323"
+			(at 218.44 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "bbf6f1c3-c560-4d4f-9f76-ce2be9580e4d")
 		)
@@ -11442,7 +11766,7 @@
 		(instances
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
-					(reference "C119")
+					(reference "C104")
 					(unit 1)
 				)
 			)
