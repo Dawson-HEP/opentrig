@@ -379,6 +379,114 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Connector:TestPoint_Alt"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0.762)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "TP"
+				(at 0 6.858 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "TestPoint_Alt"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "test point (alternative shape)"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "test point tp"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Pin* Test*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "TestPoint_Alt_0_1"
+				(polyline
+					(pts
+						(xy 0 2.54) (xy -0.762 3.302) (xy 0 4.064) (xy 0.762 3.302) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "TestPoint_Alt_1_1"
+				(pin passive line
+					(at 0 0 90)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Device:C"
 			(pin_numbers
 				(hide yes)
@@ -2374,6 +2482,16 @@
 	)
 	(wire
 		(pts
+			(xy 30.48 96.52) (xy 38.1 96.52)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0a40414d-6e7e-420f-b992-96710b76b061")
+	)
+	(wire
+		(pts
 			(xy 87.63 119.38) (xy 87.63 143.51)
 		)
 		(stroke
@@ -2554,6 +2672,16 @@
 	)
 	(wire
 		(pts
+			(xy 30.48 151.13) (xy 38.1 151.13)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "14dac633-b9aa-4aca-87a2-710b115bfb01")
+	)
+	(wire
+		(pts
 			(xy 242.57 106.68) (xy 242.57 107.95)
 		)
 		(stroke
@@ -2571,6 +2699,26 @@
 			(type default)
 		)
 		(uuid "1709f1a7-5e10-4319-a8ce-cb146ce773db")
+	)
+	(wire
+		(pts
+			(xy 30.48 125.73) (xy 38.1 125.73)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "17c95bda-3c56-4e03-a147-befe6b012727")
+	)
+	(wire
+		(pts
+			(xy 30.48 69.85) (xy 38.1 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "19ad0a30-1386-409f-8162-39f966b609b6")
 	)
 	(wire
 		(pts
@@ -2641,6 +2789,16 @@
 			(type default)
 		)
 		(uuid "22bea827-81d3-4fb8-981f-8c4a38b8f351")
+	)
+	(wire
+		(pts
+			(xy 30.48 148.59) (xy 38.1 148.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2306a481-f946-4768-bbac-2ae055d26ff3")
 	)
 	(wire
 		(pts
@@ -2734,6 +2892,16 @@
 	)
 	(wire
 		(pts
+			(xy 30.48 77.47) (xy 38.1 77.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2f566d15-2ada-42e4-b557-7eaf8360614c")
+	)
+	(wire
+		(pts
 			(xy 116.84 87.63) (xy 130.81 87.63)
 		)
 		(stroke
@@ -2781,6 +2949,16 @@
 			(type default)
 		)
 		(uuid "34c8440e-f292-4d6c-9d45-c9a9b04f7052")
+	)
+	(wire
+		(pts
+			(xy 30.48 72.39) (xy 38.1 72.39)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "356fadb3-2722-4c44-a011-1058107ea83d")
 	)
 	(wire
 		(pts
@@ -3244,6 +3422,16 @@
 	)
 	(wire
 		(pts
+			(xy 30.48 123.19) (xy 38.1 123.19)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5df89779-4e26-4b38-93a4-1369298d1cb0")
+	)
+	(wire
+		(pts
 			(xy 45.72 101.6) (xy 54.61 101.6)
 		)
 		(stroke
@@ -3271,6 +3459,16 @@
 			(type default)
 		)
 		(uuid "5f9f389c-d855-4ff4-8211-9da93f7853ef")
+	)
+	(wire
+		(pts
+			(xy 30.48 48.26) (xy 38.1 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5fa9429d-3863-4274-bb1e-39ccd9a9f859")
 	)
 	(bus
 		(pts
@@ -3321,6 +3519,16 @@
 			(type default)
 		)
 		(uuid "62fa6400-00e9-4a27-bf59-054fadbfc367")
+	)
+	(wire
+		(pts
+			(xy 30.48 172.72) (xy 38.1 172.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6428c28c-caec-4f3b-94ef-bd3e1a5b520c")
 	)
 	(wire
 		(pts
@@ -3434,6 +3642,16 @@
 	)
 	(wire
 		(pts
+			(xy 30.48 101.6) (xy 38.1 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6f6838c8-d381-4cbf-b78f-b286d1fae80a")
+	)
+	(wire
+		(pts
 			(xy 218.44 69.85) (xy 229.87 69.85)
 		)
 		(stroke
@@ -3524,6 +3742,26 @@
 	)
 	(wire
 		(pts
+			(xy 30.48 45.72) (xy 38.1 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7662a189-a3b0-4f41-b824-67c01c107122")
+	)
+	(wire
+		(pts
+			(xy 30.48 50.8) (xy 38.1 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7712b68c-6dad-4d34-9d78-bd9706c2eb30")
+	)
+	(wire
+		(pts
 			(xy 45.72 99.06) (xy 54.61 99.06)
 		)
 		(stroke
@@ -3591,6 +3829,16 @@
 			(type default)
 		)
 		(uuid "7c2ebec2-c3ab-4da7-8e02-50067a3920c8")
+	)
+	(wire
+		(pts
+			(xy 30.48 99.06) (xy 38.1 99.06)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7cad93f3-339a-4428-8660-8c8486de85c0")
 	)
 	(wire
 		(pts
@@ -3714,6 +3962,16 @@
 	)
 	(wire
 		(pts
+			(xy 30.48 93.98) (xy 38.1 93.98)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8f6ba0e3-8fcd-4d85-a7da-22da2cf149a2")
+	)
+	(wire
+		(pts
 			(xy 180.34 115.57) (xy 180.34 113.03)
 		)
 		(stroke
@@ -3774,6 +4032,16 @@
 	)
 	(wire
 		(pts
+			(xy 30.48 120.65) (xy 38.1 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "93cdbdc1-1c9e-48a9-ac0e-540ac73d9b24")
+	)
+	(wire
+		(pts
 			(xy 265.43 137.16) (xy 265.43 138.43)
 		)
 		(stroke
@@ -3831,6 +4099,16 @@
 			(type default)
 		)
 		(uuid "97ca6c2d-94bd-4cde-ab3b-0c14040cea39")
+	)
+	(wire
+		(pts
+			(xy 30.48 143.51) (xy 38.1 143.51)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9b56be1b-f90c-48f0-b391-bcb102afa28d")
 	)
 	(wire
 		(pts
@@ -3911,6 +4189,16 @@
 			(type default)
 		)
 		(uuid "a2edec46-f97e-4552-92d0-3be8dd023372")
+	)
+	(wire
+		(pts
+			(xy 130.81 38.1) (xy 130.81 39.37)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a4fae26a-3f7f-4e23-8471-9202ce40140b")
 	)
 	(wire
 		(pts
@@ -4021,6 +4309,26 @@
 			(type default)
 		)
 		(uuid "acf64c91-2043-45f2-a340-309a32912ff5")
+	)
+	(wire
+		(pts
+			(xy 30.48 53.34) (xy 38.1 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "afa275a9-98ce-4145-b440-743cb2c1cdca")
+	)
+	(wire
+		(pts
+			(xy 30.48 170.18) (xy 38.1 170.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "afb9404f-57df-4684-9f54-c9eb710a0600")
 	)
 	(wire
 		(pts
@@ -4174,6 +4482,16 @@
 	)
 	(wire
 		(pts
+			(xy 30.48 74.93) (xy 38.1 74.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c30d7d60-49f7-486d-ba7c-c722aa031996")
+	)
+	(wire
+		(pts
 			(xy 45.72 170.18) (xy 54.61 170.18)
 		)
 		(stroke
@@ -4314,6 +4632,16 @@
 	)
 	(wire
 		(pts
+			(xy 30.48 146.05) (xy 38.1 146.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cefdc7f9-e44e-4056-a781-47e5e0e5e982")
+	)
+	(wire
+		(pts
 			(xy 270.51 115.57) (xy 270.51 116.84)
 		)
 		(stroke
@@ -4401,6 +4729,16 @@
 			(type default)
 		)
 		(uuid "d39ae37b-7950-4d08-befc-4e317fc83359")
+	)
+	(wire
+		(pts
+			(xy 30.48 167.64) (xy 38.1 167.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d4532947-432b-44bd-a8d6-388324321065")
 	)
 	(wire
 		(pts
@@ -4634,6 +4972,16 @@
 	)
 	(wire
 		(pts
+			(xy 30.48 118.11) (xy 38.1 118.11)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e7d8ebc2-20b7-4d76-ba1c-fbb3d6889fef")
+	)
+	(wire
+		(pts
 			(xy 45.72 124.46) (xy 54.61 124.46)
 		)
 		(stroke
@@ -4772,6 +5120,16 @@
 		)
 		(uuid "f76b2d2b-a237-4b02-853f-53fee344449b")
 	)
+	(wire
+		(pts
+			(xy 30.48 175.26) (xy 38.1 175.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f92af4c0-834f-445d-a52b-89f8ba1b1eda")
+	)
 	(bus
 		(pts
 			(xy 43.18 43.18) (xy 43.18 45.72)
@@ -4781,6 +5139,16 @@
 			(type default)
 		)
 		(uuid "f9e6107f-c79d-4105-9845-3580178575a4")
+	)
+	(wire
+		(pts
+			(xy 130.81 111.76) (xy 130.81 113.03)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f9e63037-abec-44a0-9b18-76df36c2a019")
 	)
 	(wire
 		(pts
@@ -4842,6 +5210,16 @@
 		)
 		(uuid "ffae53e9-353b-474f-8d2a-7284b68f412d")
 	)
+	(label "VREF0"
+		(at 38.1 45.72 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "01f9ff08-dba9-4812-bcf8-854bd8f4a151")
+	)
 	(label "VREF10"
 		(at 45.72 99.06 0)
 		(effects
@@ -4852,25 +5230,45 @@
 		)
 		(uuid "023e3637-90aa-46cb-9274-4f012ee697df")
 	)
-	(label "VREF18"
-		(at 45.72 148.59 0)
+	(label "VREF14"
+		(at 45.72 124.46 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left bottom)
 		)
-		(uuid "10c63631-d37d-46e9-8cf9-2d8b464c14cc")
+		(uuid "02b139f7-ee40-4aed-b03f-10145b753604")
 	)
-	(label "VREF17"
-		(at 45.72 146.05 0)
+	(label "VREF21"
+		(at 38.1 170.18 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left bottom)
+			(justify right bottom)
 		)
-		(uuid "176a043a-9726-4b92-8301-cfaa04b77de8")
+		(uuid "05b1bba8-40ad-413f-aedb-5c3472030f85")
+	)
+	(label "VREF18"
+		(at 38.1 148.59 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "1e312e94-5a81-457c-a0b1-a6cdc51e0320")
+	)
+	(label "VREF3"
+		(at 38.1 53.34 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "1f2328f4-ab22-4f75-b3ad-a1d365c37769")
 	)
 	(label "VREF_A_5V"
 		(at 200.66 41.91 0)
@@ -4891,6 +5289,16 @@
 			(justify left bottom)
 		)
 		(uuid "2c2aa18b-de81-43fb-b81a-9b2d6c981216")
+	)
+	(label "VREF5"
+		(at 38.1 72.39 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "2df975f9-5585-42ad-852d-3a58c0f7d001")
 	)
 	(label "VREF4"
 		(at 45.72 69.85 0)
@@ -4922,6 +5330,36 @@
 		)
 		(uuid "34baaded-208e-4dca-9da6-f3658906df2f")
 	)
+	(label "VREF8"
+		(at 38.1 93.98 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "3691885e-858b-453c-b335-fdb7c851b5d4")
+	)
+	(label "VREF16"
+		(at 45.72 143.51 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "3b73ab90-eb54-432d-8fdb-c390208d53c2")
+	)
+	(label "VREF22"
+		(at 45.72 172.72 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "3c5bd75b-6ab8-471a-94f5-4479b93f7d12")
+	)
 	(label "VREF_B"
 		(at 139.7 113.03 180)
 		(effects
@@ -4932,6 +5370,16 @@
 		)
 		(uuid "3cc6826f-fbb1-4850-8594-f5ae7c6b6a46")
 	)
+	(label "VREF9"
+		(at 38.1 96.52 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "3ea9ef0b-8a66-43a4-84f9-fa96af913c1c")
+	)
 	(label "~{LDAC}2"
 		(at 102.87 99.06 180)
 		(effects
@@ -4941,6 +5389,16 @@
 			(justify right bottom)
 		)
 		(uuid "3f9720e1-e244-43b4-8ce5-edac30f6559a")
+	)
+	(label "VREF21"
+		(at 45.72 170.18 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "428bbdda-7ccf-41f4-adfa-8fb196066bcd")
 	)
 	(label "VREF8"
 		(at 45.72 93.98 0)
@@ -4962,15 +5420,25 @@
 		)
 		(uuid "4906aa9b-5fb1-4383-a924-364710a15f2f")
 	)
-	(label "VREF16"
-		(at 45.72 143.51 0)
+	(label "VREF17"
+		(at 45.72 146.05 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left bottom)
 		)
-		(uuid "4ae42cf6-354f-4377-a202-37663a4f20d9")
+		(uuid "4d53cf9f-47dc-4b3a-af79-7b756afa2856")
+	)
+	(label "VREF22"
+		(at 38.1 172.72 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "4f35c59c-3115-4295-a9a1-4625fe707043")
 	)
 	(label "~{LDAC}0"
 		(at 102.87 50.8 180)
@@ -4992,15 +5460,15 @@
 		)
 		(uuid "5b5fe7ef-086b-4335-a458-ce5fdc13e79b")
 	)
-	(label "VREF19"
-		(at 45.72 151.13 0)
+	(label "VREF13"
+		(at 45.72 121.92 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left bottom)
 		)
-		(uuid "672f3d20-accd-4ee3-8cf4-340ed855d852")
+		(uuid "65544b89-8893-4c4b-bec0-69657abb80b0")
 	)
 	(label "~{LDAC}3"
 		(at 102.87 124.46 180)
@@ -5012,25 +5480,65 @@
 		)
 		(uuid "68187839-cd97-4499-b726-0fe84082c81d")
 	)
-	(label "VREF14"
-		(at 45.72 124.46 0)
+	(label "VREF11"
+		(at 38.1 101.6 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left bottom)
+			(justify right bottom)
 		)
-		(uuid "86624f01-0296-41ba-8796-6d41b1dfa028")
+		(uuid "6d186b04-06c6-48dd-b1f1-7364dcee5ac7")
 	)
-	(label "VREF22"
-		(at 45.72 172.72 0)
+	(label "VREF13"
+		(at 38.1 120.65 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "739d3b90-d2ee-485d-abd2-d7825d86580f")
+	)
+	(label "VREF20"
+		(at 45.72 167.64 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left bottom)
 		)
-		(uuid "897d7926-8881-436b-b536-db02e97d9042")
+		(uuid "7909e576-a9aa-4d64-b836-c06ddd8e60e2")
+	)
+	(label "VREF20"
+		(at 38.1 167.64 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "7faa1330-aed8-4d82-a89d-48f74d0076c3")
+	)
+	(label "VREF10"
+		(at 38.1 99.06 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "8008f7ec-9f0a-4afb-98e8-56e9cff80f7f")
+	)
+	(label "VREF15"
+		(at 45.72 127 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "8d0e5f14-0d93-4590-ad64-2545fadb5b1f")
 	)
 	(label "VREF7"
 		(at 45.72 77.47 0)
@@ -5052,6 +5560,16 @@
 		)
 		(uuid "9a9bb897-a668-4301-a4b6-2a4d221573bb")
 	)
+	(label "VREF14"
+		(at 38.1 123.19 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "a3d3ede2-5ccb-4459-92ff-e6d01ba0526d")
+	)
 	(label "VREF6"
 		(at 45.72 74.93 0)
 		(effects
@@ -5071,6 +5589,26 @@
 			(justify right bottom)
 		)
 		(uuid "ad82eebf-8dd6-4383-9bad-18564cd1cdc3")
+	)
+	(label "VREF15"
+		(at 38.1 125.73 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "b0d8a5aa-f2f3-48fb-a647-54b6048a3d85")
+	)
+	(label "VREF17"
+		(at 38.1 146.05 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "b1ce2185-1182-4391-aac1-36cdbf5e466c")
 	)
 	(label "~{LDAC}1"
 		(at 102.87 74.93 180)
@@ -5092,16 +5630,6 @@
 		)
 		(uuid "b65c06ff-2053-405b-ac43-1a426b006dcf")
 	)
-	(label "VREF23"
-		(at 45.72 175.26 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "b785fd87-9445-4204-81ce-9bff782a6808")
-	)
 	(label "~{LDAC}5"
 		(at 102.87 172.72 180)
 		(effects
@@ -5111,6 +5639,36 @@
 			(justify right bottom)
 		)
 		(uuid "b7cb95c3-84c2-40d0-8908-8577d13c7881")
+	)
+	(label "VREF18"
+		(at 45.72 148.59 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "beaf5136-092a-41c6-b087-ff2551c291a1")
+	)
+	(label "VREF23"
+		(at 45.72 175.26 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "c6ca0b36-7c2c-420a-bdaa-fccf853bafdc")
+	)
+	(label "VREF6"
+		(at 38.1 74.93 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "c70ae579-1912-4ee3-abe1-96626e9c902d")
 	)
 	(label "VREF9"
 		(at 45.72 96.52 0)
@@ -5122,16 +5680,6 @@
 		)
 		(uuid "c95171b6-45bf-4766-9e54-6c350a6aa03b")
 	)
-	(label "VREF13"
-		(at 45.72 121.92 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "cab7ffb2-2e14-4568-89b8-1d2dd3a7c53e")
-	)
 	(label "VREF_A"
 		(at 139.7 39.37 180)
 		(effects
@@ -5142,15 +5690,35 @@
 		)
 		(uuid "cd4f9ae8-cd83-48a5-9c3c-98c7591428a2")
 	)
-	(label "VREF20"
-		(at 45.72 167.64 0)
+	(label "VREF16"
+		(at 38.1 143.51 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "cd6caf0a-5277-4e8a-b914-8137fe001995")
+	)
+	(label "VREF2"
+		(at 38.1 50.8 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "d55a65bb-cc17-46a6-b321-21141c2e8eef")
+	)
+	(label "VREF19"
+		(at 45.72 151.13 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left bottom)
 		)
-		(uuid "d515ca90-0d1f-4c5e-bae5-6a87d7ea4b33")
+		(uuid "d7abb5e9-6649-4261-b07d-4f2b3edd01bd")
 	)
 	(label "VREF2"
 		(at 45.72 50.8 0)
@@ -5192,6 +5760,66 @@
 		)
 		(uuid "e7a95aab-0573-4bba-a102-de3e9dc615bb")
 	)
+	(label "VREF19"
+		(at 38.1 151.13 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "ee5af6e6-24fc-4509-9870-60a25f34ffc1")
+	)
+	(label "VREF12"
+		(at 38.1 118.11 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "ef513e01-be39-4824-b7d6-f0b58fa48940")
+	)
+	(label "VREF23"
+		(at 38.1 175.26 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "efe5dabf-a8fd-4b0f-81be-d26333571d7e")
+	)
+	(label "VREF1"
+		(at 38.1 48.26 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "fd028ea8-832c-4c79-bc99-1b80ed4ed830")
+	)
+	(label "VREF4"
+		(at 38.1 69.85 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "fe091080-6c43-4db5-9f69-b72dfa379677")
+	)
+	(label "VREF7"
+		(at 38.1 77.47 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "fe63c165-0afc-47e3-ac3c-3b3f48cba134")
+	)
 	(label "VREF12"
 		(at 45.72 119.38 0)
 		(effects
@@ -5200,27 +5828,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "f68c0e3e-a16c-48d3-af12-0fbc21181735")
-	)
-	(label "VREF15"
-		(at 45.72 127 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "f955666f-9e53-4347-b659-c91f93ef8e23")
-	)
-	(label "VREF21"
-		(at 45.72 170.18 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "feb3ab5a-6e01-493c-a0ef-540b1d139fb6")
+		(uuid "fe7e0414-1dde-495d-9b58-a1c9d028a9c7")
 	)
 	(hierarchical_label "VREF_SCL"
 		(shape input)
@@ -5470,6 +6078,81 @@
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
 					(reference "C107")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint_Alt")
+		(at 30.48 50.8 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "036df9d0-60d8-4e2d-85a8-cd20c151f66a")
+		(property "Reference" "TP21"
+			(at 17.018 50.8 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "TestPoint_Alt"
+			(at 22.352 50.8 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "digital:TestPoint_Keystone_5015_Micro_Mini"
+			(at 30.48 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 30.48 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point (alternative shape)"
+			(at 30.48 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C159868"
+			(at 30.48 50.8 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "019abbfa-516a-4cff-a169-d952535be650")
+		)
+		(instances
+			(project "digital"
+				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
+					(reference "TP21")
 					(unit 1)
 				)
 			)
@@ -5733,6 +6416,81 @@
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
 					(reference "#PWR0160")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint_Alt")
+		(at 30.48 96.52 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "0dfb8dfe-5097-42ff-8d9f-6902494a7c81")
+		(property "Reference" "TP28"
+			(at 17.018 96.52 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "TestPoint_Alt"
+			(at 22.352 96.52 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "digital:TestPoint_Keystone_5015_Micro_Mini"
+			(at 30.48 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 30.48 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point (alternative shape)"
+			(at 30.48 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C159868"
+			(at 30.48 96.52 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "6384e3eb-4c27-4e2d-ac6e-3e5560baf710")
+		)
+		(instances
+			(project "digital"
+				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
+					(reference "TP28")
 					(unit 1)
 				)
 			)
@@ -6585,6 +7343,156 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint_Alt")
+		(at 30.48 74.93 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "23d5e30c-34cc-41c2-aeec-8ad9b6d653c4")
+		(property "Reference" "TP25"
+			(at 17.018 74.93 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "TestPoint_Alt"
+			(at 22.352 74.93 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "digital:TestPoint_Keystone_5015_Micro_Mini"
+			(at 30.48 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 30.48 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point (alternative shape)"
+			(at 30.48 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C159868"
+			(at 30.48 74.93 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "6ad51d61-8989-4dcf-91ff-9f0bdf2cdddd")
+		)
+		(instances
+			(project "digital"
+				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
+					(reference "TP25")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint_Alt")
+		(at 30.48 45.72 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "248ed436-6e0f-4620-97e1-1e4a0d26ea4c")
+		(property "Reference" "TP19"
+			(at 17.018 45.72 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "TestPoint_Alt"
+			(at 22.352 45.72 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "digital:TestPoint_Keystone_5015_Micro_Mini"
+			(at 30.48 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 30.48 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point (alternative shape)"
+			(at 30.48 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C159868"
+			(at 30.48 45.72 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "46a56384-01f0-42d7-8afd-93c4771f75bd")
+		)
+		(instances
+			(project "digital"
+				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
+					(reference "TP19")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C")
 		(at 265.43 68.58 0)
 		(unit 1)
@@ -6746,6 +7654,156 @@
 			(project ""
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
 					(reference "U24")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint_Alt")
+		(at 30.48 151.13 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "2c285e17-88ad-4be8-9b63-eb4e88d5282c")
+		(property "Reference" "TP38"
+			(at 17.018 151.13 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "TestPoint_Alt"
+			(at 22.352 151.13 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "digital:TestPoint_Keystone_5015_Micro_Mini"
+			(at 30.48 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 30.48 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point (alternative shape)"
+			(at 30.48 151.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C159868"
+			(at 30.48 151.13 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "44fb71ee-f6b9-4ebd-aa94-1be22e7be50c")
+		)
+		(instances
+			(project "digital"
+				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
+					(reference "TP38")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint_Alt")
+		(at 30.48 148.59 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "2e14862f-e93c-4ef0-9672-f2604fdd7317")
+		(property "Reference" "TP37"
+			(at 17.018 148.59 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "TestPoint_Alt"
+			(at 22.352 148.59 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "digital:TestPoint_Keystone_5015_Micro_Mini"
+			(at 30.48 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 30.48 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point (alternative shape)"
+			(at 30.48 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C159868"
+			(at 30.48 148.59 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "65c068cd-5ab5-4f65-8cf5-bcfd3c459fb1")
+		)
+		(instances
+			(project "digital"
+				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
+					(reference "TP37")
 					(unit 1)
 				)
 			)
@@ -7186,6 +8244,81 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint_Alt")
+		(at 30.48 123.19 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "39f5f93f-151e-412f-b04d-eb4f36e88ca6")
+		(property "Reference" "TP33"
+			(at 17.018 123.19 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "TestPoint_Alt"
+			(at 22.352 123.19 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "digital:TestPoint_Keystone_5015_Micro_Mini"
+			(at 30.48 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 30.48 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point (alternative shape)"
+			(at 30.48 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C159868"
+			(at 30.48 123.19 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "358ac559-2cc9-4bd5-a8b0-308c264f911d")
+		)
+		(instances
+			(project "digital"
+				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
+					(reference "TP33")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C")
 		(at 218.44 149.86 0)
 		(unit 1)
@@ -7258,6 +8391,81 @@
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
 					(reference "C125")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint_Alt")
+		(at 130.81 38.1 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "3e90d464-8fd2-4fca-9e4d-dfcfd592e5ed")
+		(property "Reference" "TP18"
+			(at 119.888 30.988 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint_Alt"
+			(at 119.888 32.766 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "digital:TestPoint_Keystone_5015_Micro_Mini"
+			(at 135.89 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 135.89 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point (alternative shape)"
+			(at 130.81 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C159868"
+			(at 130.81 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "605f8a61-ffa3-45cd-ae19-d0668deb533d")
+		)
+		(instances
+			(project "digital"
+				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
+					(reference "TP18")
 					(unit 1)
 				)
 			)
@@ -7342,6 +8550,81 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint_Alt")
+		(at 30.48 53.34 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "414b187d-3547-424f-aedf-563747b9e263")
+		(property "Reference" "TP22"
+			(at 17.018 53.34 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "TestPoint_Alt"
+			(at 22.352 53.34 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "digital:TestPoint_Keystone_5015_Micro_Mini"
+			(at 30.48 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 30.48 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point (alternative shape)"
+			(at 30.48 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C159868"
+			(at 30.48 53.34 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d01d1e14-4a68-4f26-93ad-e1b85292422e")
+		)
+		(instances
+			(project "digital"
+				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
+					(reference "TP22")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 270.51 148.59 0)
 		(unit 1)
@@ -7401,6 +8684,81 @@
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
 					(reference "#PWR0164")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint_Alt")
+		(at 30.48 170.18 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "43ab6340-ef21-4d30-a713-b8e242a390d6")
+		(property "Reference" "TP40"
+			(at 17.018 170.18 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "TestPoint_Alt"
+			(at 22.352 170.18 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "digital:TestPoint_Keystone_5015_Micro_Mini"
+			(at 30.48 165.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 30.48 165.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point (alternative shape)"
+			(at 30.48 170.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C159868"
+			(at 30.48 170.18 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c69c0a8e-52f9-45c3-817b-1c6360da743a")
+		)
+		(instances
+			(project "digital"
+				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
+					(reference "TP40")
 					(unit 1)
 				)
 			)
@@ -8324,6 +9682,81 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint_Alt")
+		(at 30.48 175.26 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "6083db42-c21f-4c72-aa5e-23488a0a4ed0")
+		(property "Reference" "TP42"
+			(at 17.018 175.26 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "TestPoint_Alt"
+			(at 22.352 175.26 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "digital:TestPoint_Keystone_5015_Micro_Mini"
+			(at 30.48 170.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 30.48 170.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point (alternative shape)"
+			(at 30.48 175.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C159868"
+			(at 30.48 175.26 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "5d3b2aa1-ebae-4c63-b3c8-268fe74baf36")
+		)
+		(instances
+			(project "digital"
+				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
+					(reference "TP42")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Connector:TestPoint")
 		(at 229.87 148.59 90)
 		(mirror x)
@@ -8391,6 +9824,81 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint_Alt")
+		(at 30.48 93.98 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "64bac77e-f73f-475d-9f70-3bffb6668fed")
+		(property "Reference" "TP27"
+			(at 17.018 93.98 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "TestPoint_Alt"
+			(at 22.352 93.98 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "digital:TestPoint_Keystone_5015_Micro_Mini"
+			(at 30.48 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 30.48 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point (alternative shape)"
+			(at 30.48 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C159868"
+			(at 30.48 93.98 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "397e3275-a368-4b64-861f-b7699fd94a9f")
+		)
+		(instances
+			(project "digital"
+				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
+					(reference "TP27")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+3V3")
 		(at 160.02 44.45 270)
 		(unit 1)
@@ -8452,6 +9960,81 @@
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
 					(reference "#PWR0140")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint_Alt")
+		(at 30.48 101.6 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "66c09bfa-b47f-4ea6-8038-c2c993b1da29")
+		(property "Reference" "TP30"
+			(at 17.018 101.6 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "TestPoint_Alt"
+			(at 22.352 101.6 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "digital:TestPoint_Keystone_5015_Micro_Mini"
+			(at 30.48 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 30.48 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point (alternative shape)"
+			(at 30.48 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C159868"
+			(at 30.48 101.6 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "5885836d-2186-450e-9287-eac4716ef4dd")
+		)
+		(instances
+			(project "digital"
+				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
+					(reference "TP30")
 					(unit 1)
 				)
 			)
@@ -8530,6 +10113,81 @@
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
 					(reference "C120")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint_Alt")
+		(at 30.48 125.73 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "6c0cbd5f-30c6-4a52-95a7-cb80dbead001")
+		(property "Reference" "TP34"
+			(at 17.018 125.73 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "TestPoint_Alt"
+			(at 22.352 125.73 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "digital:TestPoint_Keystone_5015_Micro_Mini"
+			(at 30.48 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 30.48 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point (alternative shape)"
+			(at 30.48 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C159868"
+			(at 30.48 125.73 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "30800afe-3fad-4f1b-b1c9-404809ffe6ab")
+		)
+		(instances
+			(project "digital"
+				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
+					(reference "TP34")
 					(unit 1)
 				)
 			)
@@ -8701,6 +10359,81 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint_Alt")
+		(at 30.48 48.26 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "73185105-5244-4703-b7ec-a91489ee8dea")
+		(property "Reference" "TP20"
+			(at 17.018 48.26 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "TestPoint_Alt"
+			(at 22.352 48.26 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "digital:TestPoint_Keystone_5015_Micro_Mini"
+			(at 30.48 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 30.48 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point (alternative shape)"
+			(at 30.48 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C159868"
+			(at 30.48 48.26 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "00c45bfb-4521-4a99-a073-b33b27afe81e")
+		)
+		(instances
+			(project "digital"
+				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
+					(reference "TP20")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Connector:TestPoint")
 		(at 91.44 151.13 270)
 		(mirror x)
@@ -8829,6 +10562,156 @@
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
 					(reference "TP15")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint_Alt")
+		(at 30.48 72.39 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "8ed68f29-72fe-43c1-8db1-cdfbf7f8051e")
+		(property "Reference" "TP24"
+			(at 17.018 72.39 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "TestPoint_Alt"
+			(at 22.352 72.39 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "digital:TestPoint_Keystone_5015_Micro_Mini"
+			(at 30.48 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 30.48 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point (alternative shape)"
+			(at 30.48 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C159868"
+			(at 30.48 72.39 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "bcb4db0d-588b-42c0-83b0-b56e2e8f8ca2")
+		)
+		(instances
+			(project "digital"
+				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
+					(reference "TP24")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint_Alt")
+		(at 30.48 77.47 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "91398621-3f2a-4de7-ab83-4926235ac8a3")
+		(property "Reference" "TP26"
+			(at 17.018 77.47 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "TestPoint_Alt"
+			(at 22.352 77.47 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "digital:TestPoint_Keystone_5015_Micro_Mini"
+			(at 30.48 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 30.48 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point (alternative shape)"
+			(at 30.48 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C159868"
+			(at 30.48 77.47 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a76791e6-ae01-4620-a53d-b7d6c2da0d48")
+		)
+		(instances
+			(project "digital"
+				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
+					(reference "TP26")
 					(unit 1)
 				)
 			)
@@ -8995,6 +10878,81 @@
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
 					(reference "C112")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint_Alt")
+		(at 30.48 143.51 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "99ad57f0-b57f-4eb4-9ab9-0f1da461b946")
+		(property "Reference" "TP35"
+			(at 17.018 143.51 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "TestPoint_Alt"
+			(at 22.352 143.51 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "digital:TestPoint_Keystone_5015_Micro_Mini"
+			(at 30.48 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 30.48 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point (alternative shape)"
+			(at 30.48 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C159868"
+			(at 30.48 143.51 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e52dfdf8-8d9d-4477-a16e-de82c6a9d436")
+		)
+		(instances
+			(project "digital"
+				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
+					(reference "TP35")
 					(unit 1)
 				)
 			)
@@ -9354,6 +11312,81 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint_Alt")
+		(at 30.48 99.06 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "aaab39af-4c0d-4b64-a470-f6366e9f9171")
+		(property "Reference" "TP29"
+			(at 17.018 99.06 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "TestPoint_Alt"
+			(at 22.352 99.06 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "digital:TestPoint_Keystone_5015_Micro_Mini"
+			(at 30.48 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 30.48 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point (alternative shape)"
+			(at 30.48 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C159868"
+			(at 30.48 99.06 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "66e0059d-d5f0-40b3-9189-08aa7b34f294")
+		)
+		(instances
+			(project "digital"
+				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
+					(reference "TP29")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 111.76 172.72 0)
 		(unit 1)
@@ -9413,6 +11446,81 @@
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
 					(reference "#PWR0168")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint_Alt")
+		(at 30.48 146.05 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "adb442a4-35ef-4d2b-be71-163ac60a7b43")
+		(property "Reference" "TP36"
+			(at 17.018 146.05 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "TestPoint_Alt"
+			(at 22.352 146.05 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "digital:TestPoint_Keystone_5015_Micro_Mini"
+			(at 30.48 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 30.48 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point (alternative shape)"
+			(at 30.48 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C159868"
+			(at 30.48 146.05 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "08b0e859-2cf2-4de9-a7a2-e47871dda6c9")
+		)
+		(instances
+			(project "digital"
+				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
+					(reference "TP36")
 					(unit 1)
 				)
 			)
@@ -9569,6 +11677,81 @@
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
 					(reference "C124")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint_Alt")
+		(at 30.48 172.72 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "b8a52ec5-4f41-4e62-83a8-b318ad8451c9")
+		(property "Reference" "TP41"
+			(at 17.018 172.72 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "TestPoint_Alt"
+			(at 22.352 172.72 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "digital:TestPoint_Keystone_5015_Micro_Mini"
+			(at 30.48 167.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 30.48 167.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point (alternative shape)"
+			(at 30.48 172.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C159868"
+			(at 30.48 172.72 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ae34cf14-a9c2-42ef-8e61-f1a0de57d62c")
+		)
+		(instances
+			(project "digital"
+				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
+					(reference "TP41")
 					(unit 1)
 				)
 			)
@@ -10458,6 +12641,81 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint_Alt")
+		(at 30.48 118.11 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d819de5d-e2fe-4b39-bd6d-a96124b99243")
+		(property "Reference" "TP31"
+			(at 17.018 118.11 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "TestPoint_Alt"
+			(at 22.352 118.11 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "digital:TestPoint_Keystone_5015_Micro_Mini"
+			(at 30.48 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 30.48 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point (alternative shape)"
+			(at 30.48 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C159868"
+			(at 30.48 118.11 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9c7fd684-f5bc-441f-8f51-e6b198c6da9b")
+		)
+		(instances
+			(project "digital"
+				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
+					(reference "TP31")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C")
 		(at 111.76 166.37 0)
 		(unit 1)
@@ -10530,6 +12788,156 @@
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
 					(reference "C126")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint_Alt")
+		(at 30.48 167.64 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "dac081fa-ac11-442e-85ea-f303b79c016a")
+		(property "Reference" "TP39"
+			(at 17.018 167.64 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "TestPoint_Alt"
+			(at 22.352 167.64 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "digital:TestPoint_Keystone_5015_Micro_Mini"
+			(at 30.48 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 30.48 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point (alternative shape)"
+			(at 30.48 167.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C159868"
+			(at 30.48 167.64 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "8b324ea0-3288-4377-a76e-449594e22ca8")
+		)
+		(instances
+			(project "digital"
+				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
+					(reference "TP39")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint_Alt")
+		(at 30.48 120.65 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "db603f5c-ae7c-422e-9f79-6c46727853cc")
+		(property "Reference" "TP32"
+			(at 17.018 120.65 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "TestPoint_Alt"
+			(at 22.352 120.65 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "digital:TestPoint_Keystone_5015_Micro_Mini"
+			(at 30.48 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 30.48 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point (alternative shape)"
+			(at 30.48 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C159868"
+			(at 30.48 120.65 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "f6987f93-4b86-4b24-ac8b-13c6426572c2")
+		)
+		(instances
+			(project "digital"
+				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
+					(reference "TP32")
 					(unit 1)
 				)
 			)
@@ -11223,6 +13631,81 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint_Alt")
+		(at 30.48 69.85 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "f27975e3-bde9-4d4e-8dc3-0ec16cfc4d74")
+		(property "Reference" "TP23"
+			(at 17.018 69.85 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "TestPoint_Alt"
+			(at 22.352 69.85 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "digital:TestPoint_Keystone_5015_Micro_Mini"
+			(at 30.48 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 30.48 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point (alternative shape)"
+			(at 30.48 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C159868"
+			(at 30.48 69.85 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "83dea61a-ae52-47bc-ba71-1532ee69d885")
+		)
+		(instances
+			(project "digital"
+				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
+					(reference "TP23")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+3V3")
 		(at 242.57 31.75 0)
 		(unit 1)
@@ -11767,6 +14250,81 @@
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
 					(reference "C108")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint_Alt")
+		(at 130.81 111.76 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ff5cdb1c-ba86-4866-ac59-590f654fbf97")
+		(property "Reference" "TP16"
+			(at 119.888 104.648 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint_Alt"
+			(at 119.888 106.426 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "digital:TestPoint_Keystone_5015_Micro_Mini"
+			(at 135.89 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 135.89 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point (alternative shape)"
+			(at 130.81 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C159868"
+			(at 130.81 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "4e0b1227-54c0-4e26-902a-3b6f38f4d8c3")
+		)
+		(instances
+			(project "digital"
+				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/bc9ae2b7-8e24-4f39-995c-9325d382a50c"
+					(reference "TP16")
 					(unit 1)
 				)
 			)

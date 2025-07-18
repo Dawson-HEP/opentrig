@@ -4761,7 +4761,7 @@
 				)
 			)
 		)
-		(property "Value" "IPX"
+		(property "Value" "IPEX-1"
 			(at 250.19 59.1704 0)
 			(effects
 				(font
@@ -4789,6 +4789,15 @@
 		)
 		(property "Description" "small coaxial connector (BNC, SMA, SMB, SMC, Cinch/RCA, LEMO, ...)"
 			(at 247.65 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C496552"
+			(at 247.65 59.69 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5977,7 +5986,7 @@
 				)
 			)
 		)
-		(property "Value" "IPX"
+		(property "Value" "IPEX-1"
 			(at 218.44 59.1704 0)
 			(effects
 				(font
@@ -6005,6 +6014,15 @@
 		)
 		(property "Description" "small coaxial connector (BNC, SMA, SMB, SMC, Cinch/RCA, LEMO, ...)"
 			(at 215.9 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C496552"
+			(at 215.9 59.69 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8266,7 +8284,7 @@
 				)
 			)
 		)
-		(property "Value" "IPX"
+		(property "Value" "IPEX-1"
 			(at 250.19 111.2404 0)
 			(effects
 				(font
@@ -8294,6 +8312,15 @@
 		)
 		(property "Description" "small coaxial connector (BNC, SMA, SMB, SMC, Cinch/RCA, LEMO, ...)"
 			(at 247.65 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C496552"
+			(at 247.65 111.76 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9390,7 +9417,7 @@
 				)
 			)
 		)
-		(property "Value" "IPX"
+		(property "Value" "IPEX-1"
 			(at 264.16 59.1704 0)
 			(effects
 				(font
@@ -9418,6 +9445,15 @@
 		)
 		(property "Description" "small coaxial connector (BNC, SMA, SMB, SMC, Cinch/RCA, LEMO, ...)"
 			(at 261.62 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C496552"
+			(at 261.62 59.69 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9457,7 +9493,7 @@
 				)
 			)
 		)
-		(property "Value" "IPX"
+		(property "Value" "IPEX-1"
 			(at 218.44 111.2404 0)
 			(effects
 				(font
@@ -9485,6 +9521,15 @@
 		)
 		(property "Description" "small coaxial connector (BNC, SMA, SMB, SMC, Cinch/RCA, LEMO, ...)"
 			(at 215.9 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C496552"
+			(at 215.9 111.76 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9813,7 +9858,7 @@
 				)
 			)
 		)
-		(property "Value" "IPX"
+		(property "Value" "IPEX-1"
 			(at 234.95 59.1704 0)
 			(effects
 				(font
@@ -9841,6 +9886,15 @@
 		)
 		(property "Description" "small coaxial connector (BNC, SMA, SMB, SMC, Cinch/RCA, LEMO, ...)"
 			(at 232.41 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C496552"
+			(at 232.41 59.69 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9880,7 +9934,7 @@
 				)
 			)
 		)
-		(property "Value" "IPX"
+		(property "Value" "IPEX-1"
 			(at 264.16 111.2404 0)
 			(effects
 				(font
@@ -9908,6 +9962,15 @@
 		)
 		(property "Description" "small coaxial connector (BNC, SMA, SMB, SMC, Cinch/RCA, LEMO, ...)"
 			(at 261.62 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C496552"
+			(at 261.62 111.76 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9947,7 +10010,7 @@
 				)
 			)
 		)
-		(property "Value" "IPX"
+		(property "Value" "IPEX-1"
 			(at 234.95 111.2404 0)
 			(effects
 				(font
@@ -9975,6 +10038,15 @@
 		)
 		(property "Description" "small coaxial connector (BNC, SMA, SMB, SMC, Cinch/RCA, LEMO, ...)"
 			(at 232.41 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C496552"
+			(at 232.41 111.76 90)
 			(effects
 				(font
 					(size 1.27 1.27)

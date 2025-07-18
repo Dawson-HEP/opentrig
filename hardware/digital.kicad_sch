@@ -1146,7 +1146,7 @@
 				)
 			)
 		)
-		(property "Value" "BNC"
+		(property "Value" "IPEX-1"
 			(at 83.312 101.6 0)
 			(effects
 				(font
@@ -1154,7 +1154,7 @@
 				)
 			)
 		)
-		(property "Footprint" "digital:BNC_TEConnectivity_1478204_Vertical"
+		(property "Footprint" "digital:BWIPX-1-001E"
 			(at 93.98 101.6 0)
 			(effects
 				(font
@@ -1173,6 +1173,15 @@
 			)
 		)
 		(property "Description" "small coaxial connector (BNC, SMA, SMB, SMC, Cinch/RCA, LEMO, ...)"
+			(at 93.98 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C496552"
 			(at 93.98 101.6 0)
 			(effects
 				(font
@@ -1222,7 +1231,7 @@
 				)
 			)
 		)
-		(property "Footprint" "digital:BNC_TEConnectivity_1478204_Vertical"
+		(property "Footprint" "digital:DOSIN-801-0078"
 			(at 93.98 96.52 0)
 			(effects
 				(font
@@ -1290,7 +1299,7 @@
 				)
 			)
 		)
-		(property "Footprint" "digital:BNC_TEConnectivity_1478204_Vertical"
+		(property "Footprint" "digital:DOSIN-801-0078"
 			(at 93.98 107.95 0)
 			(effects
 				(font
@@ -1358,7 +1367,7 @@
 				)
 			)
 		)
-		(property "Footprint" "digital:BNC_TEConnectivity_1478204_Vertical"
+		(property "Footprint" "digital:DOSIN-801-0078"
 			(at 93.98 91.44 0)
 			(effects
 				(font
@@ -1570,7 +1579,7 @@
 				)
 			)
 		)
-		(property "Value" "BNC"
+		(property "Value" "IPEX-1"
 			(at 83.312 93.98 0)
 			(effects
 				(font
@@ -1578,7 +1587,7 @@
 				)
 			)
 		)
-		(property "Footprint" "digital:BNC_TEConnectivity_1478204_Vertical"
+		(property "Footprint" "digital:BWIPX-1-001E"
 			(at 93.98 93.98 0)
 			(effects
 				(font
@@ -1597,6 +1606,15 @@
 			)
 		)
 		(property "Description" "small coaxial connector (BNC, SMA, SMB, SMC, Cinch/RCA, LEMO, ...)"
+			(at 93.98 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C496552"
 			(at 93.98 93.98 0)
 			(effects
 				(font
@@ -1646,7 +1664,7 @@
 				)
 			)
 		)
-		(property "Footprint" "digital:BNC_TEConnectivity_1478204_Vertical"
+		(property "Footprint" "digital:DOSIN-801-0078"
 			(at 93.98 111.76 0)
 			(effects
 				(font
@@ -1866,7 +1884,7 @@
 				)
 			)
 		)
-		(property "Footprint" "digital:BNC_TEConnectivity_1478204_Vertical"
+		(property "Footprint" "digital:DOSIN-801-0078"
 			(at 93.98 114.3 0)
 			(effects
 				(font
@@ -1926,7 +1944,7 @@
 				)
 			)
 		)
-		(property "Value" "BNC"
+		(property "Value" "IPEX-1"
 			(at 83.312 99.06 0)
 			(effects
 				(font
@@ -1934,7 +1952,7 @@
 				)
 			)
 		)
-		(property "Footprint" "digital:BNC_TEConnectivity_1478204_Vertical"
+		(property "Footprint" "digital:BWIPX-1-001E"
 			(at 93.98 99.06 0)
 			(effects
 				(font
@@ -1953,6 +1971,15 @@
 			)
 		)
 		(property "Description" "small coaxial connector (BNC, SMA, SMB, SMC, Cinch/RCA, LEMO, ...)"
+			(at 93.98 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C496552"
 			(at 93.98 99.06 0)
 			(effects
 				(font
@@ -2154,7 +2181,7 @@
 				)
 			)
 		)
-		(property "Footprint" "digital:BNC_TEConnectivity_1478204_Vertical"
+		(property "Footprint" "digital:DOSIN-801-0078"
 			(at 93.98 105.41 0)
 			(effects
 				(font
