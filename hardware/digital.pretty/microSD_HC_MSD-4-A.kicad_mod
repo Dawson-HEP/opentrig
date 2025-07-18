@@ -422,4 +422,15 @@
 		(uuid "3a015eb2-26cd-4d15-ba1f-cb840518effa")
 	)
 	(embedded_fonts no)
+	(model "${KIPRJMOD}/digital.pretty/Same_Sky_MSD-4-A.step"
+		(offset
+			(xyz -7.5 -7.25 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz -90 -0 -0)
+		)
+	)
 )
