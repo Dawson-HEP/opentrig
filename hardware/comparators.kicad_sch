@@ -8011,15 +8011,15 @@
 		)
 		(uuid "ff5a03c3-084d-4f1e-a590-b55ff5aa6962")
 	)
-	(label "OUT21"
-		(at 172.72 142.24 0)
+	(label "TRIG8"
+		(at 229.87 100.33 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left bottom)
+			(justify right bottom)
 		)
-		(uuid "00bc61a1-29cf-4ac0-b37d-d93570f40c05")
+		(uuid "00b61084-1334-4615-b1b3-0d50da6338dc")
 	)
 	(label "IN5"
 		(at 41.91 95.25 0)
@@ -8051,6 +8051,16 @@
 		)
 		(uuid "0636ffe3-b333-4488-b48b-19bbd7f8c316")
 	)
+	(label "TRIG13"
+		(at 229.87 87.63 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "063c95a1-6422-441b-8d28-d514a72f4541")
+	)
 	(label "VREF2"
 		(at 52.07 66.04 0)
 		(effects
@@ -8060,6 +8070,26 @@
 			(justify left bottom)
 		)
 		(uuid "0846a543-d21b-482b-98e7-8b881d74d1a1")
+	)
+	(label "OUT12"
+		(at 172.72 90.17 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "0c6d3f39-c03f-4977-82d2-403acc110519")
+	)
+	(label "TRIG22"
+		(at 229.87 132.08 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "0c72d0bf-8163-4b75-8dd2-a53058dfd8c6")
 	)
 	(label "OUT3"
 		(at 91.44 72.39 180)
@@ -8080,16 +8110,6 @@
 			(justify right bottom)
 		)
 		(uuid "0d4f9086-95d5-41fd-a946-f2c325d77daa")
-	)
-	(label "TRIG14"
-		(at 229.87 97.79 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "0d7f8eb3-38e2-464b-af12-4f978439790c")
 	)
 	(label "IN17"
 		(at 113.03 95.25 0)
@@ -8121,25 +8141,45 @@
 		)
 		(uuid "10c10e8f-9263-4e9b-8921-7750e45d6916")
 	)
-	(label "TRIG20"
-		(at 229.87 139.7 180)
+	(label "TRIG5"
+		(at 229.87 40.64 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "16144350-f62b-4fb9-b59e-1a521130e73b")
+		(uuid "14f7eafa-2f47-4635-bdf3-4e9361c9a1bf")
 	)
-	(label "OUT12"
-		(at 172.72 92.71 0)
+	(label "OUT7"
+		(at 172.72 35.56 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left bottom)
 		)
-		(uuid "1c3c92db-af82-466c-8b27-8336f29e49b0")
+		(uuid "1614364b-5bc5-4ae1-b0a2-9b369fc40f26")
+	)
+	(label "OUT16"
+		(at 172.72 147.32 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "1aaa6040-1625-4bd3-aeda-a68646389e43")
+	)
+	(label "TRIG4"
+		(at 229.87 43.18 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "1dce2cbe-8b45-4857-b899-d3db349ef8c6")
 	)
 	(label "OUT16"
 		(at 162.56 92.71 180)
@@ -8150,16 +8190,6 @@
 			(justify right bottom)
 		)
 		(uuid "1ed14e21-d435-466b-a60c-efe58314d030")
-	)
-	(label "TRIG1"
-		(at 229.87 38.1 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "1f99185f-4d47-4134-9db6-0959736c14e6")
 	)
 	(label "IN15"
 		(at 113.03 69.85 0)
@@ -8221,16 +8251,6 @@
 		)
 		(uuid "256e3e54-804a-4220-bb0e-0eb450f75df4")
 	)
-	(label "TRIG6"
-		(at 229.87 50.8 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "26037512-26e1-4d67-965e-e1d4f208d339")
-	)
 	(label "IN6"
 		(at 41.91 115.57 0)
 		(effects
@@ -8291,16 +8311,6 @@
 		)
 		(uuid "2f536e9b-5b07-4c26-8163-03f412697340")
 	)
-	(label "OUT7"
-		(at 172.72 53.34 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "303f9bd8-2d9f-4d1e-bb03-516c6e063e3d")
-	)
 	(label "OUT5"
 		(at 91.44 97.79 180)
 		(effects
@@ -8331,7 +8341,7 @@
 		)
 		(uuid "364bc64f-3b06-4831-9ac9-fbc0f2716011")
 	)
-	(label "TRIG8"
+	(label "TRIG15"
 		(at 229.87 82.55 180)
 		(effects
 			(font
@@ -8339,7 +8349,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "389d9352-6ce3-4569-93a3-9dfb8ce3de8c")
+		(uuid "36ab45bd-b0f8-436e-a16d-571f24f029fa")
 	)
 	(label "COMP_VCC"
 		(at 199.39 116.84 180)
@@ -8351,16 +8361,6 @@
 		)
 		(uuid "3a9630d8-2f6f-4128-87fd-fea7694f43b7")
 	)
-	(label "OUT9"
-		(at 172.72 85.09 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "3b65cd85-96c8-4eff-a17f-c38ff510ed13")
-	)
 	(label "IN10"
 		(at 41.91 166.37 0)
 		(effects
@@ -8370,6 +8370,16 @@
 			(justify left bottom)
 		)
 		(uuid "3b742d2d-3f64-4de9-a907-7b1a548a2ee3")
+	)
+	(label "TRIG23"
+		(at 229.87 129.54 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "3d10aec5-2e97-4b1e-8618-8aeeb43b4940")
 	)
 	(label "COMP_VCC"
 		(at 85.09 110.49 180)
@@ -8381,45 +8391,15 @@
 		)
 		(uuid "3d4b5bd9-80ec-46d7-8b52-6a12895a62f6")
 	)
-	(label "OUT1"
-		(at 172.72 38.1 0)
+	(label "OUT4"
+		(at 172.72 43.18 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left bottom)
 		)
-		(uuid "3e6c9c99-e288-47ae-bbbf-b93f618c98f6")
-	)
-	(label "OUT20"
-		(at 172.72 139.7 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "3e8bbfff-0b13-4d84-aa5c-fd6e9fa1648b")
-	)
-	(label "TRIG18"
-		(at 229.87 134.62 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "411d718a-4557-4b8c-8070-eac1a7a965b5")
-	)
-	(label "OUT6"
-		(at 172.72 50.8 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "42a51609-6217-4646-bbad-2e57202fc540")
+		(uuid "3f527422-6f39-4942-99e4-703f9a8325ab")
 	)
 	(label "IN19"
 		(at 113.03 120.65 0)
@@ -8441,25 +8421,15 @@
 		)
 		(uuid "45ccb05e-cdb2-4c24-9f0c-8c71b7e7293b")
 	)
-	(label "TRIG3"
-		(at 229.87 43.18 180)
+	(label "OUT9"
+		(at 172.72 97.79 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right bottom)
+			(justify left bottom)
 		)
-		(uuid "46dd3072-caa3-443d-a820-cd1966df932d")
-	)
-	(label "TRIG4"
-		(at 229.87 45.72 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "482c0706-3770-45ed-9974-b523885f5107")
+		(uuid "4871b138-48ad-466f-865a-c8765eab7938")
 	)
 	(label "OUT12"
 		(at 162.56 41.91 180)
@@ -8501,15 +8471,15 @@
 		)
 		(uuid "52682cbc-e0a2-4e02-8dd0-f175f644880e")
 	)
-	(label "TRIG12"
-		(at 229.87 92.71 180)
+	(label "OUT21"
+		(at 172.72 134.62 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right bottom)
+			(justify left bottom)
 		)
-		(uuid "550f7246-6f8e-45c5-b625-f15e71a66d16")
+		(uuid "5277c2a5-068f-45f5-a8ce-4af419419083")
 	)
 	(label "IN11"
 		(at 41.91 171.45 0)
@@ -8520,16 +8490,6 @@
 			(justify left bottom)
 		)
 		(uuid "552b7cdc-3eb3-4d20-94fe-269d9bede4a6")
-	)
-	(label "TRIG23"
-		(at 229.87 147.32 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "58443242-1006-4774-9ee4-c737f1a154d7")
 	)
 	(label "OUT10"
 		(at 91.44 168.91 180)
@@ -8551,16 +8511,6 @@
 		)
 		(uuid "59ea886d-4339-461b-8fea-c1747fa6bcd8")
 	)
-	(label "OUT11"
-		(at 172.72 90.17 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "5b2956ec-5e3c-4d8c-b6b9-60819db9d186")
-	)
 	(label "IN3"
 		(at 41.91 69.85 0)
 		(effects
@@ -8581,16 +8531,6 @@
 		)
 		(uuid "5f5fea4e-cb0f-4c80-a2f8-02752eb0df4c")
 	)
-	(label "OUT23"
-		(at 172.72 147.32 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "645c5ba9-1cbb-4ba3-a855-43bd5a4a5525")
-	)
 	(label "OUT0"
 		(at 91.44 41.91 180)
 		(effects
@@ -8600,6 +8540,16 @@
 			(justify right bottom)
 		)
 		(uuid "6603ee74-cd62-4dba-af53-1598a4c5b4f0")
+	)
+	(label "TRIG10"
+		(at 229.87 95.25 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "670ef414-476b-4de4-9f9d-721cf1a31bad")
 	)
 	(label "VREF8"
 		(at 52.07 142.24 0)
@@ -8621,15 +8571,15 @@
 		)
 		(uuid "6ecb78da-a8ee-40cc-876c-bb8676c8ba28")
 	)
-	(label "TRIG10"
-		(at 229.87 87.63 180)
+	(label "OUT17"
+		(at 172.72 144.78 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right bottom)
+			(justify left bottom)
 		)
-		(uuid "77501c05-4a54-4c60-9ac3-69c31a468e9a")
+		(uuid "70739e1a-e834-47e1-a91c-dabcde88ca37")
 	)
 	(label "VREF12"
 		(at 123.19 40.64 0)
@@ -8640,6 +8590,16 @@
 			(justify left bottom)
 		)
 		(uuid "79018eea-70e0-4b40-bbb1-81121e086a92")
+	)
+	(label "OUT20"
+		(at 172.72 137.16 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "795f5178-6679-4aa7-9406-0d2656e32819")
 	)
 	(label "OUT11"
 		(at 91.44 173.99 180)
@@ -8671,6 +8631,26 @@
 		)
 		(uuid "7b68f8b2-d350-4536-8b43-c8691fcf5845")
 	)
+	(label "TRIG3"
+		(at 229.87 45.72 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "7c5d1897-0ed5-4d85-965c-a9662e1568bd")
+	)
+	(label "OUT0"
+		(at 172.72 53.34 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "7efdb9c2-cdc5-4f0a-8bc9-5c47f59e29b5")
+	)
 	(label "IN7"
 		(at 41.91 120.65 0)
 		(effects
@@ -8681,25 +8661,15 @@
 		)
 		(uuid "823cb2ec-72ce-4c50-a2e9-fdce67aeb2f5")
 	)
-	(label "OUT10"
-		(at 172.72 87.63 0)
+	(label "OUT5"
+		(at 172.72 40.64 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left bottom)
 		)
-		(uuid "82c65d7d-9450-4e27-808d-3d56c7cc7ed3")
-	)
-	(label "TRIG2"
-		(at 229.87 40.64 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "83e53cf2-1327-4ded-90ca-a6f8e10d7b9e")
+		(uuid "825f3ca8-f48f-4315-b080-e0f48fdbcbe4")
 	)
 	(label "IN20"
 		(at 113.03 140.97 0)
@@ -8731,16 +8701,6 @@
 		)
 		(uuid "899a69c9-27d4-439d-9d92-68e1999735a2")
 	)
-	(label "OUT8"
-		(at 172.72 82.55 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "8ae3a7d1-bc50-48f1-b64b-f7673694269f")
-	)
 	(label "IN9"
 		(at 41.91 146.05 0)
 		(effects
@@ -8771,25 +8731,15 @@
 		)
 		(uuid "8d58c33d-d96c-456f-a40c-66ec70a7111d")
 	)
-	(label "OUT16"
-		(at 172.72 129.54 0)
+	(label "OUT1"
+		(at 172.72 50.8 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left bottom)
 		)
-		(uuid "91e2329f-2736-4f1c-a856-942f66638fb8")
-	)
-	(label "OUT17"
-		(at 172.72 132.08 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "93a53c27-86af-4b11-93d2-bddaf1505e4e")
+		(uuid "924ba0af-fbe2-47bd-8689-5eafe270f0d3")
 	)
 	(label "OUT2"
 		(at 91.44 67.31 180)
@@ -8800,6 +8750,16 @@
 			(justify right bottom)
 		)
 		(uuid "9558d569-0eed-42a6-a4fe-0211b9670e9a")
+	)
+	(label "TRIG0"
+		(at 229.87 53.34 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "97333d81-461c-4df4-bfda-ffa9977c6d7a")
 	)
 	(label "IN18"
 		(at 113.03 115.57 0)
@@ -8821,6 +8781,36 @@
 		)
 		(uuid "9ab75454-2ae0-464c-82b0-012ad0561459")
 	)
+	(label "TRIG11"
+		(at 229.87 92.71 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "9e02d715-e578-4f00-b663-483c62ef62d1")
+	)
+	(label "OUT2"
+		(at 172.72 48.26 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "9fd67ea9-fbd3-49e1-8c32-db0c98a43869")
+	)
+	(label "OUT13"
+		(at 172.72 87.63 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "a0734a92-6149-46af-a129-63c9df7340ec")
+	)
 	(label "COMP_VCC"
 		(at 156.21 85.09 180)
 		(effects
@@ -8830,16 +8820,6 @@
 			(justify right bottom)
 		)
 		(uuid "a52fdec9-5e21-4eb1-bee4-b15f98d2b79c")
-	)
-	(label "OUT0"
-		(at 172.72 35.56 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "a54021b9-a51d-426a-a69e-c16efe3aec3d")
 	)
 	(label "VREF14"
 		(at 123.19 66.04 0)
@@ -8851,35 +8831,25 @@
 		)
 		(uuid "a5549764-e88e-440d-b890-b4af68364dd6")
 	)
-	(label "TRIG0"
-		(at 229.87 35.56 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "a683afdc-cced-4190-8554-ad7613112a0a")
-	)
-	(label "OUT15"
-		(at 172.72 100.33 0)
+	(label "OUT18"
+		(at 172.72 142.24 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left bottom)
 		)
-		(uuid "a6892345-6786-4ea2-ab43-afd7ab4abccc")
+		(uuid "a93665e0-6896-4213-a694-5dfd81ce6d7a")
 	)
-	(label "OUT22"
-		(at 172.72 144.78 0)
+	(label "OUT11"
+		(at 172.72 92.71 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left bottom)
 		)
-		(uuid "ae816312-b996-4d80-b31c-0c5141a28f83")
+		(uuid "ac5f386f-e832-4a41-a2f0-b71271c87bb1")
 	)
 	(label "COMP_VCC"
 		(at 85.09 85.09 180)
@@ -8901,15 +8871,35 @@
 		)
 		(uuid "b055264f-fafc-4ddb-b54c-a57fe19b6b30")
 	)
-	(label "TRIG5"
-		(at 229.87 48.26 180)
+	(label "OUT22"
+		(at 172.72 132.08 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "b097e3d6-f164-45e1-895b-333fb74e74c7")
+	)
+	(label "TRIG6"
+		(at 229.87 38.1 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "b0ab2a84-d08f-4d13-860f-8cc80dda7d98")
+		(uuid "b176f6c1-ca4e-41f9-a68d-0e2a36f08b4a")
+	)
+	(label "OUT6"
+		(at 172.72 38.1 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "b37c6a84-d3a0-4af2-9ee0-746b387917bb")
 	)
 	(label "IN14"
 		(at 113.03 64.77 0)
@@ -8921,16 +8911,6 @@
 		)
 		(uuid "b9c7a284-e365-40f0-ace7-536823c3a5eb")
 	)
-	(label "OUT14"
-		(at 172.72 97.79 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "bb493f70-ef28-4925-8175-6f0649937d42")
-	)
 	(label "VREF9"
 		(at 52.07 147.32 0)
 		(effects
@@ -8941,25 +8921,35 @@
 		)
 		(uuid "be929458-1961-4055-ac5e-bbd37534f110")
 	)
-	(label "OUT4"
-		(at 172.72 45.72 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "c005eef9-f4c3-483c-bb3a-91946ece1f9c")
-	)
-	(label "TRIG9"
-		(at 229.87 85.09 180)
+	(label "TRIG20"
+		(at 229.87 137.16 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "c03019f9-28e1-4a15-878b-5bd40d3392ae")
+		(uuid "bf3df4a8-3d01-496f-84fa-eae5ec549a36")
+	)
+	(label "TRIG12"
+		(at 229.87 90.17 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "bf58478e-7f6d-414b-aaf3-8ccdf9d96146")
+	)
+	(label "TRIG9"
+		(at 229.87 97.79 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "c000902d-377a-4566-9c99-fd15ce305a9e")
 	)
 	(label "VREF23"
 		(at 123.19 172.72 0)
@@ -8970,26 +8960,6 @@
 			(justify left bottom)
 		)
 		(uuid "c0b7cfb8-823e-4068-ab03-d20353143d32")
-	)
-	(label "OUT5"
-		(at 172.72 48.26 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "c139fa49-c135-4440-a4a6-5366e0421568")
-	)
-	(label "TRIG21"
-		(at 229.87 142.24 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "c14d180e-0756-4f8c-a6c0-7b8f1af516c2")
 	)
 	(label "OUT21"
 		(at 162.56 148.59 180)
@@ -9011,15 +8981,15 @@
 		)
 		(uuid "c36967c3-0fac-4833-862f-6391b6c189d4")
 	)
-	(label "OUT18"
-		(at 172.72 134.62 0)
+	(label "OUT23"
+		(at 172.72 129.54 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left bottom)
 		)
-		(uuid "c8adebdf-9db3-47b3-be18-a0286971b594")
+		(uuid "c9c52b4d-0282-4983-a9d8-5a5a70f49385")
 	)
 	(label "VREF6"
 		(at 52.07 116.84 0)
@@ -9041,6 +9011,16 @@
 		)
 		(uuid "cbd51beb-2589-4e84-bab1-96b2bfc52dbd")
 	)
+	(label "TRIG18"
+		(at 229.87 142.24 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "cced52a5-2566-48c1-9536-033c04e31920")
+	)
 	(label "OUT23"
 		(at 162.56 173.99 180)
 		(effects
@@ -9050,6 +9030,26 @@
 			(justify right bottom)
 		)
 		(uuid "cdb4b70b-a848-4134-b690-b97e68566aed")
+	)
+	(label "OUT8"
+		(at 172.72 100.33 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "ceb1fcc4-cc66-4cce-be17-9a26631eaa95")
+	)
+	(label "TRIG16"
+		(at 229.87 147.32 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "d079377c-a9f2-4a22-abb2-0624d5789453")
 	)
 	(label "OUT7"
 		(at 91.44 123.19 180)
@@ -9061,16 +9061,6 @@
 		)
 		(uuid "d11471c3-a7b2-4a88-bd81-d2c6504d26b8")
 	)
-	(label "TRIG7"
-		(at 229.87 53.34 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "d1527859-6914-4983-92ef-390846b06966")
-	)
 	(label "OUT14"
 		(at 162.56 67.31 180)
 		(effects
@@ -9080,16 +9070,6 @@
 			(justify right bottom)
 		)
 		(uuid "d189a43c-6ba7-4987-8811-5a7ab6b82bea")
-	)
-	(label "TRIG22"
-		(at 229.87 144.78 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "d1cd11f1-67c8-423b-a525-a0d22450d125")
 	)
 	(label "VREF13"
 		(at 123.19 45.72 0)
@@ -9121,15 +9101,15 @@
 		)
 		(uuid "d4422f83-04ac-4f1c-a98c-84684e3a7cf6")
 	)
-	(label "TRIG15"
-		(at 229.87 100.33 180)
+	(label "TRIG7"
+		(at 229.87 35.56 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "d5ceeaea-e48b-4dc7-b1ad-8cf8f7b855af")
+		(uuid "d547ef57-4bce-442f-b8b8-0867f0a12744")
 	)
 	(label "OUT17"
 		(at 162.56 97.79 180)
@@ -9151,15 +9131,35 @@
 		)
 		(uuid "d7bbdc89-d496-4889-bf55-899df8b5edb4")
 	)
-	(label "TRIG11"
-		(at 229.87 90.17 180)
+	(label "TRIG17"
+		(at 229.87 144.78 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "d8a0ec87-e621-4460-95a7-7006d8447b57")
+		(uuid "d8a456d6-c069-4b99-8116-7027f041d5b7")
+	)
+	(label "TRIG1"
+		(at 229.87 50.8 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "dad227ff-ecc4-4b78-835b-af773de5500d")
+	)
+	(label "OUT19"
+		(at 172.72 139.7 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "dd971a2b-238f-42fd-9a7d-14b142283221")
 	)
 	(label "IN23"
 		(at 113.03 171.45 0)
@@ -9171,6 +9171,16 @@
 		)
 		(uuid "dd9f149b-d905-410a-84bc-1c5f8b03508b")
 	)
+	(label "OUT10"
+		(at 172.72 95.25 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "de476372-af82-46d1-8a8f-105429b0fbd9")
+	)
 	(label "COMP_VCC"
 		(at 156.21 110.49 180)
 		(effects
@@ -9181,35 +9191,25 @@
 		)
 		(uuid "df10d967-9181-4a00-bd4c-9089553dfdc8")
 	)
-	(label "OUT13"
-		(at 172.72 95.25 0)
+	(label "TRIG2"
+		(at 229.87 48.26 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left bottom)
+			(justify right bottom)
 		)
-		(uuid "e02a7469-b225-424e-bc44-69bc26b37496")
+		(uuid "e238a154-5388-4b00-92c1-b45f1c9cd281")
 	)
-	(label "OUT3"
-		(at 172.72 43.18 0)
+	(label "OUT14"
+		(at 172.72 85.09 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left bottom)
 		)
-		(uuid "e5739890-22a7-41a5-9374-98c74e0130cf")
-	)
-	(label "OUT2"
-		(at 172.72 40.64 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "e60b73d5-fe0f-4d82-a0f3-5418eef291f3")
+		(uuid "e3c79941-6479-4edc-9a40-d334110ca931")
 	)
 	(label "VREF1"
 		(at 52.07 45.72 0)
@@ -9221,15 +9221,25 @@
 		)
 		(uuid "e7233101-3219-4619-b866-592f74eaf117")
 	)
+	(label "OUT3"
+		(at 172.72 45.72 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "eabec6b1-d3ce-4897-8e42-72e02e37a206")
+	)
 	(label "TRIG19"
-		(at 229.87 137.16 180)
+		(at 229.87 139.7 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "eb570755-ad0c-4bb3-9638-3f46667ccea1")
+		(uuid "eb4f2136-61de-4006-8b1c-5440a62700bc")
 	)
 	(label "COMP_VCC"
 		(at 156.21 34.29 180)
@@ -9251,6 +9261,36 @@
 		)
 		(uuid "ec18eadd-3ddf-49f8-9a7b-0794d34fecb9")
 	)
+	(label "OUT15"
+		(at 172.72 82.55 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "ec29d038-a60c-4caf-81e7-b475b1b6dcf0")
+	)
+	(label "TRIG14"
+		(at 229.87 85.09 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "ed02b0d1-6107-472b-aede-9aa23af9e10b")
+	)
+	(label "TRIG21"
+		(at 229.87 134.62 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "f0752741-00de-46a8-b1e0-8e174205d65a")
+	)
 	(label "VREF0"
 		(at 52.07 40.64 0)
 		(effects
@@ -9270,26 +9310,6 @@
 			(justify right bottom)
 		)
 		(uuid "f1e190ae-918f-404c-b7ae-44eb3037fe20")
-	)
-	(label "TRIG16"
-		(at 229.87 129.54 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "f3643a75-60f5-491c-8fa3-1b6e724be393")
-	)
-	(label "OUT19"
-		(at 172.72 137.16 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "f38caa6a-87f1-41ed-8eac-415422baa948")
 	)
 	(label "IN16"
 		(at 113.03 90.17 0)
@@ -9321,16 +9341,6 @@
 		)
 		(uuid "f71794e1-d998-4527-acb8-c8e586ac44ee")
 	)
-	(label "TRIG13"
-		(at 229.87 95.25 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "f75b9bb6-1f07-47b2-9984-6257b019e806")
-	)
 	(label "VREF16"
 		(at 123.19 91.44 0)
 		(effects
@@ -9360,16 +9370,6 @@
 			(justify left bottom)
 		)
 		(uuid "fde42069-ff6a-488a-b2c6-2b886316a6af")
-	)
-	(label "TRIG17"
-		(at 229.87 132.08 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "ff7e561f-1906-4fa6-9880-0f7167ee7235")
 	)
 	(hierarchical_label "TRIG[0..23]"
 		(shape output)
@@ -9880,7 +9880,7 @@
 				)
 			)
 		)
-		(property "Value" "SMA"
+		(property "Value" "IPX"
 			(at 108.4695 41.91 0)
 			(effects
 				(font
@@ -9888,7 +9888,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Coaxial:SMA_Amphenol_901-144_Vertical"
+		(property "Footprint" "digital:BWIPX-1-001E"
 			(at 107.95 39.37 0)
 			(effects
 				(font
@@ -9948,7 +9948,7 @@
 				)
 			)
 		)
-		(property "Value" "SMA"
+		(property "Value" "IPX"
 			(at 37.3495 67.31 0)
 			(effects
 				(font
@@ -9956,7 +9956,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Coaxial:SMA_Amphenol_901-144_Vertical"
+		(property "Footprint" "digital:BWIPX-1-001E"
 			(at 36.83 64.77 0)
 			(effects
 				(font
@@ -10939,7 +10939,7 @@
 				)
 			)
 		)
-		(property "Value" "SMA"
+		(property "Value" "IPX"
 			(at 108.4695 92.71 0)
 			(effects
 				(font
@@ -10947,7 +10947,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Coaxial:SMA_Amphenol_901-144_Vertical"
+		(property "Footprint" "digital:BWIPX-1-001E"
 			(at 107.95 95.25 0)
 			(effects
 				(font
@@ -11006,7 +11006,7 @@
 				)
 			)
 		)
-		(property "Value" "SMA"
+		(property "Value" "IPX"
 			(at 37.3495 67.31 0)
 			(effects
 				(font
@@ -11014,7 +11014,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Coaxial:SMA_Amphenol_901-144_Vertical"
+		(property "Footprint" "digital:BWIPX-1-001E"
 			(at 36.83 69.85 0)
 			(effects
 				(font
@@ -11225,7 +11225,7 @@
 				)
 			)
 		)
-		(property "Value" "SMA"
+		(property "Value" "IPX"
 			(at 37.3495 143.51 0)
 			(effects
 				(font
@@ -11233,7 +11233,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Coaxial:SMA_Amphenol_901-144_Vertical"
+		(property "Footprint" "digital:BWIPX-1-001E"
 			(at 36.83 146.05 0)
 			(effects
 				(font
@@ -11381,7 +11381,7 @@
 				)
 			)
 		)
-		(property "Value" "SMA"
+		(property "Value" "IPX"
 			(at 108.4695 67.31 0)
 			(effects
 				(font
@@ -11389,7 +11389,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Coaxial:SMA_Amphenol_901-144_Vertical"
+		(property "Footprint" "digital:BWIPX-1-001E"
 			(at 107.95 64.77 0)
 			(effects
 				(font
@@ -12367,7 +12367,7 @@
 				)
 			)
 		)
-		(property "Value" "SMA"
+		(property "Value" "IPX"
 			(at 37.3495 118.11 0)
 			(effects
 				(font
@@ -12375,7 +12375,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Coaxial:SMA_Amphenol_901-144_Vertical"
+		(property "Footprint" "digital:BWIPX-1-001E"
 			(at 36.83 120.65 0)
 			(effects
 				(font
@@ -12434,7 +12434,7 @@
 				)
 			)
 		)
-		(property "Value" "SMA"
+		(property "Value" "IPX"
 			(at 37.3495 41.91 0)
 			(effects
 				(font
@@ -12442,7 +12442,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Coaxial:SMA_Amphenol_901-144_Vertical"
+		(property "Footprint" "digital:BWIPX-1-001E"
 			(at 36.83 44.45 0)
 			(effects
 				(font
@@ -13563,7 +13563,7 @@
 				)
 			)
 		)
-		(property "Value" "SMA"
+		(property "Value" "IPX"
 			(at 37.3495 41.91 0)
 			(effects
 				(font
@@ -13571,7 +13571,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Coaxial:SMA_Amphenol_901-144_Vertical"
+		(property "Footprint" "digital:BWIPX-1-001E"
 			(at 36.83 39.37 0)
 			(effects
 				(font
@@ -15326,7 +15326,7 @@
 				)
 			)
 		)
-		(property "Value" "SMA"
+		(property "Value" "IPX"
 			(at 108.4695 168.91 0)
 			(effects
 				(font
@@ -15334,7 +15334,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Coaxial:SMA_Amphenol_901-144_Vertical"
+		(property "Footprint" "digital:BWIPX-1-001E"
 			(at 107.95 166.37 0)
 			(effects
 				(font
@@ -16161,7 +16161,7 @@
 				)
 			)
 		)
-		(property "Value" "SMA"
+		(property "Value" "IPX"
 			(at 37.3495 143.51 0)
 			(effects
 				(font
@@ -16169,7 +16169,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Coaxial:SMA_Amphenol_901-144_Vertical"
+		(property "Footprint" "digital:BWIPX-1-001E"
 			(at 36.83 140.97 0)
 			(effects
 				(font
@@ -16524,7 +16524,7 @@
 				)
 			)
 		)
-		(property "Value" "SMA"
+		(property "Value" "IPX"
 			(at 108.4695 143.51 0)
 			(effects
 				(font
@@ -16532,7 +16532,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Coaxial:SMA_Amphenol_901-144_Vertical"
+		(property "Footprint" "digital:BWIPX-1-001E"
 			(at 107.95 140.97 0)
 			(effects
 				(font
@@ -16721,7 +16721,7 @@
 				)
 			)
 		)
-		(property "Value" "SMA"
+		(property "Value" "IPX"
 			(at 108.4695 41.91 0)
 			(effects
 				(font
@@ -16729,7 +16729,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Coaxial:SMA_Amphenol_901-144_Vertical"
+		(property "Footprint" "digital:BWIPX-1-001E"
 			(at 107.95 44.45 0)
 			(effects
 				(font
@@ -16788,7 +16788,7 @@
 				)
 			)
 		)
-		(property "Value" "SMA"
+		(property "Value" "IPX"
 			(at 37.3495 168.91 0)
 			(effects
 				(font
@@ -16796,7 +16796,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Coaxial:SMA_Amphenol_901-144_Vertical"
+		(property "Footprint" "digital:BWIPX-1-001E"
 			(at 36.83 171.45 0)
 			(effects
 				(font
@@ -17445,7 +17445,7 @@
 				)
 			)
 		)
-		(property "Value" "SMA"
+		(property "Value" "IPX"
 			(at 108.4695 118.11 0)
 			(effects
 				(font
@@ -17453,7 +17453,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Coaxial:SMA_Amphenol_901-144_Vertical"
+		(property "Footprint" "digital:BWIPX-1-001E"
 			(at 107.95 115.57 0)
 			(effects
 				(font
@@ -17797,7 +17797,7 @@
 				)
 			)
 		)
-		(property "Value" "SMA"
+		(property "Value" "IPX"
 			(at 108.4695 67.31 0)
 			(effects
 				(font
@@ -17805,7 +17805,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Coaxial:SMA_Amphenol_901-144_Vertical"
+		(property "Footprint" "digital:BWIPX-1-001E"
 			(at 107.95 69.85 0)
 			(effects
 				(font
@@ -17864,7 +17864,7 @@
 				)
 			)
 		)
-		(property "Value" "SMA"
+		(property "Value" "IPX"
 			(at 108.4695 118.11 0)
 			(effects
 				(font
@@ -17872,7 +17872,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Coaxial:SMA_Amphenol_901-144_Vertical"
+		(property "Footprint" "digital:BWIPX-1-001E"
 			(at 107.95 120.65 0)
 			(effects
 				(font
@@ -18304,7 +18304,7 @@
 				)
 			)
 		)
-		(property "Value" "SMA"
+		(property "Value" "IPX"
 			(at 37.3495 168.91 0)
 			(effects
 				(font
@@ -18312,7 +18312,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Coaxial:SMA_Amphenol_901-144_Vertical"
+		(property "Footprint" "digital:BWIPX-1-001E"
 			(at 36.83 166.37 0)
 			(effects
 				(font
@@ -18590,7 +18590,7 @@
 				)
 			)
 		)
-		(property "Value" "SMA"
+		(property "Value" "IPX"
 			(at 108.4695 143.51 0)
 			(effects
 				(font
@@ -18598,7 +18598,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Coaxial:SMA_Amphenol_901-144_Vertical"
+		(property "Footprint" "digital:BWIPX-1-001E"
 			(at 107.95 146.05 0)
 			(effects
 				(font
@@ -18723,7 +18723,7 @@
 				)
 			)
 		)
-		(property "Value" "SMA"
+		(property "Value" "IPX"
 			(at 108.4695 92.71 0)
 			(effects
 				(font
@@ -18731,7 +18731,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Coaxial:SMA_Amphenol_901-144_Vertical"
+		(property "Footprint" "digital:BWIPX-1-001E"
 			(at 107.95 90.17 0)
 			(effects
 				(font
@@ -18855,7 +18855,7 @@
 				)
 			)
 		)
-		(property "Value" "SMA"
+		(property "Value" "IPX"
 			(at 108.4695 168.91 0)
 			(effects
 				(font
@@ -18863,7 +18863,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Coaxial:SMA_Amphenol_901-144_Vertical"
+		(property "Footprint" "digital:BWIPX-1-001E"
 			(at 107.95 171.45 0)
 			(effects
 				(font
@@ -19688,7 +19688,7 @@
 				)
 			)
 		)
-		(property "Value" "SMA"
+		(property "Value" "IPX"
 			(at 37.3495 92.71 0)
 			(effects
 				(font
@@ -19696,7 +19696,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Coaxial:SMA_Amphenol_901-144_Vertical"
+		(property "Footprint" "digital:BWIPX-1-001E"
 			(at 36.83 90.17 0)
 			(effects
 				(font
@@ -20523,7 +20523,7 @@
 				)
 			)
 		)
-		(property "Value" "SMA"
+		(property "Value" "IPX"
 			(at 37.3495 92.71 0)
 			(effects
 				(font
@@ -20531,7 +20531,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Coaxial:SMA_Amphenol_901-144_Vertical"
+		(property "Footprint" "digital:BWIPX-1-001E"
 			(at 36.83 95.25 0)
 			(effects
 				(font
@@ -21027,7 +21027,7 @@
 				)
 			)
 		)
-		(property "Value" "SMA"
+		(property "Value" "IPX"
 			(at 37.3495 118.11 0)
 			(effects
 				(font
@@ -21035,7 +21035,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Coaxial:SMA_Amphenol_901-144_Vertical"
+		(property "Footprint" "digital:BWIPX-1-001E"
 			(at 36.83 115.57 0)
 			(effects
 				(font

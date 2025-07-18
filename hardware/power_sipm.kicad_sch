@@ -4761,7 +4761,7 @@
 				)
 			)
 		)
-		(property "Value" "SMA"
+		(property "Value" "IPX"
 			(at 250.19 59.1704 0)
 			(effects
 				(font
@@ -4769,7 +4769,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Coaxial:SMA_Amphenol_901-144_Vertical"
+		(property "Footprint" "digital:BWIPX-1-001E"
 			(at 247.65 59.69 0)
 			(effects
 				(font
@@ -5977,7 +5977,7 @@
 				)
 			)
 		)
-		(property "Value" "SMA"
+		(property "Value" "IPX"
 			(at 218.44 59.1704 0)
 			(effects
 				(font
@@ -5985,7 +5985,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Coaxial:SMA_Amphenol_901-144_Vertical"
+		(property "Footprint" "digital:BWIPX-1-001E"
 			(at 215.9 59.69 0)
 			(effects
 				(font
@@ -8266,7 +8266,7 @@
 				)
 			)
 		)
-		(property "Value" "SMA"
+		(property "Value" "IPX"
 			(at 250.19 111.2404 0)
 			(effects
 				(font
@@ -8274,7 +8274,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Coaxial:SMA_Amphenol_901-144_Vertical"
+		(property "Footprint" "digital:BWIPX-1-001E"
 			(at 247.65 111.76 0)
 			(effects
 				(font
@@ -9390,7 +9390,7 @@
 				)
 			)
 		)
-		(property "Value" "SMA"
+		(property "Value" "IPX"
 			(at 264.16 59.1704 0)
 			(effects
 				(font
@@ -9398,7 +9398,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Coaxial:SMA_Amphenol_901-144_Vertical"
+		(property "Footprint" "digital:BWIPX-1-001E"
 			(at 261.62 59.69 0)
 			(effects
 				(font
@@ -9457,7 +9457,7 @@
 				)
 			)
 		)
-		(property "Value" "SMA"
+		(property "Value" "IPX"
 			(at 218.44 111.2404 0)
 			(effects
 				(font
@@ -9465,7 +9465,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Coaxial:SMA_Amphenol_901-144_Vertical"
+		(property "Footprint" "digital:BWIPX-1-001E"
 			(at 215.9 111.76 0)
 			(effects
 				(font
@@ -9813,7 +9813,7 @@
 				)
 			)
 		)
-		(property "Value" "SMA"
+		(property "Value" "IPX"
 			(at 234.95 59.1704 0)
 			(effects
 				(font
@@ -9821,7 +9821,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Coaxial:SMA_Amphenol_901-144_Vertical"
+		(property "Footprint" "digital:BWIPX-1-001E"
 			(at 232.41 59.69 0)
 			(effects
 				(font
@@ -9880,7 +9880,7 @@
 				)
 			)
 		)
-		(property "Value" "SMA"
+		(property "Value" "IPX"
 			(at 264.16 111.2404 0)
 			(effects
 				(font
@@ -9888,7 +9888,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Coaxial:SMA_Amphenol_901-144_Vertical"
+		(property "Footprint" "digital:BWIPX-1-001E"
 			(at 261.62 111.76 0)
 			(effects
 				(font
@@ -9947,7 +9947,7 @@
 				)
 			)
 		)
-		(property "Value" "SMA"
+		(property "Value" "IPX"
 			(at 234.95 111.2404 0)
 			(effects
 				(font
@@ -9955,7 +9955,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Coaxial:SMA_Amphenol_901-144_Vertical"
+		(property "Footprint" "digital:BWIPX-1-001E"
 			(at 232.41 111.76 0)
 			(effects
 				(font
