@@ -191,6 +191,7 @@
         0.1016,
         0.1778,
         0.254,
+        0.29845,
         0.355542,
         0.381
       ],
@@ -499,12 +500,12 @@
       },
       {
         "diff_pair_gap": 0.2,
-        "diff_pair_width": 0.3175,
+        "diff_pair_width": 0.29845,
         "name": "USB",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 0,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.254
+        "track_width": 0.29845
       }
     ],
     "meta": {
