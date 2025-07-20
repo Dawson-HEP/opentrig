@@ -7545,6 +7545,16 @@
 	)
 	(wire
 		(pts
+			(xy 233.68 110.49) (xy 236.22 110.49)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "798e2c60-d0b1-4d71-9f9a-e6083aeee95c")
+	)
+	(wire
+		(pts
 			(xy 259.08 34.29) (xy 259.08 35.56)
 		)
 		(stroke
@@ -8265,16 +8275,6 @@
 	)
 	(wire
 		(pts
-			(xy 227.33 113.03) (xy 236.22 113.03)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9ffabb2d-8f2a-415c-82f1-dba16694c666")
-	)
-	(wire
-		(pts
 			(xy 76.2 165.1) (xy 78.74 165.1)
 		)
 		(stroke
@@ -8612,6 +8612,16 @@
 			(type default)
 		)
 		(uuid "b8ff1b8a-2be8-4774-a5b0-9594d337ca5a")
+	)
+	(wire
+		(pts
+			(xy 233.68 113.03) (xy 236.22 113.03)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b8ffb263-276b-4f84-b963-cbe4dd51e801")
 	)
 	(bus
 		(pts
@@ -9425,16 +9435,6 @@
 	)
 	(wire
 		(pts
-			(xy 227.33 110.49) (xy 236.22 110.49)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f92b2bb0-c1f0-4435-a288-69fa9b3c6279")
-	)
-	(wire
-		(pts
 			(xy 259.08 24.13) (xy 248.92 24.13)
 		)
 		(stroke
@@ -10204,17 +10204,6 @@
 		)
 		(uuid "0157428f-71ec-4517-98e0-262a619ce195")
 	)
-	(hierarchical_label "DEBUG_TRIG_1"
-		(shape output)
-		(at 227.33 113.03 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "1c8561f5-3f48-4f9c-a5dd-d40dada59777")
-	)
 	(hierarchical_label "CDONE"
 		(shape output)
 		(at 78.74 165.1 0)
@@ -10445,17 +10434,6 @@
 			(justify right)
 		)
 		(uuid "f060eea9-7431-486a-b599-b6364dbeddbd")
-	)
-	(hierarchical_label "DEBUG_TRIG_0"
-		(shape output)
-		(at 227.33 110.49 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "fec3507c-02ae-4e97-8b50-f9095555e0e8")
 	)
 	(symbol
 		(lib_id "Device:R")
@@ -13128,6 +13106,71 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 233.68 110.49 90)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "38de97cb-1c8e-4dc8-955b-4c84cdf8ced8")
+		(property "Reference" "TP45"
+			(at 224.282 109.982 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 224.282 112.522 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
+			(at 233.68 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 233.68 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 233.68 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "40d93851-abb1-41ca-b34b-4499e58d43d2")
+		)
+		(instances
+			(project "digital"
+				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/5a0bf45b-8051-4130-a070-b09b8e450297"
+					(reference "TP45")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R")
 		(at 187.96 121.92 270)
 		(unit 1)
@@ -13198,6 +13241,71 @@
 			(project "digital"
 				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/5a0bf45b-8051-4130-a070-b09b8e450297"
 					(reference "R10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 233.68 113.03 90)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4336eeb4-7c67-47c4-8879-4e0e6bf522ad")
+		(property "Reference" "TP46"
+			(at 224.282 112.522 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 224.282 115.062 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
+			(at 233.68 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 233.68 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 233.68 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b4a7122e-c658-4534-bd05-634253472b71")
+		)
+		(instances
+			(project "digital"
+				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d/5a0bf45b-8051-4130-a070-b09b8e450297"
+					(reference "TP46")
 					(unit 1)
 				)
 			)

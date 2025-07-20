@@ -500,16 +500,6 @@
 	)
 	(wire
 		(pts
-			(xy 111.76 128.27) (xy 130.81 128.27)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0ffa3a7d-8e24-4fb2-8543-28db8458be92")
-	)
-	(wire
-		(pts
 			(xy 163.83 119.38) (xy 184.15 119.38)
 		)
 		(stroke
@@ -687,16 +677,6 @@
 			(type default)
 		)
 		(uuid "5ba63f75-fd29-4243-b282-cef4c59b82c3")
-	)
-	(wire
-		(pts
-			(xy 111.76 125.73) (xy 130.81 125.73)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5d9149f9-c822-49a4-a73a-bfacbf0cf78f")
 	)
 	(wire
 		(pts
@@ -2804,26 +2784,6 @@
 				(justify left)
 			)
 		)
-		(pin "DEBUG_TRIG_1" output
-			(at 130.81 128.27 180)
-			(uuid "c4765621-c594-467c-b957-42fbf3a1d884")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "DEBUG_TRIG_0" output
-			(at 130.81 125.73 180)
-			(uuid "5bf1dbec-f61b-455a-95d6-7435da9156ee")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
 		(pin "BNC_[0..1]" bidirectional
 			(at 130.81 86.36 180)
 			(uuid "3da5ec6f-a815-417e-b156-e2221a418a89")
@@ -3352,26 +3312,6 @@
 					(size 1.27 1.27)
 				)
 				(justify left top)
-			)
-		)
-		(pin "TRIG_0" input
-			(at 111.76 125.73 0)
-			(uuid "6d6cc998-3e42-45be-8755-b3c4a0e3eb74")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "TRIG_1" input
-			(at 111.76 128.27 0)
-			(uuid "19bcdc4b-90b6-41b4-859b-7c6e48e41d44")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
 			)
 		)
 		(pin "DEBUG_[0..24]" input
