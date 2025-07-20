@@ -193,7 +193,8 @@
         0.254,
         0.29845,
         0.355542,
-        0.381
+        0.381,
+        0.508
       ],
       "tuning_pattern_settings": {
         "diff_pair_defaults": {
@@ -705,10 +706,6 @@
     [
       "6e83fa56-1de6-4a8a-b621-b1c47cfad8d5",
       "usb"
-    ],
-    [
-      "0be83137-3546-49aa-a3b0-fa8ecc02ba36",
-      "power_sipm"
     ],
     [
       "cf47de42-918e-49cb-ae44-abb43f3e854d",

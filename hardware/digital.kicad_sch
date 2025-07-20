@@ -2571,48 +2571,6 @@
 		)
 	)
 	(sheet
-		(at 78.74 34.29)
-		(size 33.02 16.51)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(stroke
-			(width 0.1524)
-			(type solid)
-		)
-		(fill
-			(color 0 0 0 0.0000)
-		)
-		(uuid "0be83137-3546-49aa-a3b0-fa8ecc02ba36")
-		(property "Sheetname" "power_sipm"
-			(at 78.74 33.5784 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left bottom)
-			)
-		)
-		(property "Sheetfile" "power_sipm.kicad_sch"
-			(at 78.74 51.3846 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-			)
-		)
-		(instances
-			(project "digital"
-				(path "/4c5c7ce5-09d6-4a32-b2a0-f32b0c47f27d"
-					(page "8")
-				)
-			)
-		)
-	)
-	(sheet
 		(at 130.81 81.28)
 		(size 33.02 52.07)
 		(exclude_from_sim no)
@@ -2895,8 +2853,8 @@
 		)
 	)
 	(sheet
-		(at 78.74 63.5)
-		(size 33.02 16.51)
+		(at 78.74 34.29)
+		(size 33.02 45.72)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -2911,7 +2869,7 @@
 		)
 		(uuid "679bd25b-959e-4fa5-97a0-e7c13c15ad82")
 		(property "Sheetname" "power"
-			(at 78.74 62.7884 0)
+			(at 78.74 33.5784 0)
 			(effects
 				(font
 					(size 1.27 1.27)
