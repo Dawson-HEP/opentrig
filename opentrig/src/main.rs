@@ -20,6 +20,7 @@ async fn main(_spawner: Spawner) {
     let p = embassy_rp::init(Default::default());
 
     let mut creset = Output::new(p.PIN_13, Level::High);
+
     creset.set_slew_rate(gpio::SlewRate::Fast);
     creset.set_drive_strength(gpio::Drive::_12mA);
     let mut cs = Output::new(p.PIN_17, Level::High);
