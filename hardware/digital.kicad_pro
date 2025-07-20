@@ -188,13 +188,15 @@
       ],
       "track_widths": [
         0.0,
+        0.0,
         0.1016,
         0.1778,
         0.254,
         0.29845,
         0.355542,
         0.381,
-        0.508
+        0.508,
+        0.762
       ],
       "tuning_pattern_settings": {
         "diff_pair_defaults": {
@@ -232,7 +234,7 @@
           "drill": 0.3
         }
       ],
-      "zones_allow_external_fillets": false
+      "zones_allow_external_fillets": true
     },
     "ipc2581": {
       "dist": "",
