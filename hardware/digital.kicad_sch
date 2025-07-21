@@ -2232,7 +2232,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C17168"
+		(property "LCSC" "C25120"
 			(at 104.14 91.44 0)
 			(effects
 				(font
@@ -2308,7 +2308,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C17168"
+		(property "LCSC" "C25120"
 			(at 104.14 93.98 0)
 			(effects
 				(font
