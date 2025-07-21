@@ -473,7 +473,8 @@
   },
   "libraries": {
     "pinned_footprint_libs": [
-      "digital"
+      "digital",
+      "logos"
     ],
     "pinned_symbol_libs": []
   },
