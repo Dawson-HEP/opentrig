@@ -1,7 +1,7 @@
 module main(
     // PLL
-    input wire a_clk,       // 10 MHz
-    input wire b_clk,       // 40 MHz
+    input wire mcu_clk,       // 10 MHz
+    input wire ext_clk,       // 40 MHz
     output wire pll_clk,
     output wire pll_lock,
 
@@ -14,108 +14,130 @@ module main(
     // Trigger
     input wire trig_in,
     input wire veto_in,
-    output wire trig_out,
-    output wire veto_out,
+    output reg trig_out,
+    output reg veto_out,
 
     // Status
-    input wire global_reset,
-    output wire mem_swap_interrupt
+    // input wire global_reset,
+    // output wire mem_swap_interrupt
+
+    // MCU management
+    input wire reset,               // active low
+
+    // Inputs
+    input wire [23:0] c_input,      // active high, comparator output
+
+    // Debug connectors
+    output reg [23:0] debug,
+    output wire [7:0] led,
 );
-
-    wire clk;  // Output of PLL
-    assign pll_clk = clk;
-
-    // PLL instance
     pll pll_inst (
-        .clock_in(a_clk),
-        .clock_out(clk),
+        .clock_in(mcu_clk),
+        .clock_out(pll_clk),
         .locked(pll_lock)
     );
 
-    // === RAM signals ===
-    wire [7:0] RDATA;
-    reg [10:0] RADDR = 0, WADDR = 0;
-    reg [7:0] WDATA = 0;
-    wire [7:0] MASK = 8'hFF;
+    assign led[7:0] = 8'b10101010;
 
-    reg RCLKE = 1, RE = 0;
-    reg WCLKE = 1, WE = 0;
+    /// RESET
+    reg reset_sync_0, reset_sync_1;                 // 2-FF input sync
+    wire reset_synchronous;                         // active-high internal reset line
+    assign reset_synchronous = ~reset_sync_1;
+    always @(posedge pll_clk) begin
+        reset_sync_0 <= reset;
+        reset_sync_1 <= reset_sync_0;
+    end
 
-    reg RCLK = 0, WCLK = 0;
+    // TRIG-IN
+    reg trig_in_sync_0, trig_in_sync_1;             // 2-FF input sync
+    wire trig_in_synchronous;                       // active-high internal reset line
+    assign trig_in_synchronous = trig_in_sync_1;
+    always @(posedge pll_clk) begin
+        trig_in_sync_0 <= trig_in;
+        trig_in_sync_1 <= trig_in_sync_0;
+    end
 
-    // === RAM instance ===
-    SB_RAM40_4K ram40_4kinst_physical (
-        .RDATA(RDATA),
-        .RADDR(RADDR),
-        .RCLK(RCLK),
-        .RCLKE(RCLKE),
-        .RE(RE),
-        .WADDR(WADDR),
-        .WCLK(WCLK),
-        .WCLKE(WCLKE),
-        .WE(WE),
-        .MASK(MASK),
-        .WDATA(WDATA)
-    );
+    /// TRIGGER
+    // 2-FF input synchronizers
+    reg [23:0] c_input_sync_0, c_input_sync_1, c_input_sync_2, commit_stage;
+    reg [4:0] commit_timeout;
 
-    // SPI FSM
-    reg [2:0] bit_cnt = 0;
-    reg [7:0] shift_reg = 0;
-    reg [7:0] address_reg = 0;
-    reg [1:0] spi_state = 0;
-    reg [7:0] read_buffer = 0;
+    // if any events are captured into the commit-stage,
+    // then commit_pending is active high;
+    wire commit_pending;
+    assign commit_pending = |commit_stage;
 
-    // States
-    localparam IDLE = 2'd0;
-    localparam ADDR = 2'd1;
-    localparam WRITE = 2'd2;
-    localparam READ = 2'd3;
+    // commit timeout
+    // if commit_stage has been active for n clock cycles -> reset
+    // 24clk -> 200ns
+    localparam [5:0] timeout = 24;
+    // precompute conditions for three cycles of trig_out -> one clock cycle at 40Mhz
+    localparam [5:0] timeout_plus_1 = timeout + 1;
+    localparam [5:0] timeout_plus_2 = timeout + 2;
+    localparam [5:0] timeout_plus_3 = timeout + 3;
 
-    // Synchronize spi_clk domain (assumes spi_clk is slow and clean)
-    always @(posedge spi_clk or posedge spi_cs) begin
-        if (spi_cs) begin
-            bit_cnt <= 0;
-            spi_state <= ADDR;
-            spi_so <= 0;
+    always @(posedge pll_clk) begin
+        if (reset_synchronous) begin
+        // reset -> reset all registers
+            c_input_sync_0 <= 24'b0;
+            c_input_sync_1 <= 24'b0;
+            c_input_sync_2 <= 24'b0;
+
+            commit_stage <= 24'b0;
+            commit_timeout <= 5'b0;
+
+            trig_out <= 1'b0;
+            veto_out <= 1'b0;
+
+            // clear debug
+            // debug <= 24'b0;
         end else begin
-            shift_reg <= {shift_reg[6:0], spi_si};
-            bit_cnt <= bit_cnt + 1;
+        // reset -> normal operation: await trigger
+            // 2-FF synchronizer for c_input
+            c_input_sync_0 <= c_input;
+            c_input_sync_1 <= c_input_sync_0;
+            c_input_sync_2 <= c_input_sync_1;
 
-            if (bit_cnt == 7) begin
-                case (spi_state)
-                    ADDR: begin
-                        address_reg <= {shift_reg[6:0], spi_si};
-                        RADDR <= {3'b000, {shift_reg[6:0], spi_si}}; // 8-bit address
-                        spi_state <= READ;
-                        RE <= 1;
-                        RCLK <= ~RCLK;  // Toggle read clock
-                        #1;  // Delay for read to complete
-                        read_buffer <= RDATA;
-                    end
-                    READ: begin
-                        // Send back read byte
-                        spi_so <= shift_reg[7]; // MSB first
-                        read_buffer <= {read_buffer[6:0], 1'b0};
-                    end
-                    WRITE: begin
-                        WADDR <= {3'b000, address_reg};
-                        WDATA <= {shift_reg[6:0], spi_si};
-                        WE <= 1;
-                        WCLK <= ~WCLK;  // Toggle write clock
-                        spi_state <= IDLE;
-                    end
-                    default: spi_state <= IDLE;
-                endcase
-            end else if (spi_state == READ) begin
-                // Output bits from read_buffer
-                spi_so <= read_buffer[7];
-                read_buffer <= {read_buffer[6:0], 1'b0};
+            // accumulate one-shot synchronized events
+            // into the commit-stage
+            commit_stage <= commit_stage | (c_input_sync_1 & ~c_input_sync_2);
+
+            if (commit_timeout == timeout || trig_in_synchronous) begin
+                // TODO: commit commit stage
+                // debug <= commit_stage;
+                commit_timeout <= commit_timeout + 1;
+                trig_out <= 1'b1;
+            end else if (
+                commit_timeout == timeout_plus_1 ||
+                commit_timeout == timeout_plus_2
+            ) begin
+                commit_timeout <= commit_timeout + 1;
+                trig_out <= 1'b1;
+            end else if (
+                commit_timeout == timeout_plus_3
+            ) begin
+                // finish the trigger_out cycle
+                // and reset + purge commit_stage
+                commit_stage <= 24'b0;
+                commit_timeout <= 5'b0;
+                trig_out <= 1'b0;
+            end else begin
+                // reset trigger_output
+                trig_out <= 1'b0;
+
+                // if pending captures
+                if (commit_pending) begin
+                    // currently busy
+                    veto_out <= 1'b1;
+
+                    // increment timeout
+                    commit_timeout <= commit_timeout + 1;
+                end else begin
+                    // not busy
+                    veto_out <= 1'b0;
+                end
             end
         end
     end
-
-    assign trig_out = trig_in;
-    assign veto_out = veto_in;
-    assign mem_swap_interrupt = 0;
 
 endmodule

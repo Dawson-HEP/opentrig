@@ -9,7 +9,8 @@ use defmt::*;
 use embassy_executor::Spawner;
 use embassy_rp::{
     gpio::{self, Input, Pull},
-    spi::{Config, Phase, Polarity, Spi},
+    pwm::{Config as PWMConfig, Pwm, SetDutyCycle},
+    spi::{Config as SPIConfig, Phase, Polarity, Spi},
 };
 use embassy_time::Timer;
 use gpio::{Level, Output};
@@ -24,24 +25,25 @@ async fn main(_spawner: Spawner) {
     creset.set_slew_rate(gpio::SlewRate::Fast);
     creset.set_drive_strength(gpio::Drive::_12mA);
     let mut cs = Output::new(p.PIN_17, Level::High);
-    let cdone = Input::new(p.PIN_14, Pull::Up);
+    let cdone = Input::new(p.PIN_14, Pull::None);
     let (rx, tx, clk) = (p.PIN_20, p.PIN_19, p.PIN_18);
 
-    let mut config = Config::default();
+    let mut config = SPIConfig::default();
     config.frequency = 10_000_000;
     config.polarity = Polarity::IdleHigh;
     config.phase = Phase::CaptureOnSecondTransition;
 
     let mut fpga_spi = Spi::new(p.SPI0, clk, tx, rx, p.DMA_CH0, p.DMA_CH1, config);
 
+    cs.set_low();
+    creset.set_low();
+    Timer::after_micros(100).await;
+
     match cdone.is_low() {
         true => info!("config proceed"),
         false => info!("config err, cdone"),
     }
 
-    cs.set_low();
-    creset.set_low();
-    Timer::after_micros(100).await;
     creset.set_high();
     Timer::after_micros(1200).await;
 
@@ -81,6 +83,27 @@ async fn main(_spawner: Spawner) {
 
     if cdone.is_high() {
         info!("confirm config done");
+    }
+
+    // start internal PLL
+    // deliver 10Mhz to PLL input
+    let clock_freq_hz = embassy_rp::clocks::clk_sys_freq();
+    let divider = 1u8;
+    let period = (clock_freq_hz / (10_000_000 * divider as u32)) as u16 - 1;
+
+    let mut c = PWMConfig::default();
+    c.top = period;
+    c.divider = divider.into();
+    let mut fpga_mcu_clk = Pwm::new_output_b(p.PWM_SLICE5, p.PIN_27, c);
+    fpga_mcu_clk.set_duty_cycle_percent(50).unwrap();
+
+    let fpga_pll_lock = Input::new(p.PIN_26, Pull::Down);
+    // tLOCK = 50us
+    Timer::after_micros(100).await;
+    if fpga_pll_lock.is_low() {
+        warn!("pll not locked");
+    } else {
+        info!("pll locked");
     }
 
     loop {}
