@@ -5,7 +5,7 @@ pll-src := "src/fpga/pll/pll_10mhz.v"
 
 synth := "target/main.json"
 route := "target/main.asc"
-pack := "target/main.bin"
+pack := "src/fpga/main.bin"
 
 run: build-verilog run-rust
 build: build-verilog build-rust
