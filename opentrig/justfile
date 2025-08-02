@@ -22,7 +22,7 @@ synth:
 	yosys -p 'synth_ice40 -top main -json {{synth}}' {{verilog-src}} {{pll-src}}
 
 route:
-	nextpnr-ice40 --hx4k --package tq144 --json {{synth}} --pcf {{pcf}} --asc {{route}}
+	nextpnr-ice40 --hx4k --package tq144 --json {{synth}} --pcf {{pcf}} --asc {{route}} --freq 120
 
 pack:
 	icepack {{route}} {{pack}}

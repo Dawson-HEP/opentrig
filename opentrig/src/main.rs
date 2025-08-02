@@ -91,5 +91,35 @@ async fn main(_spawner: Spawner) {
         info!("pll locked");
     }
 
-    loop {}
+    // start managing acquisition
+    // clear debug output
+    let mut fpga_reset = Output::new(p.PIN_15, Level::High);
+    fpga_reset.set_low();
+    fpga_reset.set_high();
+
+    let mut fpga_int = Input::new(p.PIN_16, Pull::None);
+    match fpga_int.is_low() {
+        true => info!("reset failed"),
+        false => info!("reset success")
+    }
+    
+    // read results test
+    let mut results = [0u8; 3];
+    cs.set_low();
+    match fpga_spi.blocking_read(&mut results) {
+        Ok(()) => info!("read successful"),
+        Err(_) => warn!("read error"),
+    }
+    cs.set_high();
+
+    let padded = [0x00, results[0], results[1], results[2]];
+    let read_int = i32::from_be_bytes(padded);
+
+    info!("read int {}", read_int);
+
+
+    loop {
+        fpga_int.wait_for_falling_edge().await;
+        info!("!!! fpga interrupt trigger");
+    }
 }

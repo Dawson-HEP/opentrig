@@ -21,7 +21,10 @@ module main(
     // input wire global_reset,
     // output wire mem_swap_interrupt
 
+    
+
     // MCU management
+    input wire interrupt,           // active low
     input wire reset,               // active low
 
     // Inputs
@@ -31,13 +34,27 @@ module main(
     output reg [23:0] debug,
     output wire [7:0] led,
 );
+    wire clk_in;
+    assign clk_in = mcu_clk;
     pll pll_inst (
-        .clock_in(mcu_clk),
+        .clock_in(clk_in),
         .clock_out(pll_clk),
         .locked(pll_lock)
     );
 
-    assign led[7:0] = 8'b10101010;
+    reg [23:0] clk_counter = 0;
+    always @(posedge clk_in) begin
+        clk_counter <= clk_counter + 1;
+    end
+
+    // leds map
+    // (4) PLL lock     (0) counter bit 20
+    // (5)              (1) counter bit 21
+    // (6)              (2) counter bit 22
+    // (7)              (3) counter bit 23
+    assign led[3:0] = clk_counter[23:20];
+    assign led[4] = pll_lock;
+    assign led[7:5] = 3'b0;
 
     /// RESET
     reg reset_sync_0, reset_sync_1;                 // 2-FF input sync
@@ -50,7 +67,7 @@ module main(
 
     // TRIG-IN
     reg trig_in_sync_0, trig_in_sync_1;             // 2-FF input sync
-    wire trig_in_synchronous;                       // active-high internal reset line
+    wire trig_in_synchronous;                       // active-high internal trigger line
     assign trig_in_synchronous = trig_in_sync_1;
     always @(posedge pll_clk) begin
         trig_in_sync_0 <= trig_in;
@@ -59,6 +76,7 @@ module main(
 
     /// TRIGGER
     // 2-FF input synchronizers
+    reg [23:0] shift_reg;
     reg [23:0] c_input_sync_0, c_input_sync_1, c_input_sync_2, commit_stage;
     reg [4:0] commit_timeout;
 
@@ -89,8 +107,13 @@ module main(
             trig_out <= 1'b0;
             veto_out <= 1'b0;
 
+            // mcu
+            interrupt <= 1'b1;
+
             // clear debug
-            // debug <= 24'b0;
+            debug <= 24'b0;
+
+            shift_reg <= 3249082;
         end else begin
         // reset -> normal operation: await trigger
             // 2-FF synchronizer for c_input
@@ -104,7 +127,7 @@ module main(
 
             if (commit_timeout == timeout || trig_in_synchronous) begin
                 // TODO: commit commit stage
-                // debug <= commit_stage;
+                debug <= commit_stage;
                 commit_timeout <= commit_timeout + 1;
                 trig_out <= 1'b1;
             end else if (
@@ -138,6 +161,19 @@ module main(
                 end
             end
         end
+    end
+
+    // MCU communications
+    assign interrupt = ~trig_out;
+
+    // reg [4:0] shift_counter = 5'b0;
+    always @(posedge spi_clk) begin
+        if (spi_cs) begin
+            spi_so <= 1'b0;
+        end else begin
+            spi_so <= shift_reg[23];
+            shift_reg <= {shift_reg[22:0], 1'b0};
+        end 
     end
 
 endmodule

@@ -22,8 +22,8 @@ set_io mem_swap_interrupt 64
 
 # mcu connections
 
+set_io interrupt 63
 set_io reset 64
-
 
 # inputs
 set_io c_input[0] 110
