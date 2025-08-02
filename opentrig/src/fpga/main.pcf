@@ -12,6 +12,7 @@ set_io spi_so 67
 
 set_io trig_in 49
 set_io veto_in 52
+set_io trig_id 93
 
 set_io trig_out 55
 set_io veto_out 56
