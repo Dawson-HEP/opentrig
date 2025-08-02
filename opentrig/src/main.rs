@@ -20,24 +20,18 @@ use {defmt_rtt as _, panic_probe as _};
 async fn main(_spawner: Spawner) {
     let p = embassy_rp::init(Default::default());
 
-    let mut creset = Output::new(p.PIN_13, Level::High);
+    let mut cs: Output<'_> = Output::new(p.PIN_17, Level::Low);
+    let mut creset = Output::new(p.PIN_13, Level::Low);
 
-    creset.set_slew_rate(gpio::SlewRate::Fast);
-    creset.set_drive_strength(gpio::Drive::_12mA);
-    let mut cs = Output::new(p.PIN_17, Level::High);
     let cdone = Input::new(p.PIN_14, Pull::None);
     let (rx, tx, clk) = (p.PIN_20, p.PIN_19, p.PIN_18);
 
     let mut config = SPIConfig::default();
-    config.frequency = 10_000_000;
+    config.frequency = 2_000_000;
     config.polarity = Polarity::IdleHigh;
     config.phase = Phase::CaptureOnSecondTransition;
 
     let mut fpga_spi = Spi::new(p.SPI0, clk, tx, rx, p.DMA_CH0, p.DMA_CH1, config);
-
-    cs.set_low();
-    creset.set_low();
-    Timer::after_micros(100).await;
 
     match cdone.is_low() {
         true => info!("config proceed"),
@@ -55,34 +49,25 @@ async fn main(_spawner: Spawner) {
     cs.set_low();
 
     let bitstream = include_bytes!("fpga/main.bin");
-    match fpga_spi.write(bitstream).await {
+    info!("bitstream size: {}", bitstream.len());
+
+    match fpga_spi.blocking_write(bitstream) {
         Err(_) => info!("err"),
         Ok(()) => info!("ok bitstream"),
     }
 
     cs.set_high();
 
-    let mut cdone_await_clk_count = 0;
-    while cdone.is_low() && cdone_await_clk_count <= 100 {
-        match fpga_spi.blocking_write(&[0]) {
-            Err(_) => info!("err"),
-            Ok(()) => info!("write clk ok"),
-        }
-        cdone_await_clk_count += 8;
-    }
-    if cdone_await_clk_count > 100 {
-        warn!("config clk count err, cdone not high");
-    }
-
-    if cdone.is_low() {
-        match fpga_spi.blocking_write(&[0xFFu8; 7]) {
+    if cdone.is_high() {
+        info!("last 49(56) cycles");
+            match fpga_spi.blocking_write(&[0xFFu8; 7]) {
             Err(_) => info!("last config 56 bits err"),
             Ok(()) => info!("last config 56 bits ok"),
         }
-    }
 
-    if cdone.is_high() {
         info!("confirm config done");
+    } else {
+        warn!("cdone never high");
     }
 
     // start internal PLL
