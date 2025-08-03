@@ -7,7 +7,7 @@ use embassy_executor::Spawner;
 use embassy_rp::{bind_interrupts, Peripheral};
 use embassy_rp::clocks::clk_sys_freq;
 use embassy_rp::peripherals::PIO0;
-use embassy_rp::pio::{Config, Direction, InterruptHandler, Pio, ShiftConfig, ShiftDirection};
+use embassy_rp::pio::{Config, Direction, FifoJoin, InterruptHandler, Pio, ShiftConfig, ShiftDirection};
 use embassy_time::Timer;
 use fixed::traits::ToFixed;
 use fixed_macro::types::U56F8;
@@ -29,22 +29,22 @@ async fn main(_spawner: Spawner) {
         ..
     } = Pio::new(pio, Irqs);
 
-    let mut a = Assembler::<{ RP2040_MAX_PROGRAM_SIZE }>::new_with_side_set(SideSet::new(false, 2, false));
+    let mut a = Assembler::<{ RP2040_MAX_PROGRAM_SIZE }>::new_with_side_set(SideSet::new(false, 1, false));
     // let mut a = Assembler::<{ RP2040_MAX_PROGRAM_SIZE }>::new();
     let mut loop_label = a.label();
     let mut bitloop = a.label();
 
     a.bind(&mut loop_label);
-    a.pull_with_side_set(false, false, 0b11);
-    a.nop_with_side_set(0b11);
-    a.nop_with_side_set(0b10);
-    a.set_with_side_set(SetDestination::X, 31, 0b10);
+    a.pull_with_side_set(false, false, 1);
+    a.nop_with_side_set(1);
+    a.nop_with_side_set(0);
+    a.set_with_side_set(SetDestination::X, 31, 0);
 
     a.bind(&mut bitloop);
-    a.out_with_side_set(OutDestination::PINS, 1, 0b01);
-    a.nop_with_side_set(0b01);
-    a.nop_with_side_set(0b00);
-    a.jmp_with_side_set(pio::JmpCondition::XDecNonZero, &mut bitloop, 0b00);
+    a.out_with_side_set(OutDestination::PINS, 2, 1);
+    a.nop_with_side_set(1);
+    a.nop_with_side_set(0);
+    a.jmp_with_side_set(pio::JmpCondition::XDecNonZero, &mut bitloop, 0);
 
     let pio_prg = a.assemble_program();
 
@@ -55,20 +55,17 @@ async fn main(_spawner: Spawner) {
         common.make_pio_pin(p.PIN_2),
     );
 
-    cfg.use_program(&common.load_program(&pio_prg), &[&clk, &trig]);
+    cfg.use_program(&common.load_program(&pio_prg), &[&clk]);
     cfg.clock_divider = (U56F8!(125_000_000) / U56F8!(1_000_000)).to_fixed();
-    cfg.shift_in = ShiftConfig {
-        auto_fill: false,
-        threshold: 32,
-        direction: ShiftDirection::Left,
-    };
     cfg.shift_out = ShiftConfig {
         auto_fill: false,
         threshold: 32,
         direction: ShiftDirection::Left,
     };
+    cfg.fifo_join = FifoJoin::TxOnly;
 
-    cfg.set_out_pins(&[&trig_id]);
+    cfg.set_set_pins(&[&trig, &trig_id]);
+    cfg.set_out_pins(&[&trig, &trig_id]);
 
     sm.set_pin_dirs(Direction::Out, &[&clk, &trig, &trig_id]);
     sm.set_config(&cfg);
@@ -77,13 +74,23 @@ async fn main(_spawner: Spawner) {
     let mut dma_out_ref = p.DMA_CH0.into_ref();
     // let mut dma_in_ref = p.DMA_CH1;
 
-    let test = [290138920u32; 1];
+    let trigger_id = 0xA111u16;
+
+    let encoded = encode(trigger_id);
+    let mut test = [0u32; 100];
+    test[0] = encoded;
 
     loop {
         let (rx, tx) = sm.rx_tx();
         tx.dma_push(dma_out_ref.reborrow(), &test, false).await;
-        info!("pushed to dma");
-
-        Timer::after_millis(200).await;
     }
+}
+
+fn encode(x: u16) -> u32 {
+    let mut result = 0;
+    for i in 0..16 {
+        let bit = (x >> i) & 1;
+        result |= (bit as u32) << (i * 2);
+    }
+    result >> 1 | 1u32 << 30
 }
