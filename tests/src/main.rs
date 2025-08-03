@@ -86,7 +86,7 @@ async fn main(_spawner: Spawner) {
     let clk = common.make_pio_pin(p.PIN_28);   // clk
 
     cfg.use_program(&common.load_program(&pio_prg), &[&clk]);
-    cfg.clock_divider = (U56F8!(125_000_000) / U56F8!(1_000_000)).to_fixed();
+    cfg.clock_divider = (U56F8!(125_000_000) / U56F8!(800_000)).to_fixed();
     cfg.shift_out = ShiftConfig {
         auto_fill: true,
         threshold: 32,
@@ -115,14 +115,14 @@ async fn main(_spawner: Spawner) {
     sm.set_enable(true);
 
     let mut dma_out_ref = p.DMA_CH0.into_ref();
-    let mut trigger_id_buffer = [0u32; 18];
+    let mut trigger_id_buffer = [0u32; 32];
     let tx = sm.tx();
 
     // let mut ticker = Ticker::every(Duration::from_hz(10_000));
-    let mut ticker = Ticker::every(Duration::from_hz(50));
+    let mut ticker = Ticker::every(Duration::from_hz(100));
     let mut trig_id = 0u16;
     loop {
-        encode_trigger_id(&mut trigger_id_buffer, trig_id);
+        encode_event(&mut trigger_id_buffer, trig_id, 1u32 << 0);
 
         tx.dma_push(dma_out_ref.reborrow(), &trigger_id_buffer, false).await;
 
@@ -132,6 +132,13 @@ async fn main(_spawner: Spawner) {
 }
 
 
+fn encode_event(mut buffer: &mut [u32], id: u16, pins: u32) {
+    encode_pins(&mut buffer, pins);
+
+    // four clock cycles later -> 100ns delay
+    encode_trigger_id(&mut buffer[4..], id);
+}
+
 fn encode_trigger_id(buffer: &mut [u32], id: u16) {
     buffer[0] = 1 << 27;                        // GPIO27 -> Trigger
     for i in 0..16 {
@@ -139,4 +146,11 @@ fn encode_trigger_id(buffer: &mut [u32], id: u16) {
         let bit = (id >> j) as u32 & 1;
         buffer[i + 1] = bit << 26;              // GPIO26 -> Trigger ID
     }
+}
+
+fn encode_pins(buffer: &mut [u32], pins: u32) {
+    let first_range = pins & 0x007F_FFFF;
+    let second_range = pins << 2 & 0x0200_0000;
+
+    buffer[0] = first_range | second_range;
 }
