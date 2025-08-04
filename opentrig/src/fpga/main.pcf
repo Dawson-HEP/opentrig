@@ -1,5 +1,7 @@
 set_io mcu_clk 37       # GPIO27
-set_io ext_clk 38
+#set_io ext_clk 38
+        set_io ext_clk 44
+
 set_io pll_clk 39
 set_io pll_lock 41      # GPIO26
 
@@ -10,9 +12,11 @@ set_io spi_cs 71
 set_io spi_si 68
 set_io spi_so 67
 
-set_io trig_in 49
 set_io veto_in 52
-set_io trig_id 93
+#set_io trig_in 49
+#set_io trig_id 93
+        set_io trig_in 20
+        set_io trig_id 42
 
 set_io trig_out 55
 set_io veto_out 56
@@ -87,3 +91,16 @@ set_io led[4] 104
 set_io led[5] 105
 set_io led[6] 106
 set_io led[7] 107
+
+
+# debug outputs
+set_io aux_out[0] 80
+set_io aux_out[1] 81
+set_io aux_out[2] 82
+set_io aux_out[3] 83
+set_io aux_out[4] 84
+set_io aux_out[5] 85
+set_io aux_out[6] 87
+set_io aux_out[7] 88
+set_io aux_out[8] 90
+set_io aux_out[9] 91

@@ -84,9 +84,12 @@ async fn main(_spawner: Spawner) {
 
     let fpga_pll_lock = Input::new(p.PIN_26, Pull::Down);
     // tLOCK = 50us
-    Timer::after_micros(100).await;
-    if fpga_pll_lock.is_low() {
+    // Timer::after_micros(100).await;
+    while fpga_pll_lock.is_low() {
         warn!("pll not locked");
+        Timer::after_millis(500).await;
+    }
+    if fpga_pll_lock.is_low() {
     } else {
         info!("pll locked");
     }
