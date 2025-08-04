@@ -25,7 +25,7 @@ module main(
     
 
     // MCU management
-    input wire interrupt,           // active low
+    output wire interrupt,           // active low
     input wire reset,               // active low
 
     // Inputs
@@ -46,7 +46,7 @@ module main(
     assign aux_out[2] = spi_so;
     assign aux_out[3] = spi_si;
     assign aux_out[4] = trig_out;
-    assign aux_out[5] = veto_out;
+    assign aux_out[5] = interrupt;
     assign aux_out[6] = pll_clk;
     assign aux_out[7] = clk_in;
     assign aux_out[8] = trig_in;
@@ -97,41 +97,42 @@ module main(
     // defparam ram40_fifo.WRITE_MODE = 0;
 
     // TRIG-IN
-    // reg trig_in_sync_0, trig_in_sync_1;             // 2-FF input sync
-    // wire trig_in_synchronous = trig_in_sync_1;
-    // reg trig_id_sync_0, trig_id_sync_1;
-    // wire trig_id_synchronous = trig_id_sync_1;
-    // reg clk_in_sync_0, clk_in_sync_1;
-    // wire clk_in_falling = ~clk_in_sync_0 & clk_in_sync_1;
-    // always @(posedge pll_clk) begin
-    //     trig_in_sync_0 <= trig_in;
-    //     trig_in_sync_1 <= trig_in_sync_0;
-    //     trig_id_sync_0 <= trig_id;
-    //     trig_id_sync_1 <= trig_id_sync_0;
-    //     clk_in_sync_0 <= clk_in;
-    //     clk_in_sync_1 <= clk_in_sync_0;
-    // end
+    sync sync_trig_in (
+        .async(trig_in),
+        .clk(pll_clk),
+        .sync(trig_in_sync)
+    );
+    sync sync_trig_id (
+        .async(trig_id),
+        .clk(pll_clk),
+        .sync(trig_id_sync)
+    );
+    sync sync_clk_in (
+        .async(clk_in),
+        .clk(pll_clk),
+        .falling(clk_in_falling)
+    );
 
     // TRIGGER-ID
-    // reg [15:0] trigger_id;
-    // reg [4:0] bit_count;
-    // reg capturing;
-    // always @(posedge pll_clk) begin
-    //     if (trig_in_synchronous) begin
-    //         trigger_id <= 16'b0;
-    //         bit_count <= 5'b0;
-    //         capturing <= 1'b1;
-    //     end else begin
-    //         interrupt <= 1'b0;
-    //     end
-    //     if (capturing & clk_in_falling) begin
-    //         trigger_id <= {trigger_id[14:0], trig_id_synchronous};
-    //         bit_count <= bit_count + 1;
-    //         if (bit_count == 15) begin
-    //             capturing <= 1'b0;
-    //             interrupt <= 1'b1;
-    //         end
-    //     end
-    // end
+    reg [15:0] trigger_id;
+    reg [4:0] bit_count;
+    reg capturing;
+    always @(posedge pll_clk) begin
+        if (trig_in_sync) begin
+            trigger_id <= 16'b0;
+            bit_count <= 5'b0;
+            capturing <= 1'b1;
+        end else begin
+            interrupt <= 1'b0;
+        end
+        if (capturing & clk_in_falling) begin
+            trigger_id <= {trigger_id[14:0], trig_id_sync};
+            bit_count <= bit_count + 1;
+            if (bit_count == 15) begin
+                capturing <= 1'b0;
+                interrupt <= 1'b1;
+            end
+        end
+    end
 
 endmodule
