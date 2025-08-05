@@ -2,22 +2,24 @@
 
 #![no_std]
 #![no_main]
-use defmt::info;
+
+use defmt::*;
+
 use embassy_executor::Spawner;
-use embassy_rp::clocks::clk_sys_freq;
+use embassy_rp::clocks::{clk_sys_freq, core_voltage, ClockConfig};
+use embassy_rp::config::Config as SysConfig;
+
 use embassy_rp::peripherals::PIO0;
 use embassy_rp::pio::{
-    Config, Direction, FifoJoin, InterruptHandler, Pio, PioPin, ShiftConfig, ShiftDirection, StatusSource,
+    Config, Direction, FifoJoin, InterruptHandler, Pio, ShiftConfig, ShiftDirection, StatusSource,
 };
-use embassy_rp::{Peripheral, bind_interrupts};
-use embassy_time::{Duration, Ticker, Timer};
+use embassy_rp::{bind_interrupts};
+use embassy_time::{Duration, Ticker};
 use fixed::traits::ToFixed;
 use fixed_macro::types::U56F8;
 use {defmt_rtt as _, panic_probe as _};
 
-use heapless::Vec;
-
-use pio::{Assembler, MovSource, OutDestination, RP2040_MAX_PROGRAM_SIZE, SetDestination, SideSet};
+use pio::{Assembler, MovSource, OutDestination, RP2040_MAX_PROGRAM_SIZE, SideSet};
 
 bind_interrupts!(struct Irqs {
     PIO0_IRQ_0 => InterruptHandler<PIO0>;
@@ -25,7 +27,14 @@ bind_interrupts!(struct Irqs {
 
 #[embassy_executor::main]
 async fn main(_spawner: Spawner) {
-    let p = embassy_rp::init(Default::default());
+    let sys_config = SysConfig::new(ClockConfig::system_freq(160_000_000).unwrap());
+    let p = embassy_rp::init(sys_config);
+
+    let sys_freq = clk_sys_freq();
+    info!("System clock frequency: {} MHz", sys_freq / 1_000_000);
+    let core_voltage = core_voltage().unwrap();
+    info!("Core voltage: {}", core_voltage);
+
     let pio = p.PIO0;
     let Pio {
         mut common,
@@ -47,7 +56,7 @@ async fn main(_spawner: Spawner) {
     a.jmp_with_side_set(pio::JmpCondition::OutputShiftRegisterNotEmpty, &mut bitloop_label, 0);
 
     let pio_prg = a.assemble_program();
-
+    
     let mut cfg = Config::default();
 
     let pin0 = common.make_pio_pin(p.PIN_0);
@@ -81,12 +90,13 @@ async fn main(_spawner: Spawner) {
 
     let pin25 = common.make_pio_pin(p.PIN_25);
 
-    let pin26 = common.make_pio_pin(p.PIN_26); // trigger_id
-    let pin27 = common.make_pio_pin(p.PIN_27); // trigger
-    let clk = common.make_pio_pin(p.PIN_28);   // clk
+    let pin26 = common.make_pio_pin(p.PIN_26); // trigger_id, 42
+    let pin27 = common.make_pio_pin(p.PIN_27); // trigger, 20
+    let clk = common.make_pio_pin(p.PIN_28);   // clk, 43
 
     cfg.use_program(&common.load_program(&pio_prg), &[&clk]);
-    cfg.clock_divider = (U56F8!(125_000_000) / U56F8!(800_000)).to_fixed();
+    let clk_out_freq = 10_000_000;
+    cfg.clock_divider = (sys_freq / (clk_out_freq * 2)).to_fixed();
     cfg.shift_out = ShiftConfig {
         auto_fill: true,
         threshold: 32,
@@ -114,12 +124,11 @@ async fn main(_spawner: Spawner) {
     sm.set_config(&cfg);
     sm.set_enable(true);
 
-    let mut dma_out_ref = p.DMA_CH0.into_ref();
+    let mut dma_out_ref = p.DMA_CH0;
     let mut trigger_id_buffer = [0u32; 32];
     let tx = sm.tx();
 
-    // let mut ticker = Ticker::every(Duration::from_hz(10_000));
-    let mut ticker = Ticker::every(Duration::from_hz(100));
+    let mut ticker = Ticker::every(Duration::from_hz(10_000));
     let mut trig_id = 0u16;
     loop {
         encode_event(&mut trigger_id_buffer, trig_id, 1u32 << 0);
