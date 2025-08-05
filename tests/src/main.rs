@@ -6,14 +6,14 @@
 use defmt::*;
 
 use embassy_executor::Spawner;
-use embassy_rp::clocks::{clk_sys_freq, core_voltage, ClockConfig};
+use embassy_rp::clocks::{ClockConfig, clk_sys_freq, core_voltage};
 use embassy_rp::config::Config as SysConfig;
 
+use embassy_rp::bind_interrupts;
 use embassy_rp::peripherals::PIO0;
 use embassy_rp::pio::{
     Config, Direction, FifoJoin, InterruptHandler, Pio, ShiftConfig, ShiftDirection, StatusSource,
 };
-use embassy_rp::{bind_interrupts};
 use embassy_time::{Duration, Ticker};
 use fixed::traits::ToFixed;
 use fixed_macro::types::U56F8;
@@ -48,15 +48,24 @@ async fn main(_spawner: Spawner) {
     let mut bitloop_label = a.label();
 
     a.bind(&mut loop_label);
-    a.mov_with_side_set(pio::MovDestination::X, pio::MovOperation::Invert, MovSource::STATUS, 1);
+    a.mov_with_side_set(
+        pio::MovDestination::X,
+        pio::MovOperation::Invert,
+        MovSource::STATUS,
+        1,
+    );
     a.jmp_with_side_set(pio::JmpCondition::XIsZero, &mut loop_label, 0);
 
     a.bind(&mut bitloop_label);
     a.out_with_side_set(OutDestination::PINS, 32, 1);
-    a.jmp_with_side_set(pio::JmpCondition::OutputShiftRegisterNotEmpty, &mut bitloop_label, 0);
+    a.jmp_with_side_set(
+        pio::JmpCondition::OutputShiftRegisterNotEmpty,
+        &mut bitloop_label,
+        0,
+    );
 
     let pio_prg = a.assemble_program();
-    
+
     let mut cfg = Config::default();
 
     let pin0 = common.make_pio_pin(p.PIN_0);
@@ -84,15 +93,15 @@ async fn main(_spawner: Spawner) {
     let pin20 = common.make_pio_pin(p.PIN_20);
     let pin21 = common.make_pio_pin(p.PIN_21);
     let pin22 = common.make_pio_pin(p.PIN_22);
-    
-    let pin23 = common.make_pio_pin(p.PIN_23); // low
+
+    let pin23 = common.make_pio_pin(p.PIN_23); // veto_in, 21
     let pin24 = common.make_pio_pin(p.PIN_24); // low
 
     let pin25 = common.make_pio_pin(p.PIN_25);
 
     let pin26 = common.make_pio_pin(p.PIN_26); // trigger_id, 42
     let pin27 = common.make_pio_pin(p.PIN_27); // trigger, 20
-    let clk = common.make_pio_pin(p.PIN_28);   // clk, 43
+    let clk = common.make_pio_pin(p.PIN_28); // clk, 43
 
     cfg.use_program(&common.load_program(&pio_prg), &[&clk]);
     let clk_out_freq = 10_000_000;
@@ -125,35 +134,46 @@ async fn main(_spawner: Spawner) {
     sm.set_enable(true);
 
     let mut dma_out_ref = p.DMA_CH0;
-    let mut trigger_id_buffer = [0u32; 32];
+    let mut trigger_id_buffer = [0u32; 64];
     let tx = sm.tx();
 
     let mut ticker = Ticker::every(Duration::from_hz(10_000));
     let mut trig_id = 0u16;
-    loop {
-        encode_event(&mut trigger_id_buffer, trig_id, 1u32 << 0);
 
-        tx.dma_push(dma_out_ref.reborrow(), &trigger_id_buffer, false).await;
+    let mut i = 0;
+    let mut j = 0usize;
+
+    loop {
+        // encode_event(&mut trigger_id_buffer, trig_id, 1u32 << 0);
+        let trig = if i == 0 {
+            0xFF00 + j as u16
+        } else {
+            trig_id
+        };
+
+        // encode_event(&mut trigger_id_buffer, trig, 1u32 << i, j);
+        encode_event(&mut trigger_id_buffer, trig, 1u32 << i);
+        i = (i + 1) % 24;
+
+        tx.dma_push(dma_out_ref.reborrow(), &trigger_id_buffer, false)
+            .await;
 
         trig_id = (trig_id + 1) % u16::MAX;
         ticker.next().await;
     }
 }
 
-
 fn encode_event(mut buffer: &mut [u32], id: u16, pins: u32) {
     encode_pins(&mut buffer, pins);
-
-    // four clock cycles later -> 100ns delay
     encode_trigger_id(&mut buffer[4..], id);
 }
 
 fn encode_trigger_id(buffer: &mut [u32], id: u16) {
-    buffer[0] = 1 << 27;                        // GPIO27 -> Trigger
+    buffer[0] = 1 << 27; // GPIO27 -> Trigger
     for i in 0..16 {
-        let j = 15 - i;                  // Encode MSB-first
+        let j = 15 - i; // Encode MSB-first
         let bit = (id >> j) as u32 & 1;
-        buffer[i + 1] = bit << 26;              // GPIO26 -> Trigger ID
+        buffer[i + 1] = bit << 26; // GPIO26 -> Trigger ID
     }
 }
 
