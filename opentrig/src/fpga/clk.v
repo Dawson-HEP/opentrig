@@ -1,27 +1,16 @@
 module clk_ref (
     input wire sampling_clk,
 
-    input wire clk_in_async,
-    input wire ref_reset_async,
+    input wire clk_in_rising,
+    input wire reset_falling,
 
     output reg [63:0] ref
 );
-    sync sync_clk_in (
-        .async(clk_in_async),
-        .clk(sampling_clk),
-        .rising(clk_in_rising)
-    );
-    sync sync_ref_reset (
-        .async(ref_reset_async),
-        .clk(sampling_clk),
-        .falling(ref_reset_falling)
-    );
-
     reg [31:0] low, high;
     reg incr_high;
 
     always @(posedge sampling_clk) begin
-        if (ref_reset_falling) begin
+        if (reset_falling) begin
             low <= 0;
             high <= 0;
             incr_high <= 0;

@@ -101,16 +101,10 @@ module main(
         .trig_in_async(trig_in),
         .trig_id_async(trig_id),
         .clk_in_async(clk_in),
+        .reset_async(reset),
+        .interrupt(interrupt),
         .trigger_id(data_reg[119:104]),
-        .interrupt(interrupt)
-    );
-
-    // COUNTER
-    clk_ref clk_ref_inst (
-        .sampling_clk(pll_clk),
-        .clk_in_async(clk_in),
-        .ref_reset_async(reset),
-        .ref(data_reg[103:40])
+        .trigger_cycle(data_reg[103:40])
     );
 
     // SPI interface
