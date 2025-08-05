@@ -118,35 +118,12 @@ module main(
     end
 
     // SPI interface
-    sync sync_spi_cs (
-        .async(spi_cs),
-        .clk(pll_clk),
-        .falling(spi_cs_falling)
+    spi spi_inst (
+        .sampling_clk(pll_clk),
+        .clk_async(spi_clk),
+        .cs_async(spi_cs),
+        .so(spi_so),
+        .data(trigger_id)
     );
-    sync sync_spi_clk (
-        .async(spi_clk),
-        .clk(pll_clk),
-        .falling(spi_clk_falling)
-    );
-
-    reg [15:0] spi_shift_register;
-    reg [5:0] spi_bit_count;
-    reg done;
-
-    always @(posedge pll_clk) begin
-        if (spi_cs_falling) begin
-            spi_shift_register <= trigger_id;
-            spi_bit_count <= 6'b0;
-            done <= 1'b0;
-        end else if (spi_clk_falling && !done) begin
-            spi_so <= spi_shift_register[15];
-            spi_shift_register <= {spi_shift_register[14:0], 1'b0};
-            spi_bit_count <= spi_bit_count + 1;
-
-            if (spi_bit_count == 16) begin
-                done <= 1'b1;
-            end
-        end
-    end
 
 endmodule

@@ -27,7 +27,7 @@ async fn main(_spawner: Spawner) {
     let (rx, tx, clk) = (p.PIN_20, p.PIN_19, p.PIN_18);
 
     let mut config = SPIConfig::default();
-    config.frequency = 2_000_000;
+    config.frequency = 5_000_000;
     config.polarity = Polarity::IdleHigh;
     config.phase = Phase::CaptureOnSecondTransition;
 
