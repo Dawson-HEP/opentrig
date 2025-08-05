@@ -73,49 +73,16 @@ module main(
     assign led[5] = trig_in;
     assign led[7:6] = 2'b0;
 
-    // TRIG-IN
-    sync sync_trig_in (
-        .async(trig_in),
-        .clk(pll_clk),
-        .sync(trig_in_sync)
+    // TRIGGER
+    reg [15:0] trigger_id_reg;
+    trigger trigger_inst (
+        .sampling_clk(pll_clk),
+        .trig_in_async(trig_in),
+        .trig_id_async(trig_id),
+        .clk_in_async(clk_in),
+        .trigger_id(trigger_id_reg),
+        .interrupt(interrupt)
     );
-    sync sync_trig_id (
-        .async(trig_id),
-        .clk(pll_clk),
-        .sync(trig_id_sync)
-    );
-    sync sync_clk_in (
-        .async(clk_in),
-        .clk(pll_clk),
-        .falling(clk_in_falling)
-    );
-    sync sync_reset (
-        .async(reset),
-        .clk(pll_clk),
-        .sync(reset_sync)
-    );
-
-    // TRIGGER-ID
-    reg [15:0] trigger_id;
-    reg [4:0] trigger_id_bit_count;
-    reg capturing;
-    always @(posedge pll_clk) begin
-        if (trig_in_sync) begin
-            trigger_id <= 16'b0;
-            trigger_id_bit_count <= 5'b0;
-            capturing <= 1'b1;
-        end else begin
-            interrupt <= 1'b0;
-        end
-        if (capturing & clk_in_falling) begin
-            trigger_id <= {trigger_id[14:0], trig_id_sync};
-            trigger_id_bit_count <= trigger_id_bit_count + 1;
-            if (trigger_id_bit_count == 15) begin
-                capturing <= 1'b0;
-                interrupt <= 1'b1;
-            end
-        end
-    end
 
     // SPI interface
     spi spi_inst (
@@ -123,7 +90,7 @@ module main(
         .clk_async(spi_clk),
         .cs_async(spi_cs),
         .so(spi_so),
-        .data(trigger_id)
+        .data(trigger_id_reg)
     );
 
 endmodule
