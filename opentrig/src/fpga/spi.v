@@ -3,7 +3,7 @@ module spi(
     input wire clk_async,
     input wire cs_async,
     output reg so,
-    input wire [15:0] data,
+    input wire [127:0] data,
 );
     sync sync_spi_clk (
         .async(clk_async),
@@ -17,21 +17,21 @@ module spi(
         .falling(cs_falling)
     );
 
-    reg [15:0] sr;
-    reg [5:0] count;
+    reg [127:0] sr;
+    reg [7:0] count;
     reg done;
 
     always @(posedge sampling_clk) begin
         if (cs_falling) begin
             sr <= data;
-            count <= 6'b0;
+            count <= 8'b0;
             done <= 1'b0;
         end else if (clk_falling && !done) begin
-            so <= sr[15];
-            sr <= {sr[14:0], 1'b0};
+            so <= sr[127];
+            sr <= {sr[126:0], 1'b0};
             count <= count + 1;
 
-            if (count == 16) begin
+            if (count == 128) begin
                 done <= 1'b1;
             end
         end

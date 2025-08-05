@@ -73,15 +73,44 @@ module main(
     assign led[5] = trig_in;
     assign led[7:6] = 2'b0;
 
+    // MAIN DATA REG
+    reg [127:0] data_reg;
+    assign data_reg[127:120] = 8'h7E;
+    assign data_reg[7:0] = 8'h7D;
+    
+    // 128-120  0x7E start byte
+    // 119      0x00 MSB TRIG-ID
+    //     104  0x00 LSB TRIG-ID
+    // 103      0x00 MSB counter
+    //          0x00
+    //          0x00
+    //          0x00
+    //          0x00
+    //          0x00
+    //          0x00
+    //      40  0x00 LSB counter
+    //  39      0x00 MSB data
+    //          0x00
+    //      16  0x00 LSB data
+    //          0x00 ZERO
+    //          0x7D end byte
+
     // TRIGGER
-    reg [15:0] trigger_id_reg;
     trigger trigger_inst (
         .sampling_clk(pll_clk),
         .trig_in_async(trig_in),
         .trig_id_async(trig_id),
         .clk_in_async(clk_in),
-        .trigger_id(trigger_id_reg),
+        .trigger_id(data_reg[119:104]),
         .interrupt(interrupt)
+    );
+
+    // COUNTER
+    clk_ref clk_ref_inst (
+        .sampling_clk(pll_clk),
+        .clk_in_async(clk_in),
+        .ref_reset_async(reset),
+        .ref(data_reg[103:40])
     );
 
     // SPI interface
@@ -90,7 +119,7 @@ module main(
         .clk_async(spi_clk),
         .cs_async(spi_cs),
         .so(spi_so),
-        .data(trigger_id_reg)
+        .data(data_reg)
     );
 
 endmodule

@@ -106,7 +106,7 @@ async fn main(_spawner: Spawner) {
         false => info!("reset success"),
     }
 
-    let mut results = [0u8; 2];
+    let mut results = [0u8; 16];
 
     loop {
         fpga_int.wait_for_falling_edge().await;
@@ -116,8 +116,17 @@ async fn main(_spawner: Spawner) {
 
         match read_res {
             Ok(()) => {
-                let trig_id = u16::from_be_bytes(results);
-                info!("read u16 {}", trig_id);
+                let (start_byte, end_byte) = (results[0], results[15]);
+
+                let trig_id_buf = &results[1..3];
+                let counter_buf = &results[3..11];
+                let trig_id = u16::from_be_bytes(trig_id_buf.try_into().unwrap());
+                let counter = u64::from_be_bytes(counter_buf.try_into().unwrap());
+
+                info!(
+                    "start {}, end {}, trig id {}, counter {}",
+                    start_byte, end_byte, trig_id, counter
+                );
             }
             Err(_) => warn!("read fail"),
         }
