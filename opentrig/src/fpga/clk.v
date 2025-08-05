@@ -4,9 +4,9 @@ module clk_ref (
     input wire clk_in_rising,
     input wire reset_falling,
 
-    output reg [63:0] ref
+    output reg [47:0] ref
 );
-    reg [31:0] low, high;
+    reg [23:0] low, high;
     reg incr_high;
 
     always @(posedge sampling_clk) begin
@@ -18,7 +18,7 @@ module clk_ref (
             if (clk_in_rising) begin
                 ref <= {high, low};
 
-                if (low == 32'hFFFF_FFFF) begin
+                if (low == 24'hFF_FFFF) begin
                     incr_high <= 1;
                 end
                 low <= low + 1;

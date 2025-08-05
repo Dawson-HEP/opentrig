@@ -82,8 +82,8 @@ module main(
     // 119      0x00 MSB TRIG-ID
     //     104  0x00 LSB TRIG-ID
     // 103      0x00 MSB counter
-    //          0x00
-    //          0x00
+    //      88  0x00
+    //  87      0x00
     //          0x00
     //          0x00
     //          0x00
@@ -104,7 +104,7 @@ module main(
         .reset_async(reset),
         .interrupt(interrupt),
         .trigger_id(data_reg[119:104]),
-        .trigger_cycle(data_reg[103:40])
+        .trigger_cycle(data_reg[87:40])
     );
 
     // SPI interface
