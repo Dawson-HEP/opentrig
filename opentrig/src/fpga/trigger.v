@@ -6,6 +6,8 @@ module trigger(
     input wire clk_in_async,
     input wire reset_async,
 
+    output wire sample_interrupt,
+
     output reg interrupt,
     output reg [15:0] trigger_id,
     output reg [63:0] trigger_cycle,
@@ -13,7 +15,8 @@ module trigger(
     sync sync_trig_in (
         .async(trig_in_async),
         .clk(sampling_clk),
-        .sync(trig_in_sync)
+        .sync(trig_in_sync),
+        .rising(sample_interrupt)
     );
     sync sync_trig_id (
         .async(trig_id_async),

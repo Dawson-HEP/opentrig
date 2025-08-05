@@ -31,56 +31,54 @@ set_io interrupt 63
 set_io reset 64
 
 # inputs
-set_io c_input[0] 110
-set_io c_input[1] 112
-set_io c_input[2] 113
-set_io c_input[3] 114
-set_io c_input[4] 115
-set_io c_input[5] 116
-set_io c_input[6] 117
-set_io c_input[7] 118
-set_io c_input[8] 119
-set_io c_input[9] 120
-set_io c_input[10] 121
-set_io c_input[11] 122
-set_io c_input[12] 124
-set_io c_input[13] 125
-set_io c_input[14] 130
-set_io c_input[15] 134
-set_io c_input[16] 135
-set_io c_input[17] 136
-set_io c_input[18] 137
-set_io c_input[19] 138
-set_io c_input[20] 139
-set_io c_input[21] 141
-set_io c_input[22] 142
-set_io c_input[23] 143
-
-# debug
-set_io debug[0] 1
-set_io debug[1] 2
-set_io debug[2] 3
-set_io debug[3] 4
-set_io debug[4] 7
-set_io debug[5] 8
-set_io debug[6] 9
-set_io debug[7] 10
-set_io debug[8] 11
-set_io debug[9] 12
-set_io debug[10] 15
-set_io debug[11] 16
-set_io debug[12] 17
-set_io debug[13] 18
-set_io debug[14] 19
-set_io debug[15] 22
-set_io debug[16] 23
-set_io debug[17] 24
-set_io debug[18] 25
-set_io debug[19] 26
-set_io debug[20] 28
-set_io debug[21] 29
-set_io debug[22] 31
-set_io debug[23] 32
+#set_io c_input[0] 110
+#set_io c_input[1] 112
+#set_io c_input[2] 113
+#set_io c_input[3] 114
+#set_io c_input[4] 115
+#set_io c_input[5] 116
+#set_io c_input[6] 117
+#set_io c_input[7] 118
+#set_io c_input[8] 119
+#set_io c_input[9] 120
+#set_io c_input[10] 121
+#set_io c_input[11] 122
+#set_io c_input[12] 124
+#set_io c_input[13] 125
+#set_io c_input[14] 130
+#set_io c_input[15] 134
+#set_io c_input[16] 135
+#set_io c_input[17] 136
+#set_io c_input[18] 137
+#set_io c_input[19] 138
+#set_io c_input[20] 139
+#set_io c_input[21] 141
+#set_io c_input[22] 142
+#set_io c_input[23] 143
+        set_io c_input[0] 1
+        set_io c_input[1] 2
+        set_io c_input[2] 3
+        set_io c_input[3] 4
+        set_io c_input[4] 7
+        set_io c_input[5] 8
+        set_io c_input[6] 9
+        set_io c_input[7] 10
+        set_io c_input[8] 11
+        set_io c_input[9] 12
+        set_io c_input[10] 15
+        set_io c_input[11] 16
+        set_io c_input[12] 17
+        set_io c_input[13] 18
+        set_io c_input[14] 19
+        set_io c_input[15] 22
+        set_io c_input[16] 23
+        set_io c_input[17] 24
+        set_io c_input[18] 25
+        set_io c_input[19] 26
+        set_io c_input[20] 28
+        set_io c_input[21] 29
+        set_io c_input[22] 31
+        set_io c_input[23] 32
 
 # led
 set_io led[0] 98

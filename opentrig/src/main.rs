@@ -120,12 +120,14 @@ async fn main(_spawner: Spawner) {
 
                 let trig_id_buf = &results[1..3];
                 let counter_buf = &results[3..11];
+                let trig_data_buf = &results[11..15];
                 let trig_id = u16::from_be_bytes(trig_id_buf.try_into().unwrap());
                 let counter = u64::from_be_bytes(counter_buf.try_into().unwrap());
+                let trig_data = u32::from_be_bytes(trig_data_buf.try_into().unwrap());
 
                 info!(
-                    "start {}, end {}, trig id {}, counter {}",
-                    start_byte, end_byte, trig_id, counter
+                    "start {}, end {}, trig id {}, counter {}, trig data {}",
+                    start_byte, end_byte, trig_id, counter, trig_data
                 );
             }
             Err(_) => warn!("read fail"),

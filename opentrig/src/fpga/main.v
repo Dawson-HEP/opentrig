@@ -32,7 +32,6 @@ module main(
     input wire [23:0] c_input,      // active high, comparator output
 
     // Debug connectors
-    input wire [23:0] debug,
     output wire [7:0] led,
 
     // Auxiliary outputs for debug
@@ -44,8 +43,8 @@ module main(
     assign aux_out[0] = spi_clk;
     assign aux_out[1] = spi_cs;
     assign aux_out[2] = spi_so;
-    assign aux_out[3] = spi_si;
-    assign aux_out[4] = rclk;
+    assign aux_out[3] = c_input[0];
+    assign aux_out[4] = sample_interrupt;
     assign aux_out[5] = interrupt;
     assign aux_out[6] = pll_clk;
     assign aux_out[7] = clk_in;
@@ -89,22 +88,31 @@ module main(
     //          0x00
     //          0x00
     //      40  0x00 LSB counter
-    //  39      0x00 MSB data
-    //          0x00
-    //      16  0x00 LSB data
-    //          0x00 ZERO
+    //  39      0x00 ZERO padding
+    //  31      0x00 MSB data
+    //          0x00 
+    //       8  0x00 LSB data
     //          0x7D end byte
 
     // TRIGGER
+    wire sample_interrupt;
     trigger trigger_inst (
         .sampling_clk(pll_clk),
         .trig_in_async(trig_in),
         .trig_id_async(trig_id),
         .clk_in_async(clk_in),
         .reset_async(reset),
+        .sample_interrupt(sample_interrupt),
         .interrupt(interrupt),
         .trigger_id(data_reg[119:104]),
         .trigger_cycle(data_reg[87:40])
+    );
+
+    latch latch_inst(
+        .sampling_clk(pll_clk),
+        .sample_interrupt(sample_interrupt),
+        .inputs_async(c_input),
+        .out(data_reg[31:8])
     );
 
     // SPI interface
@@ -115,5 +123,8 @@ module main(
         .so(spi_so),
         .data(data_reg)
     );
+
+
+
 
 endmodule
