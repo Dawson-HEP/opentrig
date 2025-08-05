@@ -12,9 +12,10 @@ set_io spi_cs 71
 set_io spi_si 68
 set_io spi_so 67
 
-set_io veto_in 52
+#set_io veto_in 52
 #set_io trig_in 49
 #set_io trig_id 93
+        set_io veto_in 21
         set_io trig_in 20
         set_io trig_id 42
 
