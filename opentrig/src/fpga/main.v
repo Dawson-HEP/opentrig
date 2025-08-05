@@ -45,7 +45,7 @@ module main(
     assign aux_out[1] = spi_cs;
     assign aux_out[2] = spi_so;
     assign aux_out[3] = spi_si;
-    assign aux_out[4] = trig_out;
+    assign aux_out[4] = rclk;
     assign aux_out[5] = interrupt;
     assign aux_out[6] = pll_clk;
     assign aux_out[7] = clk_in;
@@ -73,29 +73,6 @@ module main(
     assign led[5] = trig_in;
     assign led[7:6] = 2'b0;
 
-    // wire [15:0] fifo_rdata;
-    // reg  [7:0] fifo_waddr, fifo_raddr;
-    // reg  [15:0] fifo_wdata;
-    // reg        fifo_we, fifo_re;
-
-    // SB_RAM40_4K ram40_fifo (
-    //     .RDATA(fifo_rdata),
-    //     .RADDR(fifo_raddr),
-    //     .RCLK(spi_clk),
-    //     .RCLKE(1'b1),
-    //     .RE(fifo_re),
-
-    //     .WADDR(fifo_waddr),
-    //     .WDATA(fifo_wdata),
-    //     .WCLK(clk_in),
-    //     .WCLKE(1'b1),
-    //     .WE(fifo_we),
-    //     .MASK(16'h0000)  // no masking
-    // );
-
-    // defparam ram40_fifo.READ_MODE = 0;
-    // defparam ram40_fifo.WRITE_MODE = 0;
-
     // TRIG-IN
     sync sync_trig_in (
         .async(trig_in),
@@ -112,25 +89,62 @@ module main(
         .clk(pll_clk),
         .falling(clk_in_falling)
     );
+    sync sync_reset (
+        .async(reset),
+        .clk(pll_clk),
+        .sync(reset_sync)
+    );
 
     // TRIGGER-ID
     reg [15:0] trigger_id;
-    reg [4:0] bit_count;
+    reg [4:0] trigger_id_bit_count;
     reg capturing;
     always @(posedge pll_clk) begin
         if (trig_in_sync) begin
             trigger_id <= 16'b0;
-            bit_count <= 5'b0;
+            trigger_id_bit_count <= 5'b0;
             capturing <= 1'b1;
         end else begin
             interrupt <= 1'b0;
         end
         if (capturing & clk_in_falling) begin
             trigger_id <= {trigger_id[14:0], trig_id_sync};
-            bit_count <= bit_count + 1;
-            if (bit_count == 15) begin
+            trigger_id_bit_count <= trigger_id_bit_count + 1;
+            if (trigger_id_bit_count == 15) begin
                 capturing <= 1'b0;
                 interrupt <= 1'b1;
+            end
+        end
+    end
+
+    // SPI interface
+    sync sync_spi_cs (
+        .async(spi_cs),
+        .clk(pll_clk),
+        .falling(spi_cs_falling)
+    );
+    sync sync_spi_clk (
+        .async(spi_clk),
+        .clk(pll_clk),
+        .falling(spi_clk_falling)
+    );
+
+    reg [15:0] spi_shift_register;
+    reg [5:0] spi_bit_count;
+    reg done;
+
+    always @(posedge pll_clk) begin
+        if (spi_cs_falling) begin
+            spi_shift_register <= trigger_id;
+            spi_bit_count <= 6'b0;
+            done <= 1'b0;
+        end else if (spi_clk_falling && !done) begin
+            spi_so <= spi_shift_register[15];
+            spi_shift_register <= {spi_shift_register[14:0], 1'b0};
+            spi_bit_count <= spi_bit_count + 1;
+
+            if (spi_bit_count == 16) begin
+                done <= 1'b1;
             end
         end
     end

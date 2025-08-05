@@ -60,7 +60,7 @@ async fn main(_spawner: Spawner) {
 
     if cdone.is_high() {
         info!("last 49(56) cycles");
-            match fpga_spi.blocking_write(&[0xFFu8; 7]) {
+        match fpga_spi.blocking_write(&[0xFFu8; 7]) {
             Err(_) => info!("last config 56 bits err"),
             Ok(()) => info!("last config 56 bits ok"),
         }
@@ -103,26 +103,23 @@ async fn main(_spawner: Spawner) {
     let mut fpga_int = Input::new(p.PIN_16, Pull::None);
     match fpga_int.is_low() {
         true => info!("reset failed"),
-        false => info!("reset success")
+        false => info!("reset success"),
     }
-    
-    // read results test
-    let mut results = [0u8; 3];
-    cs.set_low();
-    match fpga_spi.blocking_read(&mut results) {
-        Ok(()) => info!("read successful"),
-        Err(_) => warn!("read error"),
-    }
-    cs.set_high();
 
-    let padded = [0x00, results[0], results[1], results[2]];
-    let read_int = i32::from_be_bytes(padded);
-
-    info!("read int {}", read_int);
-
+    let mut results = [0u8; 2];
 
     loop {
         fpga_int.wait_for_falling_edge().await;
-        info!("!!! fpga interrupt trigger");
+        cs.set_low();
+        let read_res = fpga_spi.blocking_read(&mut results);
+        cs.set_high();
+
+        match read_res {
+            Ok(()) => {
+                let trig_id = u16::from_be_bytes(results);
+                info!("read u16 {}", trig_id);
+            }
+            Err(_) => warn!("read fail"),
+        }
     }
 }
