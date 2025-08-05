@@ -100,10 +100,10 @@ async fn main(_spawner: Spawner) {
     fpga_reset.set_low();
     fpga_reset.set_high();
 
-    let mut fpga_int = Input::new(p.PIN_16, Pull::None);
+    let mut fpga_int: Input<'_> = Input::new(p.PIN_16, Pull::None);
     match fpga_int.is_low() {
-        true => info!("reset failed"),
-        false => info!("reset success"),
+        true => info!("reset success"),
+        false => warn!("reset failed"),
     }
 
     let mut results = [0u8; 16];
@@ -125,10 +125,10 @@ async fn main(_spawner: Spawner) {
                 let counter = u64::from_be_bytes(counter_buf.try_into().unwrap());
                 let trig_data = u32::from_be_bytes(trig_data_buf.try_into().unwrap());
 
-                info!(
-                    "start {}, end {}, trig id {}, counter {}, trig data {}",
-                    start_byte, end_byte, trig_id, counter, trig_data
-                );
+                // info!(
+                //     "start {}, end {}, trig id {}, counter {}, trig data {}",
+                //     start_byte, end_byte, trig_id, counter, trig_data
+                // );
             }
             Err(_) => warn!("read fail"),
         }

@@ -45,7 +45,7 @@ module main(
     assign aux_out[2] = spi_so;
     assign aux_out[3] = c_input[0];
     assign aux_out[4] = sample_interrupt;
-    assign aux_out[5] = interrupt;
+    assign aux_out[5] = veto_out;
     assign aux_out[6] = pll_clk;
     assign aux_out[7] = clk_in;
     assign aux_out[8] = trig_in;
@@ -69,7 +69,7 @@ module main(
     // (7)              (3) counter bit 23
     assign led[3:0] = clk_counter[23:20];
     assign led[4] = pll_lock;
-    assign led[5] = trig_in;
+    assign led[5] = veto_out;
     assign led[7:6] = 2'b0;
 
     // MAIN DATA REG
@@ -88,7 +88,9 @@ module main(
     //          0x00
     //          0x00
     //      40  0x00 LSB counter
-    //  39      0x00 ZERO padding
+    //  39      0x00 EXTRA
+    //      39      VETO
+    //      38      INTERNAL TRIGGER
     //  31      0x00 MSB data
     //          0x00 
     //       8  0x00 LSB data
@@ -121,10 +123,24 @@ module main(
         .clk_async(spi_clk),
         .cs_async(spi_cs),
         .so(spi_so),
-        .data(data_reg)
+        .data(data_reg),
+        .sample_done(sample_done)
     );
 
+    // VETO SIGNALS
+    sync sync_veto (
+        .async(veto_in),
+        .clk(pll_clk),
+        .sync(veto_in_sync)
+    );
+    always @(posedge pll_clk) begin
+        if (sample_interrupt) begin
+           veto_out <= 1; 
+        end else if (sample_done) begin
+            veto_out <= 0;
+        end
 
-
+        data_reg[39] <= veto_in_sync;
+    end
 
 endmodule

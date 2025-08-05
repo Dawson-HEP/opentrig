@@ -2,6 +2,7 @@ module spi(
     input wire sampling_clk,
     input wire clk_async,
     input wire cs_async,
+    output wire sample_done,
     output reg so,
     input wire [127:0] data,
 );
@@ -14,7 +15,8 @@ module spi(
     sync sync_spi_cs (
         .async(cs_async),
         .clk(sampling_clk),
-        .falling(cs_falling)
+        .falling(cs_falling),
+        .rising(sample_done)
     );
 
     reg [127:0] sr;
