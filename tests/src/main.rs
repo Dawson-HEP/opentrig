@@ -137,7 +137,7 @@ async fn main(_spawner: Spawner) {
     let mut trigger_id_buffer = [0u32; 64];
     let tx = sm.tx();
 
-    let mut ticker = Ticker::every(Duration::from_hz(10_000));
+    let mut ticker = Ticker::every(Duration::from_hz(5_000));
     let mut trig_id = 0u16;
 
     let mut i = 0;
