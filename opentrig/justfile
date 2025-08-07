@@ -1,11 +1,11 @@
 verilog-src := `find . -maxdepth 5 -name '*.v' ! -name 'pll*' -print | sort | xargs`
 
 pcf := "src/fpga/main.pcf"
-pll-src := "src/fpga/pll/pll_10mhz.v"
+pll-src := "src/fpga/pll/pll_40mhz.v"
 
 synth := "target/main.json"
 route := "target/main.asc"
-pack := "target/main.bin"
+pack := "src/fpga/main.bin"
 
 run: build-verilog run-rust
 build: build-verilog build-rust
@@ -22,7 +22,7 @@ synth:
 	yosys -p 'synth_ice40 -top main -json {{synth}}' {{verilog-src}} {{pll-src}}
 
 route:
-	nextpnr-ice40 --hx4k --package tq144 --json {{synth}} --pcf {{pcf}} --asc {{route}}
+	nextpnr-ice40 --hx4k --package tq144 --json {{synth}} --pcf {{pcf}} --asc {{route}} --freq 120
 
 pack:
 	icepack {{route}} {{pack}}

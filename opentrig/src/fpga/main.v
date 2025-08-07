@@ -14,6 +14,7 @@ module main(
     // Trigger
     input wire trig_in,
     input wire veto_in,
+    input wire trig_id,
     output reg trig_out,
     output reg veto_out,
 
@@ -21,123 +22,125 @@ module main(
     // input wire global_reset,
     // output wire mem_swap_interrupt
 
+    
+
     // MCU management
+    output wire interrupt,           // active low
     input wire reset,               // active low
 
     // Inputs
     input wire [23:0] c_input,      // active high, comparator output
 
     // Debug connectors
-    output reg [23:0] debug,
     output wire [7:0] led,
+
+    // Auxiliary outputs for debug
+    output wire [9:0] aux_out,
 );
+    wire clk_in = ext_clk;
+
+    // auxiliary debug ports
+    assign aux_out[0] = spi_clk;
+    assign aux_out[1] = spi_cs;
+    assign aux_out[2] = spi_so;
+    assign aux_out[3] = c_input[0];
+    assign aux_out[4] = sample_interrupt;
+    assign aux_out[5] = veto_out;
+    assign aux_out[6] = pll_clk;
+    assign aux_out[7] = clk_in;
+    assign aux_out[8] = trig_in;
+    assign aux_out[9] = trig_id;
+
     pll pll_inst (
-        .clock_in(mcu_clk),
+        .clock_in(clk_in),
         .clock_out(pll_clk),
         .locked(pll_lock)
     );
 
-    assign led[7:0] = 8'b10101010;
-
-    /// RESET
-    reg reset_sync_0, reset_sync_1;                 // 2-FF input sync
-    wire reset_synchronous;                         // active-high internal reset line
-    assign reset_synchronous = ~reset_sync_1;
-    always @(posedge pll_clk) begin
-        reset_sync_0 <= reset;
-        reset_sync_1 <= reset_sync_0;
+    reg [23:0] clk_counter = 0;
+    always @(posedge clk_in) begin
+        clk_counter <= clk_counter + 1;
     end
 
-    // TRIG-IN
-    reg trig_in_sync_0, trig_in_sync_1;             // 2-FF input sync
-    wire trig_in_synchronous;                       // active-high internal reset line
-    assign trig_in_synchronous = trig_in_sync_1;
+    // leds map
+    // (4) PLL lock     (0) counter bit 20
+    // (5)              (1) counter bit 21
+    // (6)              (2) counter bit 22
+    // (7)              (3) counter bit 23
+    assign led[3:0] = clk_counter[23:20];
+    assign led[4] = pll_lock;
+    assign led[5] = veto_out;
+    assign led[7:6] = 2'b0;
+
+    // MAIN DATA REG
+    reg [127:0] data_reg;
+    assign data_reg[127:120] = 8'h7E;
+    assign data_reg[7:0] = 8'h7D;
+    
+    // 128-120  0x7E start byte
+    // 119      0x00 MSB TRIG-ID
+    //     104  0x00 LSB TRIG-ID
+    // 103      0x00 MSB counter
+    //      88  0x00
+    //  87      0x00
+    //          0x00
+    //          0x00
+    //          0x00
+    //          0x00
+    //      40  0x00 LSB counter
+    //  39      0x00 EXTRA
+    //      39      VETO
+    //      38      INTERNAL TRIGGER
+    //  31      0x00 MSB data
+    //          0x00 
+    //       8  0x00 LSB data
+    //          0x7D end byte
+
+    // TRIGGER
+    wire sample_interrupt;
+    trigger trigger_inst (
+        .sampling_clk(pll_clk),
+        .trig_in_async(trig_in),
+        .trig_id_async(trig_id),
+        .clk_in_async(clk_in),
+        .reset_async(reset),
+        .sample_interrupt(sample_interrupt),
+        .interrupt(interrupt),
+        .trigger_id(data_reg[119:104]),
+        .trigger_cycle(data_reg[87:40])
+    );
+
+    latch latch_inst(
+        .sampling_clk(pll_clk),
+        .sample_interrupt(sample_interrupt),
+        .inputs_async(c_input),
+        .out(data_reg[31:8])
+    );
+
+    // SPI interface
+    spi spi_inst (
+        .sampling_clk(pll_clk),
+        .clk_async(spi_clk),
+        .cs_async(spi_cs),
+        .so(spi_so),
+        .data(data_reg),
+        .sample_done(sample_done)
+    );
+
+    // VETO SIGNALS
+    sync sync_veto (
+        .async(veto_in),
+        .clk(pll_clk),
+        .sync(veto_in_sync)
+    );
     always @(posedge pll_clk) begin
-        trig_in_sync_0 <= trig_in;
-        trig_in_sync_1 <= trig_in_sync_0;
-    end
-
-    /// TRIGGER
-    // 2-FF input synchronizers
-    reg [23:0] c_input_sync_0, c_input_sync_1, c_input_sync_2, commit_stage;
-    reg [4:0] commit_timeout;
-
-    // if any events are captured into the commit-stage,
-    // then commit_pending is active high;
-    wire commit_pending;
-    assign commit_pending = |commit_stage;
-
-    // commit timeout
-    // if commit_stage has been active for n clock cycles -> reset
-    // 24clk -> 200ns
-    localparam [5:0] timeout = 24;
-    // precompute conditions for three cycles of trig_out -> one clock cycle at 40Mhz
-    localparam [5:0] timeout_plus_1 = timeout + 1;
-    localparam [5:0] timeout_plus_2 = timeout + 2;
-    localparam [5:0] timeout_plus_3 = timeout + 3;
-
-    always @(posedge pll_clk) begin
-        if (reset_synchronous) begin
-        // reset -> reset all registers
-            c_input_sync_0 <= 24'b0;
-            c_input_sync_1 <= 24'b0;
-            c_input_sync_2 <= 24'b0;
-
-            commit_stage <= 24'b0;
-            commit_timeout <= 5'b0;
-
-            trig_out <= 1'b0;
-            veto_out <= 1'b0;
-
-            // clear debug
-            // debug <= 24'b0;
-        end else begin
-        // reset -> normal operation: await trigger
-            // 2-FF synchronizer for c_input
-            c_input_sync_0 <= c_input;
-            c_input_sync_1 <= c_input_sync_0;
-            c_input_sync_2 <= c_input_sync_1;
-
-            // accumulate one-shot synchronized events
-            // into the commit-stage
-            commit_stage <= commit_stage | (c_input_sync_1 & ~c_input_sync_2);
-
-            if (commit_timeout == timeout || trig_in_synchronous) begin
-                // TODO: commit commit stage
-                // debug <= commit_stage;
-                commit_timeout <= commit_timeout + 1;
-                trig_out <= 1'b1;
-            end else if (
-                commit_timeout == timeout_plus_1 ||
-                commit_timeout == timeout_plus_2
-            ) begin
-                commit_timeout <= commit_timeout + 1;
-                trig_out <= 1'b1;
-            end else if (
-                commit_timeout == timeout_plus_3
-            ) begin
-                // finish the trigger_out cycle
-                // and reset + purge commit_stage
-                commit_stage <= 24'b0;
-                commit_timeout <= 5'b0;
-                trig_out <= 1'b0;
-            end else begin
-                // reset trigger_output
-                trig_out <= 1'b0;
-
-                // if pending captures
-                if (commit_pending) begin
-                    // currently busy
-                    veto_out <= 1'b1;
-
-                    // increment timeout
-                    commit_timeout <= commit_timeout + 1;
-                end else begin
-                    // not busy
-                    veto_out <= 1'b0;
-                end
-            end
+        if (sample_interrupt) begin
+           veto_out <= 1; 
+        end else if (sample_done) begin
+            veto_out <= 0;
         end
+
+        data_reg[39] <= veto_in_sync;
     end
 
 endmodule

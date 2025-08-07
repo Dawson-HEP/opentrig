@@ -5,91 +5,56 @@
 #![no_std]
 #![no_main]
 
+use crate::fpga::{DAQFpga, daq_fpga_clock_config, daq_fpga_spi_config};
 use defmt::*;
 use embassy_executor::Spawner;
 use embassy_rp::{
-    gpio::{self, Input, Pull},
-    pwm::{Config as PWMConfig, Pwm, SetDutyCycle},
-    spi::{Config as SPIConfig, Phase, Polarity, Spi},
+    gpio::Pin,
+    pwm::Pwm,
+    spi::Spi,
 };
-use embassy_time::Timer;
-use gpio::{Level, Output};
+
 use {defmt_rtt as _, panic_probe as _};
+
+mod data;
+mod fpga;
 
 #[embassy_executor::main]
 async fn main(_spawner: Spawner) {
     let p = embassy_rp::init(Default::default());
 
-    let mut cs: Output<'_> = Output::new(p.PIN_17, Level::Low);
-    let mut creset = Output::new(p.PIN_13, Level::Low);
-
-    let cdone = Input::new(p.PIN_14, Pull::None);
     let (rx, tx, clk) = (p.PIN_20, p.PIN_19, p.PIN_18);
+    let spi_config = daq_fpga_spi_config();
+    let spi = Spi::new(p.SPI0, clk, tx, rx, p.DMA_CH0, p.DMA_CH1, spi_config);
 
-    let mut config = SPIConfig::default();
-    config.frequency = 2_000_000;
-    config.polarity = Polarity::IdleHigh;
-    config.phase = Phase::CaptureOnSecondTransition;
+    let pwm_config = daq_fpga_clock_config();
+    let fpga_mcu_clk = Pwm::new_output_b(p.PWM_SLICE5, p.PIN_27, pwm_config);
 
-    let mut fpga_spi = Spi::new(p.SPI0, clk, tx, rx, p.DMA_CH0, p.DMA_CH1, config);
+    let mut daq = DAQFpga::new(
+        spi,
+        p.PIN_17.degrade(),
+        p.PIN_13.degrade(),
+        p.PIN_14.degrade(),
+        fpga_mcu_clk,
+        p.PIN_26.degrade(),
+        p.PIN_15.degrade(),
+        p.PIN_16.degrade(),
+    );
 
-    match cdone.is_low() {
-        true => info!("config proceed"),
-        false => info!("config err, cdone"),
-    }
+    daq.configure(include_bytes!("fpga/main.bin"))
+        .await
+        .unwrap();
+    daq.setup_clocks().await.unwrap();
 
-    creset.set_high();
-    Timer::after_micros(1200).await;
+    daq.reset().unwrap();
 
-    cs.set_high();
-    match fpga_spi.blocking_write(&[0]) {
-        Err(_) => info!("err"),
-        Ok(()) => info!("ok 8 dummy"),
-    }
-    cs.set_low();
-
-    let bitstream = include_bytes!("fpga/main.bin");
-    info!("bitstream size: {}", bitstream.len());
-
-    match fpga_spi.blocking_write(bitstream) {
-        Err(_) => info!("err"),
-        Ok(()) => info!("ok bitstream"),
-    }
-
-    cs.set_high();
-
-    if cdone.is_high() {
-        info!("last 49(56) cycles");
-            match fpga_spi.blocking_write(&[0xFFu8; 7]) {
-            Err(_) => info!("last config 56 bits err"),
-            Ok(()) => info!("last config 56 bits ok"),
+    loop {
+        daq.await_sample().await;
+        if let Ok(sample) = daq.read_sample() {
+            info!(
+                "trigger_id {}, trigger_clk {}, trigger_data {}, veto_in {}",
+                sample.trigger_id, sample.trigger_clk, sample.trigger_data, sample.veto_in
+            );
         }
-
-        info!("confirm config done");
-    } else {
-        warn!("cdone never high");
     }
-
-    // start internal PLL
-    // deliver 10Mhz to PLL input
-    let clock_freq_hz = embassy_rp::clocks::clk_sys_freq();
-    let divider = 1u8;
-    let period = (clock_freq_hz / (10_000_000 * divider as u32)) as u16 - 1;
-
-    let mut c = PWMConfig::default();
-    c.top = period;
-    c.divider = divider.into();
-    let mut fpga_mcu_clk = Pwm::new_output_b(p.PWM_SLICE5, p.PIN_27, c);
-    fpga_mcu_clk.set_duty_cycle_percent(50).unwrap();
-
-    let fpga_pll_lock = Input::new(p.PIN_26, Pull::Down);
-    // tLOCK = 50us
-    Timer::after_micros(100).await;
-    if fpga_pll_lock.is_low() {
-        warn!("pll not locked");
-    } else {
-        info!("pll locked");
-    }
-
-    loop {}
 }
