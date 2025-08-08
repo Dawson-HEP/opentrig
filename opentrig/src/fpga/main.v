@@ -46,7 +46,7 @@ module main(
     assign aux_out[3] = c_input[0];
     assign aux_out[4] = sample_interrupt;
     assign aux_out[5] = veto_out;
-    assign aux_out[6] = pll_clk;
+    assign aux_out[6] = data_reg[38];
     assign aux_out[7] = clk_in;
     assign aux_out[8] = trig_in;
     assign aux_out[9] = trig_id;
@@ -98,9 +98,27 @@ module main(
 
     // TRIGGER
     wire sample_interrupt;
+    reg trig_in_internal;
+    trigger_internal trigger_internal_inst (
+        .inputs_async(c_input),
+        .sampling_clk(pll_clk),
+        .trigger(trig_in_internal),
+    );
+    always @(posedge pll_clk) begin
+        if (sample_interrupt && trig_in) begin
+            data_reg[38] <= 0;
+        end else if (sample_interrupt && trig_in_internal) begin
+            data_reg[38] <= 1;
+        end
+    end
+
+    // combine internal and external trigger
+    // trig_in -> higher priority
+    wire trig_in_combined = (trig_in_internal & ~veto_out) || trig_in;
+
     trigger trigger_inst (
         .sampling_clk(pll_clk),
-        .trig_in_async(trig_in),
+        .trig_in_async(trig_in_combined),
         .trig_id_async(trig_id),
         .clk_in_async(clk_in),
         .reset_async(reset),

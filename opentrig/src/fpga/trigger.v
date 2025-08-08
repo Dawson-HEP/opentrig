@@ -66,3 +66,42 @@ module trigger(
     end
 
 endmodule
+
+module trigger_internal (
+    input wire [23:0] inputs_async,
+    input wire sampling_clk,
+    output reg trigger,
+    // output reg trigger_long,
+);
+    reg [23:0] sync_0, sync_1;
+
+    wire any_out = |sync_1;
+    reg counting;
+    reg [4:0] count;
+    
+    // internal trigger occurs n cycles after input rise.
+    // ensure latch.v has a long enough buffer.
+    localparam trig_in_rise_clk = 15;
+    localparam trig_in_fall_clk = trig_in_rise_clk + 3;
+
+    always @(posedge sampling_clk) begin
+        sync_0 <= inputs_async;
+        sync_1 <= sync_0;
+
+        if (counting) begin
+            count <= count + 1;
+
+            if (count == trig_in_rise_clk) begin
+                trigger <= 1;
+            end else if (count == trig_in_fall_clk) begin
+                trigger <= 0;
+                counting <= 0;
+            end
+        end else begin
+            if (any_out) begin
+                count <= 0;
+                counting <= 1;
+            end
+        end
+    end
+endmodule

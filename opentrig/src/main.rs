@@ -8,11 +8,7 @@
 use crate::fpga::{DAQFpga, daq_fpga_clock_config, daq_fpga_spi_config};
 use defmt::*;
 use embassy_executor::Spawner;
-use embassy_rp::{
-    gpio::Pin,
-    pwm::Pwm,
-    spi::Spi,
-};
+use embassy_rp::{gpio::Pin, pwm::Pwm, spi::Spi};
 
 use {defmt_rtt as _, panic_probe as _};
 
@@ -52,8 +48,12 @@ async fn main(_spawner: Spawner) {
         daq.await_sample().await;
         if let Ok(sample) = daq.read_sample() {
             info!(
-                "trigger_id {}, trigger_clk {}, trigger_data {}, veto_in {}",
-                sample.trigger_id, sample.trigger_clk, sample.trigger_data, sample.veto_in
+                "trigger_id {}, trigger_clk {}, trigger_data {}, veto_in {}, internal_trigger {}",
+                sample.trigger_id,
+                sample.trigger_clk,
+                sample.trigger_data,
+                sample.veto_in,
+                sample.internal_trigger,
             );
         }
     }

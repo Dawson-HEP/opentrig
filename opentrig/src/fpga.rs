@@ -173,12 +173,14 @@ where
         let data_clk_buf = u32::from_be_bytes(trigger_data_buf.try_into().unwrap());
         let trigger_data = data_clk_buf & 0x00FF_FFFF;
         let veto_in = (data_clk_buf >> 31 & 1) != 0;
+        let internal_trigger =(data_clk_buf >> 30 & 1) != 0;
 
         Ok(DAQSample {
             trigger_id: trigger_id,
             trigger_clk: trigger_clk,
             trigger_data: trigger_data,
             veto_in: veto_in,
+            internal_trigger: internal_trigger
         })
     }
 }
