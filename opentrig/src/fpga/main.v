@@ -1,3 +1,9 @@
+/**
+ * MAIN
+ *
+ * Opentrig DAQ
+ * FPGA entrypoint
+ */
 module main(
     // PLL
     input wire mcu_clk,       // 10 MHz
@@ -57,6 +63,7 @@ module main(
         .locked(pll_lock)
     );
 
+    // small binary counter on the LEDs
     reg [23:0] clk_counter = 0;
     always @(posedge clk_in) begin
         clk_counter <= clk_counter + 1;
@@ -76,7 +83,9 @@ module main(
     reg [127:0] data_reg;
     assign data_reg[127:120] = 8'h7E;
     assign data_reg[7:0] = 8'h7D;
-    
+
+    // MAPPING
+    //
     // 128-120  0x7E start byte
     // 119      0x00 MSB TRIG-ID
     //     104  0x00 LSB TRIG-ID
@@ -96,26 +105,30 @@ module main(
     //       8  0x00 LSB data
     //          0x7D end byte
 
-    // TRIGGER
-    wire sample_interrupt;
+    // INTERNAL TRIGGER
+    wire sample_interrupt;      
+    // synchronous, active-high sampling event aligned to pll_clk
     reg trig_in_internal;
+    // internal trigger
     trigger_internal trigger_internal_inst (
         .inputs_async(c_input),
         .sampling_clk(pll_clk),
         .trigger(trig_in_internal),
     );
+    // set internal trigger bit
     always @(posedge pll_clk) begin
         if (sample_interrupt && trig_in) begin
-            data_reg[38] <= 0;
+            data_reg[38] <= 0; // external trigger on sample
         end else if (sample_interrupt && trig_in_internal) begin
-            data_reg[38] <= 1;
+            data_reg[38] <= 1; // internal trigger on sample
         end
     end
 
     // combine internal and external trigger
-    // trig_in -> higher priority
+    // trig_in -> higher priority (veto_out will be valid before trig_in_internal)
     wire trig_in_combined = (trig_in_internal & ~veto_out) || trig_in;
 
+    // EXTERNAL TRIGGER
     trigger trigger_inst (
         .sampling_clk(pll_clk),
         .trig_in_async(trig_in_combined),
@@ -128,6 +141,7 @@ module main(
         .trigger_cycle(data_reg[87:40])
     );
 
+    // INPUT LATCHES
     latch latch_inst(
         .sampling_clk(pll_clk),
         .sample_interrupt(sample_interrupt),
@@ -135,8 +149,9 @@ module main(
         .out(data_reg[31:8])
     );
 
-    // SPI interface
+    // SPI INTERFACE
     wire sample_done;
+    // spi transfer completion flag, active-high
     spi spi_inst (
         .sampling_clk(pll_clk),
         .clk_async(spi_clk),
@@ -148,6 +163,7 @@ module main(
 
     // WATCHDOG
     reg clear_force;
+    // spi read timeout flag, active-high
     watchdog watchdog_inst (
         .sampling_clk(pll_clk),
         .cs_async(spi_cs),
@@ -155,6 +171,7 @@ module main(
         .sample_interrupt(sample_interrupt),
         .clear_force(clear_force)
     );
+    // either spi times out, or is read by the MCU -> move onto next sample
     wire ready_for_next_sample = clear_force || sample_done;
 
     // VETO SIGNALS
@@ -165,12 +182,12 @@ module main(
     );
     always @(posedge pll_clk) begin
         if (sample_interrupt) begin
-           veto_out <= 1; 
+           veto_out <= 1;  // DAQ is busy in acquisition
         end else if (ready_for_next_sample) begin
-            veto_out <= 0;
+            veto_out <= 0; // DAQ ready for next
         end
 
-        data_reg[39] <= veto_in_sync;
+        data_reg[39] <= veto_in_sync; // Record if external veto is active
     end
 
 endmodule
