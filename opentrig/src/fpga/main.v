@@ -136,6 +136,7 @@ module main(
     );
 
     // SPI interface
+    wire sample_done;
     spi spi_inst (
         .sampling_clk(pll_clk),
         .clk_async(spi_clk),
@@ -144,6 +145,17 @@ module main(
         .data(data_reg),
         .sample_done(sample_done)
     );
+
+    // WATCHDOG
+    reg clear_force;
+    watchdog watchdog_inst (
+        .sampling_clk(pll_clk),
+        .cs_async(spi_cs),
+        .reset_async(reset),
+        .sample_interrupt(sample_interrupt),
+        .clear_force(clear_force)
+    );
+    wire ready_for_next_sample = clear_force || sample_done;
 
     // VETO SIGNALS
     sync sync_veto (
@@ -154,7 +166,7 @@ module main(
     always @(posedge pll_clk) begin
         if (sample_interrupt) begin
            veto_out <= 1; 
-        end else if (sample_done) begin
+        end else if (ready_for_next_sample) begin
             veto_out <= 0;
         end
 

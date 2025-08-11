@@ -75,10 +75,11 @@ module trigger_internal (
 );
     reg [23:0] sync_0, sync_1;
 
-    wire any_out = |sync_1;
+    wire [23:0] rising = sync_0 & ~sync_1;
+    wire any_rising = |rising;
     reg counting;
     reg [4:0] count;
-    
+
     // internal trigger occurs n cycles after input rise.
     // ensure latch.v has a long enough buffer.
     localparam trig_in_rise_clk = 15;
@@ -98,7 +99,7 @@ module trigger_internal (
                 counting <= 0;
             end
         end else begin
-            if (any_out) begin
+            if (any_rising) begin
                 count <= 0;
                 counting <= 1;
             end
