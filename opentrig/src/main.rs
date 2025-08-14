@@ -14,6 +14,7 @@ use {defmt_rtt as _, panic_probe as _};
 
 mod data;
 mod fpga;
+mod dac;
 
 #[embassy_executor::main]
 async fn main(_spawner: Spawner) {
