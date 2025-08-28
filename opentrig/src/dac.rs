@@ -9,7 +9,7 @@ use embassy_embedded_hal::shared_bus::{I2cDeviceError, asynch::i2c::I2cDevice};
 use embassy_rp::bind_interrupts;
 use embassy_rp::gpio::Output;
 use embassy_rp::i2c::{self, I2c, InterruptHandler};
-use embassy_rp::peripherals::I2C1;
+use embassy_rp::peripherals::I2C0;
 use embassy_sync::blocking_mutex::raw::NoopRawMutex;
 use embassy_sync::mutex::Mutex;
 use mcp4728::{GainMode, MCP4728Async, PowerDownMode, Registers};
@@ -24,36 +24,36 @@ pub enum DacError {
 }
 
 bind_interrupts!(struct Irqs {
-    I2C1_IRQ => InterruptHandler<I2C1>;
+    I2C0_IRQ => InterruptHandler<I2C0>;
 });
 
 /// Returns a static initialized I2c bus wrapped in a Mutex.
 fn init_i2c(
-    i2c_peri: I2C1,
-    scl: impl i2c::SclPin<I2C1>,
-    sda: impl i2c::SdaPin<I2C1>,
-) -> &'static Mutex<NoopRawMutex, I2c<'static, I2C1, i2c::Async>> {
+    i2c_peri: I2C0,
+    scl: impl i2c::SclPin<I2C0>,
+    sda: impl i2c::SdaPin<I2C0>,
+) -> &'static Mutex<NoopRawMutex, I2c<'static, I2C0, i2c::Async>> {
     // Initialize bus.
     let i2c = I2c::new_async(i2c_peri, scl, sda, Irqs, i2c::Config::default());
 
     // Wrap bus.
-    static I2C_BUS: StaticCell<Mutex<NoopRawMutex, I2c<'static, I2C1, i2c::Async>>> =
+    static I2C_BUS: StaticCell<Mutex<NoopRawMutex, I2c<'static, I2C0, i2c::Async>>> =
         StaticCell::new();
     I2C_BUS.init(Mutex::new(i2c))
 }
 
 /// Manager for 6 MCP4728 DACs.
 pub struct DacManager<'a> {
-    dacs: [MCP4728Async<I2cDevice<'a, NoopRawMutex, I2c<'static, I2C1, i2c::Async>>>; 6],
+    dacs: [MCP4728Async<I2cDevice<'a, NoopRawMutex, I2c<'static, I2C0, i2c::Async>>>; 6],
     ldacs: [Output<'a>; 6],
 }
 
 impl<'a> DacManager<'a> {
     /// Create a new DacManager instance.
     pub fn new(
-        i2c_peri: I2C1,
-        scl: impl i2c::SclPin<I2C1>,
-        sda: impl i2c::SdaPin<I2C1>,
+        i2c_peri: I2C0,
+        scl: impl i2c::SclPin<I2C0>,
+        sda: impl i2c::SdaPin<I2C0>,
         ldacs: [Output<'a>; 6],
     ) -> Self {
         let i2c_bus = init_i2c(i2c_peri, scl, sda);
@@ -102,7 +102,7 @@ impl<'a> DacManager<'a> {
         &mut self,
         dac_id: usize,
     ) -> Result<
-        &mut MCP4728Async<I2cDevice<'a, NoopRawMutex, I2c<'static, I2C1, i2c::Async>>>,
+        &mut MCP4728Async<I2cDevice<'a, NoopRawMutex, I2c<'static, I2C0, i2c::Async>>>,
         DacError,
     > {
         // Handle ValueOutOfBounds error.
