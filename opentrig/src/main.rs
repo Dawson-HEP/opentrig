@@ -4,6 +4,7 @@
 #![allow(warnings)] 
 #![no_std]
 #![no_main]
+#![allow(static_mut_refs)]
 
 use crate::{dac::DacError, fpga::{daq_fpga_clock_config, daq_fpga_spi_config, DAQFpga}};
 use defmt::*;
@@ -68,6 +69,14 @@ static CHANNEL: Channel<CriticalSectionRawMutex, &str, 1> = Channel::new();
 static DAQ_CHANNEL: Channel<CriticalSectionRawMutex, DAQSample, 1> = Channel::new();
 
 
+// static buffers for embassy-usb for ownership reasons
+//     Create embassy-usb DeviceBuilder using the driver and config.
+//     It needs some buffers for building the descriptors.
+static mut config_descriptor : [u8;256] = [0; 256];
+static mut bos_descriptor : [u8;256]  = [0; 256];
+static mut msos_descriptor : [u8;256]  = [0; 256];
+static mut control_buf : [u8;64]  = [0; 64];
+
 
 
 // This is a randomly generated GUID to allow clients on Windows to find our device
@@ -78,15 +87,11 @@ bind_interrupts!(struct Irqs {
 });
 
 
-async fn send_data(n:usize, data:&[u8],
-    sender : &mut embassy_rp::usb::Endpoint<'_, USB, embassy_rp::usb::In>) {
-    //sender.write(&data[..n]).await.ok();
-}
 
 
 #[embassy_executor::main]
 async fn main(_spawner: Spawner) {
-    let p = embassy_rp::init(Default::default());
+    let p: embassy_rp::Peripherals = embassy_rp::init(Default::default());
 
 
     let ldacs = [
@@ -100,24 +105,73 @@ async fn main(_spawner: Spawner) {
 
     let mut dac_manager: DacManager<'_> = DacManager::new(p.I2C0, p.PIN_1, p.PIN_0, ldacs);
 
+    //let (mut usb, mut read_ep, mut write_ep) = make_usb(p.USB).await;
+
+    // Create the driver, from the HAL.
+    //let driver = Driver::new(p.USB, Irqs);
+
+
+    // // Run the USB device.
+    // let usb_fut = usb.run();
+
+    
+    // // Do stuff with the class!
+    // let echo_fut = async {
+    //     loop {
+    //         read_ep.wait_enabled().await;
+    //         info!("Connected");
+    //         loop {
+    //             let mut data = [0; 64];
+    //             match read_ep.read(&mut data).await {
+    //                 Ok(n) => {//led_blink(&mut led).await;
+    //                     info!("Got bulk: {:a}", data[..n]);
+    //                     // Echo back to the host:
+    //                     send_data(n, &data, &mut write_ep).await;//, write_ep.write)
+    //                     //write_ep.write(&data[..n]).await.ok();
+    //                     //let a = write_ep.write(buf)
+    //                     //for u in a {
+    //                     //    write_ep.write(&[*u]).await.ok();
+    //                     //}
+    //                     //write_ep.write(&a).await.ok();
+    //                 }
+    //                 Err(_) => break,
+    //             }
+    //         }
+    //         info!("Disconnected");
+    //     }
+    // };
+
+    // Run everything concurrently.
+    // If we had made everything `'static` above instead, we could do this using separate tasks instead.
+    //join(usb_fut, echo_fut).await;
+    
 
     spawn_core1(
         p.CORE1,
         unsafe { &mut *core::ptr::addr_of_mut!(CORE1_STACK) },
         move || {
             let executor1 = EXECUTOR1.init(Executor::new());
-            executor1.run(|spawner| unwrap!(spawner.spawn(core1_task())));
+            executor1.run(|spawner| unwrap!(spawner.spawn(core1_task(p.USB))));
         },
     );
     
     let executor0 = EXECUTOR0.init(Executor::new());
+    //executor0.run(|spawner| unwrap!(spawner.spawn(run_usb(usb))));
+    
+    //usb.run().await;
+    //executor0.run(|spawner| unwrap!(spawner.spawn(use_usb(usb, read_ep, write_ep))));
     executor0.run(|spawner| unwrap!(spawner.spawn(core0_task(dac_manager))));
 
 
 
-    // Create the driver, from the HAL.
-    //let driver = Driver::new(p.USB, Irqs);
-    let driver = Driver::new(p.USB, Irqs);
+}
+
+
+async fn make_usb(usb_pin:USB) ->
+    (embassy_usb::UsbDevice<'static, Driver<'static, USB>>,
+    embassy_rp::usb::Endpoint<'static, USB, embassy_rp::usb::Out>,
+    embassy_rp::usb::Endpoint<'static, USB, embassy_rp::usb::In>,) {
+    let driver = Driver::new(usb_pin, Irqs);
 
     // Create embassy-usb Config
     let mut config = Config::new(0xc0de, 0xcafe);
@@ -127,23 +181,18 @@ async fn main(_spawner: Spawner) {
     config.max_power = 100;
     config.max_packet_size_0 = 64;
 
-    // Create embassy-usb DeviceBuilder using the driver and config.
-    // It needs some buffers for building the descriptors.
-    let mut config_descriptor = [0; 256];
-    let mut bos_descriptor = [0; 256];
-    let mut msos_descriptor = [0; 256];
-    let mut control_buf = [0; 64];
-
-
-
-    let mut builder = Builder::new(
-        driver,
-        config,
-        &mut config_descriptor,
-        &mut bos_descriptor,
-        &mut msos_descriptor,
-        &mut control_buf,
-    );
+    
+    
+    // call static buffers from earlier
+    let mut builder: Builder<'_, Driver<'_, USB>> = unsafe { Builder::new(
+            driver,
+            config,
+            &mut config_descriptor,
+            &mut bos_descriptor,
+            &mut msos_descriptor,
+            &mut control_buf,
+        )
+    };
 
     // Add the Microsoft OS Descriptor (MSOS/MOD) descriptor.
     // We tell Windows that this entire device is compatible with the "WINUSB" feature,
@@ -163,54 +212,16 @@ async fn main(_spawner: Spawner) {
     let mut function = builder.function(0xFF, 0, 0);
     let mut interface = function.interface();
     let mut alt = interface.alt_setting(0xFF, 0, 0, None);
-    let mut read_ep = alt.endpoint_bulk_out(None, 64);
-    let mut write_ep = alt.endpoint_bulk_in(None, 64);
+    let mut read_ep : embassy_rp::usb::Endpoint<'static, USB, embassy_rp::usb::Out> = alt.endpoint_bulk_out(64);
+    let mut write_ep: embassy_rp::usb::Endpoint<'static, USB, embassy_rp::usb::In> = alt.endpoint_bulk_in(64);
     drop(function);
 
     // Build the builder.
-    let mut usb = builder.build();
-
-    // Run the USB device.
-    let usb_fut = usb.run();
-
-    
-    // Do stuff with the class!
-    let echo_fut = async {
-        loop {
-            read_ep.wait_enabled().await;
-            info!("Connected");
-            loop {
-                let mut data = [0; 64];
-                match read_ep.read(&mut data).await {
-                    Ok(n) => {//led_blink(&mut led).await;
-                        info!("Got bulk: {:a}", data[..n]);
-                        // Echo back to the host:
-                        send_data(n, &data, &mut write_ep).await;//, write_ep.write)
-                        //write_ep.write(&data[..n]).await.ok();
-                        //let a = write_ep.write(buf)
-                        //for u in a {
-                        //    write_ep.write(&[*u]).await.ok();
-                        //}
-                        //write_ep.write(&a).await.ok();
-                    }
-                    Err(_) => break,
-                }
-            }
-            info!("Disconnected");
-        }
-    };
-
-    // Run everything concurrently.
-    // If we had made everything `'static` above instead, we could do this using separate tasks instead.
-    join(usb_fut, echo_fut).await;
-    
+    let mut usb: embassy_usb::UsbDevice<'_, Driver<'_, USB>> = builder.build();
+    (usb, read_ep, write_ep)
 }
 
-//impl Format for heapless::vec::Vec<u8, 64> {
-//    fn format(&self, fmt: Formatter) {
-//        
-//    }
-//}
+
 
 #[embassy_executor::task]
 async fn core0_task(dac_manager:DacManager<'static>) {
@@ -238,9 +249,44 @@ async fn core0_task(dac_manager:DacManager<'static>) {
     }
 }
 
+async fn use_usb(
+    mut read_ep:&mut embassy_rp::usb::Endpoint<'static, USB, embassy_rp::usb::Out>,
+    mut write_ep:&mut embassy_rp::usb::Endpoint<'static, USB, embassy_rp::usb::In>
+    ) {
+        read_ep.wait_enabled().await;
+        info!("Connected");
+        loop {
+            let mut data = [0; 64];
+            match read_ep.read(&mut data).await {
+                Ok(n) => {//led_blink(&mut led).await;
+                    info!("Got bulk: {:a}", data[..n]);
+                    // Echo back to the host:
+                    write_ep.write(&data[..n]).await.ok();
+                    //let a = write_ep.write(buf)
+                    //for u in a {
+                    //    write_ep.write(&[*u]).await.ok();
+                    //}
+                    //write_ep.write(&a).await.ok();
+                }
+                Err(_) => break,
+            }
+        }
+        info!("Disconnected");
+    }
+
+
 #[embassy_executor::task]
-async fn core1_task() {
+async fn core1_task(usb_pin:USB) {
+    let (mut usb, mut read_ep, mut write_ep) = make_usb(usb_pin).await;
+
     info!("Hello from core 1");
+
+    let usb_fut = usb.run();
+    let user = use_usb(&mut read_ep, &mut write_ep);
+
+    join(usb_fut, user).await;
+
+
     loop {
         //let msg = CHANNEL.receive().await;
         //info!("received msg");
@@ -251,7 +297,7 @@ async fn core1_task() {
         let restruct = from_bytes::<DAQSample>(op.deref());
         let re = restruct.unwrap();
         //println!("core 1 received: {:?}", re);
-        println!("core 1 received from core 0: {:?}", re);
+        //println!("core 1 received from core 0: {:?}", re);
 
         //match CHANNEL.receive().await {
         //    LedState::On => led.set_high(),
