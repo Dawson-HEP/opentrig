@@ -7,6 +7,7 @@
 #![allow(static_mut_refs)]
 
 use crate::{dac::DacError, fpga::{daq_fpga_clock_config, daq_fpga_spi_config, DAQFpga}};
+use cortex_m::peripheral::nvic;
 use defmt::*;
 use embassy_executor::Spawner;
 use embassy_rp::{gpio::Pin, pac::pio::Irq, pio::IrqFlags, pwm::Pwm, spi::Spi, usb::Bus};
@@ -50,6 +51,7 @@ use core::str;
 mod data;
 mod fpga;
 mod dac;
+mod handle_inputs;
 
 use dac::DacManager;
 use data::DAQSample;
@@ -65,8 +67,9 @@ use heapless::Vec;
 static mut CORE1_STACK: Stack<4096> = Stack::new();
 static EXECUTOR0: StaticCell<Executor> = StaticCell::new();
 static EXECUTOR1: StaticCell<Executor> = StaticCell::new();
-static CHANNEL: Channel<CriticalSectionRawMutex, &str, 1> = Channel::new();
 static DAQ_CHANNEL: Channel<CriticalSectionRawMutex, DAQSample, 1> = Channel::new();
+//static INPUT_CHANNEL: Channel<CriticalSectionRawMutex, &[u8], 64> = Channel::new();
+static INPUT_CHANNEL: Channel<CriticalSectionRawMutex, [u8;64], 1> = Channel::new();
 
 
 // static buffers for embassy-usb for ownership reasons
@@ -105,47 +108,6 @@ async fn main(_spawner: Spawner) {
 
     let mut dac_manager: DacManager<'_> = DacManager::new(p.I2C0, p.PIN_1, p.PIN_0, ldacs);
 
-    //let (mut usb, mut read_ep, mut write_ep) = make_usb(p.USB).await;
-
-    // Create the driver, from the HAL.
-    //let driver = Driver::new(p.USB, Irqs);
-
-
-    // // Run the USB device.
-    // let usb_fut = usb.run();
-
-    
-    // // Do stuff with the class!
-    // let echo_fut = async {
-    //     loop {
-    //         read_ep.wait_enabled().await;
-    //         info!("Connected");
-    //         loop {
-    //             let mut data = [0; 64];
-    //             match read_ep.read(&mut data).await {
-    //                 Ok(n) => {//led_blink(&mut led).await;
-    //                     info!("Got bulk: {:a}", data[..n]);
-    //                     // Echo back to the host:
-    //                     send_data(n, &data, &mut write_ep).await;//, write_ep.write)
-    //                     //write_ep.write(&data[..n]).await.ok();
-    //                     //let a = write_ep.write(buf)
-    //                     //for u in a {
-    //                     //    write_ep.write(&[*u]).await.ok();
-    //                     //}
-    //                     //write_ep.write(&a).await.ok();
-    //                 }
-    //                 Err(_) => break,
-    //             }
-    //         }
-    //         info!("Disconnected");
-    //     }
-    // };
-
-    // Run everything concurrently.
-    // If we had made everything `'static` above instead, we could do this using separate tasks instead.
-    //join(usb_fut, echo_fut).await;
-    
-
     spawn_core1(
         p.CORE1,
         unsafe { &mut *core::ptr::addr_of_mut!(CORE1_STACK) },
@@ -156,13 +118,7 @@ async fn main(_spawner: Spawner) {
     );
     
     let executor0 = EXECUTOR0.init(Executor::new());
-    //executor0.run(|spawner| unwrap!(spawner.spawn(run_usb(usb))));
-    
-    //usb.run().await;
-    //executor0.run(|spawner| unwrap!(spawner.spawn(use_usb(usb, read_ep, write_ep))));
     executor0.run(|spawner| unwrap!(spawner.spawn(core0_task(dac_manager))));
-
-
 
 }
 
@@ -227,8 +183,6 @@ async fn make_usb(usb_pin:USB) ->
 async fn core0_task(dac_manager:DacManager<'static>) {
     info!("Hello from core 0");
     loop {
-        //CHANNEL.send("from core 0").await;
-        
         let daq = DAQSample {
             trigger_id: 1,
             trigger_clk: u64::MAX,
@@ -237,15 +191,7 @@ async fn core0_task(dac_manager:DacManager<'static>) {
             internal_trigger: false,
         };
         DAQ_CHANNEL.send(daq).await;
-        //CHANNEL.send(LedState::On).await;
-        Timer::after_millis(100).await;
-        //CHANNEL.send(LedState::Off).await;
-        Timer::after_millis(400).await;
-        //{
-        //    let mut uart = uart.lock().await;
-        //    uart.write(b"core 0 sent").await.unwrap();
-        //    // The uart lock is released when it goes out of scope
-        //}
+        Timer::after_millis(500).await;
     }
 }
 
@@ -253,22 +199,23 @@ async fn use_usb(
     mut read_ep:&mut embassy_rp::usb::Endpoint<'static, USB, embassy_rp::usb::Out>,
     mut write_ep:&mut embassy_rp::usb::Endpoint<'static, USB, embassy_rp::usb::In>
     ) {
+        let daqs = DAQ_CHANNEL.receive().await;
         read_ep.wait_enabled().await;
         info!("Connected");
         loop {
             let mut data = [0; 64];
-            match read_ep.read(&mut data).await {
-                Ok(n) => {//led_blink(&mut led).await;
-                    info!("Got bulk: {:a}", data[..n]);
-                    // Echo back to the host:
-                    write_ep.write(&data[..n]).await.ok();
-                    //let a = write_ep.write(buf)
-                    //for u in a {
-                    //    write_ep.write(&[*u]).await.ok();
-                    //}
-                    //write_ep.write(&a).await.ok();
-                }
-                Err(_) => break,
+            let nbytes = read_ep.read(&mut data).await.expect("failed to read endpoint");
+            match data[0] {
+                0xFF => {
+                    //INPUT_CHANNEL.send(&data[1..nbytes]).await;
+                    INPUT_CHANNEL.send(data).await;
+                    match_cli_values_to_functions(&data[1..nbytes]);
+                    println!("{:?}", data[1..nbytes]);
+                    let output = to_vec::<DAQSample, {64 as usize}>(&daqs).unwrap();
+                    write_ep.write(&output).await.ok();
+
+                },
+                _ => Err("invalid starting byte").unwrap(),
             }
         }
         info!("Disconnected");
@@ -287,21 +234,42 @@ async fn core1_task(usb_pin:USB) {
     join(usb_fut, user).await;
 
 
+    // DOES NOTHING at the moment, just for reference (as it does work, if the join() above is removed)
     loop {
-        //let msg = CHANNEL.receive().await;
-        //info!("received msg");
         let daqs = DAQ_CHANNEL.receive().await;
-        
-        let output = to_vec::<DAQSample, {64 as usize}>(&daqs);
-        let op = output.unwrap();
-        let restruct = from_bytes::<DAQSample>(op.deref());
-        let re = restruct.unwrap();
+        let output = to_vec::<DAQSample, {64 as usize}>(&daqs).unwrap();
+        let restruct = from_bytes::<DAQSample>(output.deref()).unwrap();
         //println!("core 1 received: {:?}", re);
         //println!("core 1 received from core 0: {:?}", re);
+    }
+}
 
-        //match CHANNEL.receive().await {
-        //    LedState::On => led.set_high(),
-        //    LedState::Off => led.set_low(),
-        //}
+
+/// functions and their inputs
+/// NOTE : inputs ending in 0 (ie 0, 10, 20, etc) are reserved for errors
+/// fn                       |  input_0(function_id) |  input_1  |  input_2  |  input_3     |  input_4
+/// set_voltage              |         1             |   dac_id  |  channel  | voltage u8_1 | voltage u8_2
+/// set_vref_mode            |         2             |   dac_id  |  channel  |    mode      |    N/A
+/// set_gain_mode            |         3             |   dac_id  |  channel  |    mode      |    N/A
+/// set_power_down_mode      |         4             |   dac_id  |  channel  |    mode      |    N/A
+/// set_all_voltages         |         5             |  voltages |    N/A    |    N/A       |    N/A
+/// set_all_vref_modes       |         6             |    modes  |    N/A    |    N/A       |    N/A
+/// set_all_gain_modes       |         7             |    modes  |    N/A    |    N/A       |    N/A
+/// set_all_power_down_modes |         8             |    modes  |    N/A    |    N/A       |    N/A
+/// others?
+
+
+async fn match_cli_values_to_functions(inputs:&[u8]) {//, dac_manager:DacManager) {
+    match inputs[0] {
+        0 => {println!("error in input, function 0 is undefined")}
+        1 => {} // handle_inputs::call_set_voltage(inputs, dac_manager) } // DONE
+        2 => {} // handle_inputs::call_set_vref_mode(inputs, dac_manager) } // DONE
+        3 => {} // handle_inputs::call_set_gain_mode(inputs, dac_manager) } // DONE
+        4 => {} // handle_inputs::call_set_power_down_mode(inputs, dac_manager) } // DONE
+        5 => {} // handle_inputs::call_set_all_voltages(inputs, dac_manager) }
+        6 => {} // handle_inputs::call_set_all_vref_modes(inputs, dac_manager) }
+        7 => {} // handle_inputs::call_set_all_gain_modes(inputs, dac_manager) }
+        8 => {} // handle_inputs::call_set_all_power_down_modes(inputs, dac_manager) }
+        f => {println!("error in input, function {} is undefined", f)}
     }
 }

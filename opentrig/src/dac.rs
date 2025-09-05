@@ -12,7 +12,7 @@ use embassy_rp::i2c::{self, I2c, InterruptHandler};
 use embassy_rp::peripherals::I2C0;
 use embassy_sync::blocking_mutex::raw::NoopRawMutex;
 use embassy_sync::mutex::Mutex;
-use mcp4728::{GainMode, MCP4728Async, PowerDownMode, Registers};
+pub use mcp4728::{GainMode, MCP4728Async, PowerDownMode, Registers};
 use static_cell::StaticCell;
 use {defmt_rtt as _, panic_probe as _};
 
