@@ -5,20 +5,35 @@
 #![no_std]
 #![no_main]
 
+use crate::dac::DacManager;
 use crate::fpga::{DAQFpga, daq_fpga_clock_config, daq_fpga_spi_config};
 use defmt::*;
 use embassy_executor::Spawner;
-use embassy_rp::{gpio::Pin, pwm::Pwm, spi::Spi};
+use embassy_rp::gpio::{Level, Output, Pin};
+use embassy_rp::{pwm::Pwm, spi::Spi};
 
 use {defmt_rtt as _, panic_probe as _};
 
+mod dac;
 mod data;
 mod fpga;
-mod dac;
 
 #[embassy_executor::main]
 async fn main(_spawner: Spawner) {
     let p = embassy_rp::init(Default::default());
+
+    let ldacs = [
+        Output::new(p.PIN_4, Level::Low),
+        Output::new(p.PIN_5, Level::Low),
+        Output::new(p.PIN_6, Level::Low),
+        Output::new(p.PIN_7, Level::Low),
+        Output::new(p.PIN_8, Level::Low),
+        Output::new(p.PIN_9, Level::Low),
+    ];
+
+    let mut dac_manager = DacManager::new(p.I2C0, p.PIN_1, p.PIN_0, ldacs);
+    dac_manager.init().await.unwrap();
+    dac_manager.set_all_voltages([1200; 24]).await.unwrap();
 
     let (rx, tx, clk) = (p.PIN_20, p.PIN_19, p.PIN_18);
     let spi_config = daq_fpga_spi_config();
