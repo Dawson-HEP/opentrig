@@ -40,4 +40,7 @@ input 2 {
     24 = mcp power down mode one k
     34 = mcp power down mode one hundred k
     44 = mcp power down mode five hundred k
+
+    100 = set all identical
+    200 = set all individual
 }

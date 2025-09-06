@@ -180,7 +180,7 @@ async fn make_usb(usb_pin:USB) ->
 
 
 #[embassy_executor::task]
-async fn core0_task(dac_manager:DacManager<'static>) {
+async fn core0_task(mut dac_manager:DacManager<'static>) {
     info!("Hello from core 0");
     loop {
         let daq = DAQSample {
@@ -192,6 +192,15 @@ async fn core0_task(dac_manager:DacManager<'static>) {
         };
         DAQ_CHANNEL.send(daq).await;
         Timer::after_millis(500).await;
+
+
+        let input_data = INPUT_CHANNEL.receive().await;
+        match input_data[0] {
+            0xFF => {
+                handle_inputs::match_cli_values_to_functions(&input_data[1..64], &mut dac_manager);
+            },
+            _ => println!("invalid starting u8 of inputs {}", input_data[0]),
+        }
     }
 }
 
@@ -205,18 +214,23 @@ async fn use_usb(
         loop {
             let mut data = [0; 64];
             let nbytes = read_ep.read(&mut data).await.expect("failed to read endpoint");
-            match data[0] {
-                0xFF => {
-                    //INPUT_CHANNEL.send(&data[1..nbytes]).await;
-                    INPUT_CHANNEL.send(data).await;
-                    match_cli_values_to_functions(&data[1..nbytes]);
-                    println!("{:?}", data[1..nbytes]);
-                    let output = to_vec::<DAQSample, {64 as usize}>(&daqs).unwrap();
-                    write_ep.write(&output).await.ok();
-
-                },
-                _ => Err("invalid starting byte").unwrap(),
+            if nbytes < 64 {
+                INPUT_CHANNEL.send(data).await;
+            } else {
+                println!("error, too many bytes received {} > 64 bytes", nbytes);
             }
+            //match data[0] {
+            //    0xFF => {
+            //        //INPUT_CHANNEL.send(&data[1..nbytes]).await;
+            //        INPUT_CHANNEL.send(data).await;
+            //        match_cli_values_to_functions(&data[1..nbytes]);
+            //        println!("{:?}", data[1..nbytes]);
+            //        let output = to_vec::<DAQSample, {64 as usize}>(&daqs).unwrap();
+            //        write_ep.write(&output).await.ok();
+            //
+            //    },
+            //    _ => Err("invalid starting byte").unwrap(),
+            //}
         }
         info!("Disconnected");
     }
@@ -241,35 +255,5 @@ async fn core1_task(usb_pin:USB) {
         let restruct = from_bytes::<DAQSample>(output.deref()).unwrap();
         //println!("core 1 received: {:?}", re);
         //println!("core 1 received from core 0: {:?}", re);
-    }
-}
-
-
-/// functions and their inputs
-/// NOTE : inputs ending in 0 (ie 0, 10, 20, etc) are reserved for errors
-/// fn                       |  input_0(function_id) |  input_1  |  input_2  |  input_3     |  input_4
-/// set_voltage              |         1             |   dac_id  |  channel  | voltage u8_1 | voltage u8_2
-/// set_vref_mode            |         2             |   dac_id  |  channel  |    mode      |    N/A
-/// set_gain_mode            |         3             |   dac_id  |  channel  |    mode      |    N/A
-/// set_power_down_mode      |         4             |   dac_id  |  channel  |    mode      |    N/A
-/// set_all_voltages         |         5             |  voltages |    N/A    |    N/A       |    N/A
-/// set_all_vref_modes       |         6             |    modes  |    N/A    |    N/A       |    N/A
-/// set_all_gain_modes       |         7             |    modes  |    N/A    |    N/A       |    N/A
-/// set_all_power_down_modes |         8             |    modes  |    N/A    |    N/A       |    N/A
-/// others?
-
-
-async fn match_cli_values_to_functions(inputs:&[u8]) {//, dac_manager:DacManager) {
-    match inputs[0] {
-        0 => {println!("error in input, function 0 is undefined")}
-        1 => {} // handle_inputs::call_set_voltage(inputs, dac_manager) } // DONE
-        2 => {} // handle_inputs::call_set_vref_mode(inputs, dac_manager) } // DONE
-        3 => {} // handle_inputs::call_set_gain_mode(inputs, dac_manager) } // DONE
-        4 => {} // handle_inputs::call_set_power_down_mode(inputs, dac_manager) } // DONE
-        5 => {} // handle_inputs::call_set_all_voltages(inputs, dac_manager) }
-        6 => {} // handle_inputs::call_set_all_vref_modes(inputs, dac_manager) }
-        7 => {} // handle_inputs::call_set_all_gain_modes(inputs, dac_manager) }
-        8 => {} // handle_inputs::call_set_all_power_down_modes(inputs, dac_manager) }
-        f => {println!("error in input, function {} is undefined", f)}
     }
 }
