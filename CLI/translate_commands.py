@@ -19,9 +19,16 @@ class Translate:
 
         def as_voltage_u16(x):
             val = int(x)
-            return [(val >> 8) & 0xFF, val & 0xFF]
+            return [(val >> 8) & 0xFF, val & 0xFF]  # MSB first
 
-        # save mappers so we can reuse if needed
+        def as_voltage_u16_list(lst):
+            """Maps a list of voltage strings to bytes (for individual mode)."""
+            result = []
+            for val in lst:
+                result.extend(as_voltage_u16(val))
+            return result
+
+        # save mappers
         self.mappers = {
             "dac": as_dac,
             "channel": as_channel,
@@ -33,16 +40,15 @@ class Translate:
         }
 
         # ---------- command registry ----------
-        # maps command name -> (fn_id, [mapper functions])
         self.command_registry = {
             "set_voltage":            (1, [as_dac, as_channel, as_voltage_u16]),
             "set_vref_mode":          (2, [as_dac, as_channel, as_vref]),
             "set_gain_mode":          (3, [as_dac, as_channel, as_gain]),
             "set_power_down_mode":    (4, [as_dac, as_channel, as_power]),
-            "set_all_voltages":       (5, [as_isall, as_voltage_u16]),  # simplified
-            "set_all_vref_modes":     (6, [as_isall, as_vref]),         # simplified
-            "set_all_gain_modes":     (7, [as_isall, as_gain]),         # simplified
-            "set_all_power_down_modes": (8, [as_isall, as_power]),      # simplified
+            "set_all_voltages":       (5, [as_isall, as_voltage_u16_list]),  # handle individual mode
+            "set_all_vref_modes":     (6, [as_isall, lambda lst: [as_vref(x) for x in lst]]),
+            "set_all_gain_modes":     (7, [as_isall, lambda lst: [as_gain(x) for x in lst]]),
+            "set_all_power_down_modes": (8, [as_isall, lambda lst: [as_power(x) for x in lst]]),
         }
 
     def translate(self, command_name, *args):
@@ -52,14 +58,18 @@ class Translate:
         fn_id, signature = self.command_registry[command_name]
 
         encoded_args = []
-        for mapper, token in zip(signature, args):
-            mapped = mapper(token)
+
+        # Special handling for last mapper: consume remaining args if list
+        for i, mapper in enumerate(signature):
+            if i == len(signature) - 1:
+                # last mapper gets all remaining args
+                mapped = mapper(args[i:])
+            else:
+                mapped = mapper(args[i])
+
             if isinstance(mapped, list):
                 encoded_args.extend(mapped)
             else:
                 encoded_args.append(mapped)
 
         return [0xFF, fn_id] + encoded_args
-
-
-
