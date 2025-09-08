@@ -110,30 +110,30 @@ async fn main(_spawner: Spawner) {
 
 
 
-    let (rx, tx, clk) = (p.PIN_20, p.PIN_19, p.PIN_18);
-    let spi_config = daq_fpga_spi_config();
-    let spi = Spi::new(p.SPI0, clk, tx, rx, p.DMA_CH0, p.DMA_CH1, spi_config);
-
-    let pwm_config = daq_fpga_clock_config();
-    let fpga_mcu_clk = Pwm::new_output_b(p.PWM_SLICE5, p.PIN_27, pwm_config);
-
-    let mut daq = DAQFpga::new(
-        spi,
-        p.PIN_17.degrade(),
-        p.PIN_13.degrade(),
-        p.PIN_14.degrade(),
-        fpga_mcu_clk,
-        p.PIN_26.degrade(),
-        p.PIN_15.degrade(),
-        p.PIN_16.degrade(),
-    );
-
-    daq.configure(include_bytes!("fpga/main.bin"))
-        .await
-        .unwrap();
-    daq.setup_clocks().await.unwrap();
-
-    daq.reset().unwrap();
+    //let (rx, tx, clk) = (p.PIN_20, p.PIN_19, p.PIN_18);
+    //let spi_config = daq_fpga_spi_config();
+    //let spi = Spi::new(p.SPI0, clk, tx, rx, p.DMA_CH0, p.DMA_CH1, spi_config);
+    //
+    //let pwm_config = daq_fpga_clock_config();
+    //let fpga_mcu_clk = Pwm::new_output_b(p.PWM_SLICE5, p.PIN_27, pwm_config);
+    //
+    //let mut daq = DAQFpga::new(
+    //    spi,
+    //    p.PIN_17.degrade(),
+    //    p.PIN_13.degrade(),
+    //    p.PIN_14.degrade(),
+    //    fpga_mcu_clk,
+    //    p.PIN_26.degrade(),
+    //    p.PIN_15.degrade(),
+    //    p.PIN_16.degrade(),
+    //);
+    //
+    //daq.configure(include_bytes!("fpga/main.bin"))
+    //    .await
+    //    .unwrap();
+    //daq.setup_clocks().await.unwrap();
+    //
+    //daq.reset().unwrap();
 
 
 
@@ -147,7 +147,7 @@ async fn main(_spawner: Spawner) {
     );
     
     let executor0 = EXECUTOR0.init(Executor::new());
-    executor0.run(|spawner| unwrap!(spawner.spawn(core0_task(dac_manager, daq))));
+    executor0.run(|spawner| unwrap!(spawner.spawn(core0_task(dac_manager))));//, daq))));
 
 }
 
@@ -209,7 +209,7 @@ async fn make_usb(usb_pin:USB) ->
 
 
 #[embassy_executor::task]
-async fn core0_task(mut dac_manager:DacManager<'static>, mut daq:DAQFpga<'static, embassy_rp::peripherals::SPI0>) {
+async fn core0_task(mut dac_manager:DacManager<'static>) {//, mut daq:DAQFpga<'static, embassy_rp::peripherals::SPI0>) {
     info!("Hello from core 0");
     loop {
         let new_daq_sample = DAQSample {
@@ -233,10 +233,10 @@ async fn core0_task(mut dac_manager:DacManager<'static>, mut daq:DAQFpga<'static
             _ => println!("invalid starting u8 of inputs is {}", input_data[0]),
         }
 
-        daq.await_sample().await;
-        if let Ok(sample) = daq.read_sample() {
-            DAQ_CHANNEL.send(sample).await;
-        }
+        //daq.await_sample().await;
+        //if let Ok(sample) = daq.read_sample() {
+        //    DAQ_CHANNEL.send(sample).await;
+        //}
     }
 }
 
