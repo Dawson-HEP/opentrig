@@ -6,7 +6,6 @@
 #![no_main]
 #![allow(static_mut_refs)]
 
-use crate::{dac::DacError, fpga::{daq_fpga_clock_config, daq_fpga_spi_config, DAQFpga}};
 use cortex_m::peripheral::nvic;
 use defmt::*;
 use embassy_executor::Spawner;
@@ -46,6 +45,7 @@ use embassy_usb::{Builder, Config};
 use core::str;
 
 
+use crate::{dac::DacError, fpga::{daq_fpga_clock_config, daq_fpga_spi_config}};
 
 
 mod data;
@@ -55,6 +55,7 @@ mod handle_inputs;
 
 use dac::DacManager;
 use data::DAQSample;
+use fpga::DAQFpga;
 
 
 use core::{fmt, ops::Deref, u64};
@@ -68,7 +69,6 @@ static mut CORE1_STACK: Stack<4096> = Stack::new();
 static EXECUTOR0: StaticCell<Executor> = StaticCell::new();
 static EXECUTOR1: StaticCell<Executor> = StaticCell::new();
 static DAQ_CHANNEL: Channel<CriticalSectionRawMutex, DAQSample, 1> = Channel::new();
-//static INPUT_CHANNEL: Channel<CriticalSectionRawMutex, &[u8], 64> = Channel::new();
 static INPUT_CHANNEL: Channel<CriticalSectionRawMutex, [u8;64], 1> = Channel::new();
 
 
@@ -108,6 +108,35 @@ async fn main(_spawner: Spawner) {
 
     let mut dac_manager: DacManager<'_> = DacManager::new(p.I2C0, p.PIN_1, p.PIN_0, ldacs);
 
+
+
+    let (rx, tx, clk) = (p.PIN_20, p.PIN_19, p.PIN_18);
+    let spi_config = daq_fpga_spi_config();
+    let spi = Spi::new(p.SPI0, clk, tx, rx, p.DMA_CH0, p.DMA_CH1, spi_config);
+
+    let pwm_config = daq_fpga_clock_config();
+    let fpga_mcu_clk = Pwm::new_output_b(p.PWM_SLICE5, p.PIN_27, pwm_config);
+
+    let mut daq = DAQFpga::new(
+        spi,
+        p.PIN_17.degrade(),
+        p.PIN_13.degrade(),
+        p.PIN_14.degrade(),
+        fpga_mcu_clk,
+        p.PIN_26.degrade(),
+        p.PIN_15.degrade(),
+        p.PIN_16.degrade(),
+    );
+
+    daq.configure(include_bytes!("fpga/main.bin"))
+        .await
+        .unwrap();
+    daq.setup_clocks().await.unwrap();
+
+    daq.reset().unwrap();
+
+
+
     spawn_core1(
         p.CORE1,
         unsafe { &mut *core::ptr::addr_of_mut!(CORE1_STACK) },
@@ -118,7 +147,7 @@ async fn main(_spawner: Spawner) {
     );
     
     let executor0 = EXECUTOR0.init(Executor::new());
-    executor0.run(|spawner| unwrap!(spawner.spawn(core0_task(dac_manager))));
+    executor0.run(|spawner| unwrap!(spawner.spawn(core0_task(dac_manager, daq))));
 
 }
 
@@ -180,26 +209,33 @@ async fn make_usb(usb_pin:USB) ->
 
 
 #[embassy_executor::task]
-async fn core0_task(mut dac_manager:DacManager<'static>) {
+async fn core0_task(mut dac_manager:DacManager<'static>, mut daq:DAQFpga<'static, embassy_rp::peripherals::SPI0>) {
     info!("Hello from core 0");
     loop {
-        let daq = DAQSample {
+        let new_daq_sample = DAQSample {
             trigger_id: 1,
             trigger_clk: u64::MAX,
             trigger_data: 3,
             veto_in: true,
             internal_trigger: false,
         };
-        DAQ_CHANNEL.send(daq).await;
-        Timer::after_millis(500).await;
+        DAQ_CHANNEL.send(new_daq_sample).await;
+        //Timer::after_millis(500).await;
 
 
         let input_data = INPUT_CHANNEL.receive().await;
+        println!("input received: {:?}", input_data);
+
         match input_data[0] {
             0xFF => {
-                handle_inputs::match_cli_values_to_functions(&input_data[1..64], &mut dac_manager);
+                handle_inputs::match_cli_values_to_functions(&input_data[1..64], &mut dac_manager).await;
             },
-            _ => println!("invalid starting u8 of inputs {}", input_data[0]),
+            _ => println!("invalid starting u8 of inputs is {}", input_data[0]),
+        }
+
+        daq.await_sample().await;
+        if let Ok(sample) = daq.read_sample() {
+            DAQ_CHANNEL.send(sample).await;
         }
     }
 }
@@ -208,6 +244,7 @@ async fn use_usb(
     mut read_ep:&mut embassy_rp::usb::Endpoint<'static, USB, embassy_rp::usb::Out>,
     mut write_ep:&mut embassy_rp::usb::Endpoint<'static, USB, embassy_rp::usb::In>
     ) {
+        
         let daqs = DAQ_CHANNEL.receive().await;
         read_ep.wait_enabled().await;
         info!("Connected");
@@ -219,18 +256,15 @@ async fn use_usb(
             } else {
                 println!("error, too many bytes received {} > 64 bytes", nbytes);
             }
-            //match data[0] {
-            //    0xFF => {
-            //        //INPUT_CHANNEL.send(&data[1..nbytes]).await;
-            //        INPUT_CHANNEL.send(data).await;
-            //        match_cli_values_to_functions(&data[1..nbytes]);
-            //        println!("{:?}", data[1..nbytes]);
-            //        let output = to_vec::<DAQSample, {64 as usize}>(&daqs).unwrap();
-            //        write_ep.write(&output).await.ok();
-            //
-            //    },
-            //    _ => Err("invalid starting byte").unwrap(),
+
+
+            let daq_sample = DAQ_CHANNEL.receive().await;
+            let output = to_vec::<DAQSample, {64 as usize}>(&daqs).unwrap();
+            //match write_ep.write(&output).await {
+            //    Ok(_) => {println!("wrote DAQSample successfully to computer")},
+            //    Err(err) => {println!("failed to send DAQSample due to {:?}", err)},
             //}
+
         }
         info!("Disconnected");
     }
