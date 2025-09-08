@@ -1,9 +1,11 @@
-//! This module is meant to manage 6 MCP4728 DACs that share a common I2C line.
+//! This module is meant to manage 6 MCP4728 DACs that share a common I2C line,
+//! using the mcp4728 crate.
 //!
 //! Some functionalities are left to be handled by the mcp4728 crate itself:
 //! Functions like MCP4728Async.fast_write() are not cloned in this module, users
 //! should access the MCP4728Async instances whithin the DacManager.dacs field.
 
+use cortex_m::register;
 use defmt::*;
 use embassy_embedded_hal::shared_bus::{I2cDeviceError, asynch::i2c::I2cDevice};
 use embassy_rp::bind_interrupts;
@@ -12,7 +14,7 @@ use embassy_rp::i2c::{self, I2c, InterruptHandler};
 use embassy_rp::peripherals::I2C0;
 use embassy_sync::blocking_mutex::raw::NoopRawMutex;
 use embassy_sync::mutex::Mutex;
-pub use mcp4728::{GainMode, MCP4728Async, PowerDownMode, Registers};
+use mcp4728::{GainMode, MCP4728Async, PowerDownMode, Registers};
 use static_cell::StaticCell;
 use {defmt_rtt as _, panic_probe as _};
 
@@ -44,8 +46,8 @@ fn init_i2c(
 
 /// Manager for 6 MCP4728 DACs.
 pub struct DacManager<'a> {
-    dacs: [MCP4728Async<I2cDevice<'a, NoopRawMutex, I2c<'static, I2C0, i2c::Async>>>; 6],
-    ldacs: [Output<'a>; 6],
+    pub dacs: [MCP4728Async<I2cDevice<'a, NoopRawMutex, I2c<'static, I2C0, i2c::Async>>>; 6],
+    pub ldacs: [Output<'a>; 6],
 }
 
 impl<'a> DacManager<'a> {
@@ -79,16 +81,19 @@ impl<'a> DacManager<'a> {
         let power = PowerDownMode::Normal;
 
         // Loop through DACs to write defaults.
-        for dac in self.dacs.iter_mut() {
-            dac.write_voltage_reference_mode(vref, vref, vref, vref)
+        for i in 0..6 {
+            self.dacs[i]
+                .write_voltage_reference_mode(vref, vref, vref, vref)
                 .await
                 .map_err(|e| DacError::McpError(e))
                 .unwrap();
-            dac.write_gain_mode(gain, gain, gain, gain)
+            self.dacs[i]
+                .write_gain_mode(gain, gain, gain, gain)
                 .await
                 .map_err(|e| DacError::McpError(e))
                 .unwrap();
-            dac.write_power_down_mode(power, power, power, power)
+            self.dacs[i]
+                .write_power_down_mode(power, power, power, power)
                 .await
                 .map_err(|e| DacError::McpError(e))
                 .unwrap();
@@ -118,10 +123,11 @@ impl<'a> DacManager<'a> {
         dac_id: usize,
         channel: mcp4728::Channel,
     ) -> Result<mcp4728::ChannelState, DacError> {
+        // Read the registers of the correct DAC.
         let dac = self.get_dac(dac_id).await.unwrap();
         let registers: Registers = dac.read().await.map_err(|e| DacError::McpError(e)).unwrap();
 
-        // Read and return the specified channel.
+        // Return the specified channel.
         Ok(match channel {
             mcp4728::Channel::A => registers.channel_a_input.channel_state,
             mcp4728::Channel::B => registers.channel_b_input.channel_state,
@@ -130,22 +136,31 @@ impl<'a> DacManager<'a> {
         })
     }
 
-    /// Change the voltage on a single channel.
+    /// Change the voltage on a single channel to the specified value in mv.
     pub async fn set_voltage(
         &mut self,
         dac_id: usize,
         channel: mcp4728::Channel,
         voltage: u16,
     ) -> Result<(), DacError> {
-        // Get new data.
+        let channel_state = self.read_channel(dac_id, channel).await.unwrap();
+        let gain_mode = channel_state.gain_mode;
+        let input = match gain_mode {
+            GainMode::TimesOne => voltage * 2,
+            GainMode::TimesTwo => voltage,
+        };
+
+        // Create the new data.
         let mut channel_state = self.read_channel(dac_id, channel).await.unwrap().clone();
-        channel_state.value = voltage;
+        channel_state.value = input;
 
         // Get referenced DAC.
         let dac = self.get_dac(dac_id).await.unwrap();
 
         // Write the data.
-        dac.single_write(channel, mcp4728::OutputEnableMode::Update, &channel_state);
+        dac.single_write(channel, mcp4728::OutputEnableMode::Update, &channel_state)
+            .await
+            .unwrap();
 
         Ok(())
     }
@@ -157,7 +172,7 @@ impl<'a> DacManager<'a> {
         channel: mcp4728::Channel,
         mode: mcp4728::VoltageReferenceMode,
     ) -> Result<(), DacError> {
-        // Get new data.
+        // Create the new data.
         let mut channel_state = self.read_channel(dac_id, channel).await.unwrap().clone();
         channel_state.voltage_reference_mode = mode;
 
@@ -165,7 +180,9 @@ impl<'a> DacManager<'a> {
         let dac = self.get_dac(dac_id).await.unwrap();
 
         // Write the data.
-        dac.single_write(channel, mcp4728::OutputEnableMode::Update, &channel_state);
+        dac.single_write(channel, mcp4728::OutputEnableMode::Update, &channel_state)
+            .await
+            .unwrap();
 
         Ok(())
     }
@@ -177,7 +194,7 @@ impl<'a> DacManager<'a> {
         channel: mcp4728::Channel,
         mode: mcp4728::GainMode,
     ) -> Result<(), DacError> {
-        // Get new data.
+        // Create the new data.
         let mut channel_state = self.read_channel(dac_id, channel).await.unwrap().clone();
         channel_state.gain_mode = mode;
 
@@ -185,7 +202,9 @@ impl<'a> DacManager<'a> {
         let dac = self.get_dac(dac_id).await.unwrap();
 
         // Write the data.
-        dac.single_write(channel, mcp4728::OutputEnableMode::Update, &channel_state);
+        dac.single_write(channel, mcp4728::OutputEnableMode::Update, &channel_state)
+            .await
+            .unwrap();
 
         Ok(())
     }
@@ -197,7 +216,7 @@ impl<'a> DacManager<'a> {
         channel: mcp4728::Channel,
         mode: mcp4728::PowerDownMode,
     ) -> Result<(), DacError> {
-        // Get new data.
+        // Create the new data.
         let mut channel_state = self.read_channel(dac_id, channel).await.unwrap().clone();
         channel_state.power_down_mode = mode;
 
@@ -205,39 +224,61 @@ impl<'a> DacManager<'a> {
         let dac = self.get_dac(dac_id).await.unwrap();
 
         // Write the data.
-        dac.single_write(channel, mcp4728::OutputEnableMode::Update, &channel_state);
+        dac.single_write(channel, mcp4728::OutputEnableMode::Update, &channel_state)
+            .await
+            .unwrap();
 
         Ok(())
     }
 
-    /// Change the voltage on all 24 channels.
+    /// Change the voltage on all 24 channels to the specified value in mv.
     pub async fn set_all_voltages(&mut self, voltages: [u16; 24]) -> Result<(), DacError> {
-        for (i, dac) in self.dacs.iter_mut().enumerate() {
+        // Loop through each DAC.
+        for i in 0..6 {
             let j = i * 4;
 
-            dac.fast_write(
-                voltages[j],
-                voltages[j + 1],
-                voltages[j + 2],
-                voltages[j + 3],
-            )
-            .await
-            .map_err(|e| DacError::McpError(e))
-            .unwrap();
+            // Read the gain mode of each channel.
+            let registers = self.dacs[i].read().await.unwrap();
+            let gains = [
+                registers.channel_a_input.channel_state.gain_mode,
+                registers.channel_b_input.channel_state.gain_mode,
+                registers.channel_c_input.channel_state.gain_mode,
+                registers.channel_d_input.channel_state.gain_mode,
+            ];
+
+            // Convert the the user input in mv, to the DAC register input.
+            let mut inputs: [u16; 4] = [0; 4];
+            for k in 0..4 {
+                inputs[k] = if gains[k] == GainMode::TimesOne {
+                    // Gain 1.
+                    voltages[j + k] * 2
+                } else {
+                    // Gain 2.
+                    voltages[j + k]
+                }
+            }
+
+            // Write values to the DAC.
+            self.dacs[i]
+                .fast_write(inputs[0], inputs[1], inputs[2], inputs[3])
+                .await
+                .map_err(|e| DacError::McpError(e))
+                .unwrap();
         }
 
         Ok(())
     }
 
-    /// Change the voltage on all 24 channels.
+    /// Change the voltage reference mode on all 24 channels.
     pub async fn set_all_vref_modes(
         &mut self,
         modes: [mcp4728::VoltageReferenceMode; 24],
     ) -> Result<(), DacError> {
-        for (i, dac) in self.dacs.iter_mut().enumerate() {
+        for i in 0..6 {
             let j = i * 4;
 
-            dac.write_voltage_reference_mode(modes[j], modes[j + 1], modes[j + 2], modes[j + 3])
+            self.dacs[i]
+                .write_voltage_reference_mode(modes[j], modes[j + 1], modes[j + 2], modes[j + 3])
                 .await
                 .map_err(|e| DacError::McpError(e))
                 .unwrap();
@@ -246,15 +287,16 @@ impl<'a> DacManager<'a> {
         Ok(())
     }
 
-    /// Change the voltage on all 24 channels.
+    /// Change the gain mode on all 24 channels.
     pub async fn set_all_gain_modes(
         &mut self,
         modes: [mcp4728::GainMode; 24],
     ) -> Result<(), DacError> {
-        for (i, dac) in self.dacs.iter_mut().enumerate() {
+        for i in 0..6 {
             let j = i * 4;
 
-            dac.write_gain_mode(modes[j], modes[j + 1], modes[j + 2], modes[j + 3])
+            self.dacs[i]
+                .write_gain_mode(modes[j], modes[j + 1], modes[j + 2], modes[j + 3])
                 .await
                 .map_err(|e| DacError::McpError(e))
                 .unwrap();
@@ -263,15 +305,16 @@ impl<'a> DacManager<'a> {
         Ok(())
     }
 
-    /// Change the voltage on all 24 channels.
+    /// Change the power down mode on all 24 channels.
     pub async fn set_all_power_down_modes(
         &mut self,
         modes: [mcp4728::PowerDownMode; 24],
     ) -> Result<(), DacError> {
-        for (i, dac) in self.dacs.iter_mut().enumerate() {
+        for i in 0..6 {
             let j = i * 4;
 
-            dac.write_power_down_mode(modes[j], modes[j + 1], modes[j + 2], modes[j + 3])
+            self.dacs[i]
+                .write_power_down_mode(modes[j], modes[j + 1], modes[j + 2], modes[j + 3])
                 .await
                 .map_err(|e| DacError::McpError(e))
                 .unwrap();

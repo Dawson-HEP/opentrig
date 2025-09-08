@@ -180,10 +180,12 @@ async fn call_set_all_voltages(inputs:&[u8], mut dac_manager:&mut DacManager<'st
                     input_voltage_higher_order,
                     input_voltage_lower_order).await; // u16
 
+                println!("{}", input_voltage);
+
                 let voltage = match_voltage(input_voltage).await;
                 if voltage.is_some() {
                     info!("valid call to set_all_voltages");
-                    dac_manager.set_all_voltages([voltage.unwrap();24]);
+                    dac_manager.set_all_voltages([voltage.unwrap();24]).await.unwrap();
                 } else {info!("invalid call to set_all_voltages casting one to 24")}
         },
         Some(false) => {
