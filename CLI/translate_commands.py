@@ -56,13 +56,14 @@ class Translate:
             raise ValueError(f"Command '{command_name}' not found in registry.")
 
         fn_id, signature = self.command_registry[command_name]
-
         encoded_args = []
 
-        # Special handling for last mapper: consume remaining args if list
+        # Check if this is a "set_all" command (needs variable-length handling)
+        is_set_all = command_name.startswith("set_all_")
+
         for i, mapper in enumerate(signature):
-            if i == len(signature) - 1:
-                # last mapper gets all remaining args
+            if is_set_all and i == len(signature) - 1:
+                # last mapper consumes remaining args
                 mapped = mapper(args[i:])
             else:
                 mapped = mapper(args[i])
