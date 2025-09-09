@@ -100,6 +100,8 @@ impl<'a> DacManager<'a> {
                 .unwrap();
         }
 
+        info!("All MCPs set to default modes.");
+
         Ok(())
     }
 
@@ -168,6 +170,7 @@ impl<'a> DacManager<'a> {
             .map_err(|e| DacError::McpError(e))
             .unwrap();
 
+        info!("Voltage changed successfully.");
         Ok(())
     }
 
@@ -191,6 +194,7 @@ impl<'a> DacManager<'a> {
             .map_err(|e| DacError::McpError(e))
             .unwrap();
 
+        info!("Vref mode changed successfully.");
         Ok(())
     }
 
@@ -214,6 +218,7 @@ impl<'a> DacManager<'a> {
             .map_err(|e| DacError::McpError(e))
             .unwrap();
 
+        info!("Gain mode changed successfully.");
         Ok(())
     }
 
@@ -237,6 +242,7 @@ impl<'a> DacManager<'a> {
             .map_err(|e| DacError::McpError(e))
             .unwrap();
 
+        info!("Power down mode changed successfully.");
         Ok(())
     }
 
@@ -282,6 +288,7 @@ impl<'a> DacManager<'a> {
                 .unwrap();
         }
 
+        info!("All voltages changed successfully.");
         Ok(())
     }
 
@@ -300,6 +307,7 @@ impl<'a> DacManager<'a> {
                 .unwrap();
         }
 
+        info!("All vref modes changed successfully.");
         Ok(())
     }
 
@@ -318,6 +326,7 @@ impl<'a> DacManager<'a> {
                 .unwrap();
         }
 
+        info!("All gain modes changed successfully.");
         Ok(())
     }
 
@@ -336,6 +345,7 @@ impl<'a> DacManager<'a> {
                 .unwrap();
         }
 
+        info!("All power down modes changed successfully.");
         Ok(())
     }
 }
