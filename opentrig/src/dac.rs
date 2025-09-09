@@ -22,6 +22,7 @@ use {defmt_rtt as _, panic_probe as _};
 #[derive(Debug)]
 pub enum DacError {
     InvalidDacId(usize),
+    InputVoltageOutOfBounds(u16),
     McpError(mcp4728::Error<I2cDeviceError<embassy_rp::i2c::Error>>),
 }
 
@@ -150,6 +151,10 @@ impl<'a> DacManager<'a> {
             GainMode::TimesTwo => voltage,
         };
 
+        if input > 4096 {
+            return Err(DacError::InputVoltageOutOfBounds(input));
+        }
+
         // Create the new data.
         let mut channel_state = self.read_channel(dac_id, channel).await.unwrap().clone();
         channel_state.value = input;
@@ -160,6 +165,7 @@ impl<'a> DacManager<'a> {
         // Write the data.
         dac.single_write(channel, mcp4728::OutputEnableMode::Update, &channel_state)
             .await
+            .map_err(|e| DacError::McpError(e))
             .unwrap();
 
         Ok(())
@@ -182,6 +188,7 @@ impl<'a> DacManager<'a> {
         // Write the data.
         dac.single_write(channel, mcp4728::OutputEnableMode::Update, &channel_state)
             .await
+            .map_err(|e| DacError::McpError(e))
             .unwrap();
 
         Ok(())
@@ -204,6 +211,7 @@ impl<'a> DacManager<'a> {
         // Write the data.
         dac.single_write(channel, mcp4728::OutputEnableMode::Update, &channel_state)
             .await
+            .map_err(|e| DacError::McpError(e))
             .unwrap();
 
         Ok(())
@@ -226,6 +234,7 @@ impl<'a> DacManager<'a> {
         // Write the data.
         dac.single_write(channel, mcp4728::OutputEnableMode::Update, &channel_state)
             .await
+            .map_err(|e| DacError::McpError(e))
             .unwrap();
 
         Ok(())
@@ -238,7 +247,11 @@ impl<'a> DacManager<'a> {
             let j = i * 4;
 
             // Read the gain mode of each channel.
-            let registers = self.dacs[i].read().await.unwrap();
+            let registers = self.dacs[i]
+                .read()
+                .await
+                .map_err(|e| DacError::McpError(e))
+                .unwrap();
             let gains = [
                 registers.channel_a_input.channel_state.gain_mode,
                 registers.channel_b_input.channel_state.gain_mode,
@@ -255,7 +268,10 @@ impl<'a> DacManager<'a> {
                 } else {
                     // Gain 2.
                     voltages[j + k]
-                }
+                };
+                if inputs[k] > 4096 {
+                    return Err(DacError::InputVoltageOutOfBounds(inputs[k]));
+                };
             }
 
             // Write values to the DAC.
