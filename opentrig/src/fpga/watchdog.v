@@ -25,12 +25,12 @@ module watchdog (
     );
 
     // watchdog timer
-    reg [11:0] watchdog_counter;
+    reg [13:0] watchdog_counter;
     reg counting;
 
     // number of clock cycles the watchdog counts
     // until a forceful reset is called
-    localparam watchdog_await_cycles = 2000;
+    localparam watchdog_await_cycles = 5000;
     localparam watchdog_await_cycles_next = watchdog_await_cycles + 1;
 
     always @(posedge sampling_clk) begin
