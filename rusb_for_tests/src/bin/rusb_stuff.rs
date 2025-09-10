@@ -147,7 +147,7 @@ pub struct DAQSample {
     pub internal_trigger: bool,
 }
 
-fn rusb_demo() {
+pub fn rusb_demo(data:&[u8]) {
 
     let pico_handle = get_pico_prepared_for_iface();
     
@@ -158,7 +158,7 @@ fn rusb_demo() {
     //let data: &[u8] = &[0xFF, 1, 2, 3, 4, 5];
     //let data: &[u8] = &[0xff, 1, 20, 31, 0, 255, 6, 7];
     //let data: &[u8] = &[0xff, 1, 2, 3, 4, 5, 6, 7];
-    let data: &[u8] = &[0xff, 5, 100, 2, 12];
+    //let data: &[u8] = &[0xff, 5, 100, 2, 12];
     
     
     //
@@ -181,5 +181,5 @@ fn rusb_demo() {
 
 fn main() {
     _list_devices();
-    rusb_demo();
+    //rusb_demo();
 }

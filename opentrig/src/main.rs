@@ -108,7 +108,9 @@ async fn main(_spawner: Spawner) {
     ];
 
     let mut dac_manager: DacManager<'_> = DacManager::new(p.I2C0, p.PIN_1, p.PIN_0, ldacs);
-
+    dac_manager.init().await.unwrap();
+    dac_manager.set_all_voltages([1200; 24]).await.unwrap();
+    //dac_manager.set_all_voltages([2030; 24]).await.unwrap();
 
 
     //let (rx, tx, clk) = (p.PIN_20, p.PIN_19, p.PIN_18);

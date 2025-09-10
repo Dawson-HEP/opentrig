@@ -17,6 +17,10 @@ use crate::dac::DacManager;
 /// set_all_vref_modes       |         6             |   is_all  |    (1 or 24 inputs :  u8-composants)
 /// set_all_gain_modes       |         7             |   is_all  |    (1 or 24 inputs :  u8-composants)
 /// set_all_power_down_modes |         8             |   is_all  |    (1 or 24 inputs :  u8-composants)
+/// set_voltage_by_dac_id    |     for the moment, not going to be implemented
+/// set_vref_mode_by_dac_id  |     for the moment, not going to be implemented
+/// set_gain_mode_by_dac_id  |     for the moment, not going to be implemented
+/// set_power_down_by_dac_id |     for the moment, not going to be implemented
 /// others?
 
 
@@ -69,8 +73,8 @@ pub async fn match_cli_values_to_functions(inputs:&[u8], dac_manager:&mut DacMan
 // 
 
 
-
-enum type_of_all_setting {
+enum fn_call {
+    Voltage,
     Vref_mode,
     Gain_mode,
     PowerDown_mode,
@@ -98,15 +102,15 @@ async fn call_set_all_power_down_modes(inputs:&[u8], mut dac_manager:&mut DacMan
 
             if power_down_mode.is_some() {
                 info!("valid call to set_all_power_down_modes");
-                dac_manager.set_all_power_down_modes([power_down_mode.unwrap();24]);
+                dac_manager.set_all_power_down_modes([power_down_mode.unwrap();24]).await.unwrap();
             } else {info!("invalid call to set_all_power_down_modes casting one value to 24")}
         },
         Some(false) => {
-            let power_down_mode_option = from_idx_get_valid_type(2, inputs, type_of_all_setting::PowerDown_mode).await;
+            let power_down_mode_option = from_idx_get_valid_type(2, inputs, fn_call::PowerDown_mode).await;
             if power_down_mode_option.is_some() {
                 if let setting_values::PowerDown(power_down_modes) = power_down_mode_option.unwrap() {
                     info!("valid call to set_all_power_down_modes");
-                    dac_manager.set_all_power_down_modes(power_down_modes);
+                    dac_manager.set_all_power_down_modes(power_down_modes).await.unwrap();
                 } else {info!("invalid call to set_all_power_down_modes 24 individual values")}
             }
         },
@@ -125,15 +129,15 @@ async fn call_set_all_gain_modes(inputs:&[u8], mut dac_manager:&mut DacManager<'
 
             if gain_mode.is_some() {
                 info!("valid call to set_all_gain_modes");
-                dac_manager.set_all_gain_modes([gain_mode.unwrap();24]);
+                dac_manager.set_all_gain_modes([gain_mode.unwrap();24]).await.unwrap();
             } else {info!("invalid call to set_all_gain_modes casting one value to 24")}
         },
         Some(false) => {
-            let gain_mode_option = from_idx_get_valid_type(2, inputs, type_of_all_setting::Gain_mode).await;
+            let gain_mode_option = from_idx_get_valid_type(2, inputs, fn_call::Gain_mode).await;
             if gain_mode_option.is_some() {
                 if let setting_values::Gain(gain_modes) = gain_mode_option.unwrap() {
                     info!("valid call to set_all_gain_modes");
-                    dac_manager.set_all_gain_modes(gain_modes);
+                    dac_manager.set_all_gain_modes(gain_modes).await.unwrap();
                 } else {info!("invalid call to set_all_gain_modes 24 individual values")}
             }
         },
@@ -152,15 +156,15 @@ async fn call_set_all_vref_modes(inputs:&[u8], mut dac_manager:&mut DacManager<'
 
             if vref.is_some() {
                 info!("valid call to set_all_vref_modes");
-                dac_manager.set_all_vref_modes([vref.unwrap();24]);
+                dac_manager.set_all_vref_modes([vref.unwrap();24]).await.unwrap();
             } else {info!("invalid call to set_all_vref_modes casting one value to 24")}
         },
         Some(false) => {
-            let vref_option = from_idx_get_valid_type(2, inputs, type_of_all_setting::Vref_mode).await;
+            let vref_option = from_idx_get_valid_type(2, inputs, fn_call::Vref_mode).await;
             if vref_option.is_some() {
                 if let setting_values::Vref(vref_modes) = vref_option.unwrap() {
                     info!("valid call to set_all_vref_modes");
-                    dac_manager.set_all_vref_modes(vref_modes);
+                    dac_manager.set_all_vref_modes(vref_modes).await.unwrap();
                 } else {info!("invalid call to set_all_vref_modes 24 individual values")}
             }
         },
@@ -180,17 +184,19 @@ async fn call_set_all_voltages(inputs:&[u8], mut dac_manager:&mut DacManager<'st
                     input_voltage_higher_order,
                     input_voltage_lower_order).await; // u16
 
+                println!("{}", input_voltage);
+
                 let voltage = match_voltage(input_voltage).await;
                 if voltage.is_some() {
                     info!("valid call to set_all_voltages");
-                    dac_manager.set_all_voltages([voltage.unwrap();24]);
+                    dac_manager.set_all_voltages([voltage.unwrap();24]).await.unwrap();
                 } else {info!("invalid call to set_all_voltages casting one to 24")}
         },
         Some(false) => {
             let voltages = from_idx_get_valid_voltages(2, inputs).await;
             if voltages.is_some() {
                 info!("valid call to set_all_voltages");
-                dac_manager.set_all_voltages(voltages.unwrap());
+                dac_manager.set_all_voltages(voltages.unwrap()).await.unwrap();
             } else {info!("invalid call to set_all_voltages 24 individual values")}
         },
         None => {info!("invalid call to set_all_voltages")},
@@ -208,7 +214,7 @@ async fn call_set_power_down_mode(inputs:&[u8], mut dac_manager:&mut DacManager<
 
     if dac_id.is_some() && channel.is_some() && mode.is_some() {
         info!("valid call to set_power_down_mode");
-        dac_manager.set_power_down_mode(dac_id.unwrap(), channel.unwrap(), mode.unwrap());
+        dac_manager.set_power_down_mode(dac_id.unwrap(), channel.unwrap(), mode.unwrap()).await.unwrap();
     } else {info!("invalid call to set_power_down_mode")}
 }
 
@@ -223,7 +229,7 @@ async fn call_set_gain_mode(inputs:&[u8], mut dac_manager:&mut DacManager<'stati
 
     if dac_id.is_some() && channel.is_some() && mode.is_some() {
         info!("valid call to set_gain_mode");
-        dac_manager.set_gain_mode(dac_id.unwrap(), channel.unwrap(), mode.unwrap());
+        dac_manager.set_gain_mode(dac_id.unwrap(), channel.unwrap(), mode.unwrap()).await.unwrap();
     } else {info!("invalid call to set_gain_mode")}
 }
 
@@ -238,7 +244,7 @@ async fn call_set_vref_mode(inputs:&[u8], mut dac_manager:&mut DacManager<'stati
 
     if dac_id.is_some() && channel.is_some() && mode.is_some() {
         info!("valid call to set_vref_mode");
-        dac_manager.set_vref_mode(dac_id.unwrap(), channel.unwrap(), mode.unwrap());
+        dac_manager.set_vref_mode(dac_id.unwrap(), channel.unwrap(), mode.unwrap()).await.unwrap();
     } else {info!("invalid call to set_vref_mode")}
 }
 
@@ -257,7 +263,7 @@ async fn call_set_voltage(inputs:&[u8], mut dac_manager:&mut DacManager<'static>
 
     if dac_id.is_some() && channel.is_some() && voltage.is_some() {
         info!("valid call to set_voltage");
-        dac_manager.set_voltage(dac_id.unwrap(), channel.unwrap(), voltage.unwrap());
+        dac_manager.set_voltage(dac_id.unwrap(), channel.unwrap(), voltage.unwrap()).await.unwrap();
     } else {info!("invalid call to set_voltage")}
 }
 
@@ -330,7 +336,7 @@ fn match_vref_mode(input_vref_mode:u8) -> Option<mcp4728::VoltageReferenceMode> 
     }
 }
 
-async fn from_idx_get_valid_type(idx:usize, inputs:&[u8], set_type:type_of_all_setting)
+async fn from_idx_get_valid_type(idx:usize, inputs:&[u8], set_type:fn_call)
                     -> Option<setting_values> {
 
     let u8_1  = inputs[idx];
@@ -366,7 +372,7 @@ async fn from_idx_get_valid_type(idx:usize, inputs:&[u8], set_type:type_of_all_s
     ];
 
     match set_type {
-        type_of_all_setting::Vref_mode => {
+        fn_call::Vref_mode => {
             let mapped_vref = u8_items.map(|vref| match_vref_mode(vref).unwrap());
             let vref_validity = u8_items.map(|vref| match_vref_mode(vref).is_some());
             let num_true = vref_validity.iter().count();
@@ -374,7 +380,7 @@ async fn from_idx_get_valid_type(idx:usize, inputs:&[u8], set_type:type_of_all_s
                 Some(setting_values::Vref(mapped_vref))
             } else {info!("not 24 correct vref modes");None}
         },
-        type_of_all_setting::Gain_mode => {
+        fn_call::Gain_mode => {
             let mapped_gain_mode = u8_items.map(|gain_mode| match_gain_mode(gain_mode).unwrap());
             let gain_mode_validity = u8_items.map(|gain_mode| match_gain_mode(gain_mode).is_some());
             let num_true = gain_mode_validity.iter().count();
@@ -382,7 +388,7 @@ async fn from_idx_get_valid_type(idx:usize, inputs:&[u8], set_type:type_of_all_s
                 Some(setting_values::Gain(mapped_gain_mode))
             } else {info!("not 24 correct gain modes");None}
         },
-        type_of_all_setting::PowerDown_mode => {
+        fn_call::PowerDown_mode => {
             let mapped_power_down = u8_items.map(|power_down| match_power_down_mode(power_down).unwrap());
             let power_down_validity = u8_items.map(|power_down| match_power_down_mode(power_down).is_some());
             let num_true = power_down_validity.iter().count();
@@ -390,6 +396,7 @@ async fn from_idx_get_valid_type(idx:usize, inputs:&[u8], set_type:type_of_all_s
                 Some(setting_values::PowerDown(mapped_power_down))
             } else {info!("not 24 correct power_down modes");None}
         },
+        fn_call::Voltage => {Err::<bool, &str>("not implemented yet").unwrap();None}
     }
 }
 
