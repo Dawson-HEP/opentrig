@@ -1,7 +1,7 @@
 //! This example test the RP Pico on board LED.
 //!
 //! It does not work with the RP Pico W board. See wifi_blinky.rs.
-#![allow(warnings)] 
+#![allow(warnings)]
 #![no_std]
 #![no_main]
 #![allow(static_mut_refs)]
@@ -15,7 +15,7 @@ use embassy_rp::{gpio::Pin, pac::pio::Irq, pio::IrqFlags, pwm::Pwm, spi::Spi, us
 use {defmt_rtt as _, panic_probe as _};
 
 use embassy_rp::gpio::{Level, Output};
-use embassy_rp::multicore::{spawn_core1, Stack};
+use embassy_rp::multicore::{Stack, spawn_core1};
 use embassy_sync::channel::Channel;
 use embassy_time::Timer;
 
@@ -26,9 +26,6 @@ use embassy_rp::uart::{self, UartTx};
 use embassy_sync::blocking_mutex::raw::CriticalSectionRawMutex;
 use embassy_sync::mutex;
 use static_cell::StaticCell;
-
-
-
 
 use embassy_futures::join::join;
 
@@ -44,43 +41,38 @@ use embassy_usb::{Builder, Config};
 
 use core::str;
 
+use crate::{
+    dac::DacError,
+    fpga::{daq_fpga_clock_config, daq_fpga_spi_config},
+};
 
-use crate::{dac::DacError, fpga::{daq_fpga_clock_config, daq_fpga_spi_config}};
-
-
+mod dac;
 mod data;
 mod fpga;
-mod dac;
 mod handle_inputs;
 
 use dac::DacManager;
 use data::DAQSample;
 use fpga::DAQFpga;
 
-
 use core::{fmt, ops::Deref, u64};
-use serde::{Serialize, Deserialize};
-use postcard::{from_bytes, to_vec, to_vec_cobs};
 use heapless::Vec;
-
-
+use postcard::{from_bytes, to_vec, to_vec_cobs};
+use serde::{Deserialize, Serialize};
 
 static mut CORE1_STACK: Stack<4096> = Stack::new();
 static EXECUTOR0: StaticCell<Executor> = StaticCell::new();
 static EXECUTOR1: StaticCell<Executor> = StaticCell::new();
 static DAQ_CHANNEL: Channel<CriticalSectionRawMutex, DAQSample, 1> = Channel::new();
-static INPUT_CHANNEL: Channel<CriticalSectionRawMutex, [u8;64], 1> = Channel::new();
-
+static INPUT_CHANNEL: Channel<CriticalSectionRawMutex, [u8; 64], 1> = Channel::new();
 
 // static buffers for embassy-usb for ownership reasons
 //     Create embassy-usb DeviceBuilder using the driver and config.
 //     It needs some buffers for building the descriptors.
-static mut config_descriptor : [u8;256] = [0; 256];
-static mut bos_descriptor : [u8;256]  = [0; 256];
-static mut msos_descriptor : [u8;256]  = [0; 256];
-static mut control_buf : [u8;64]  = [0; 64];
-
-
+static mut config_descriptor: [u8; 256] = [0; 256];
+static mut bos_descriptor: [u8; 256] = [0; 256];
+static mut msos_descriptor: [u8; 256] = [0; 256];
+static mut control_buf: [u8; 64] = [0; 64];
 
 // This is a randomly generated GUID to allow clients on Windows to find our device
 const DEVICE_INTERFACE_GUIDS: &[&str] = &["{AFB9A6FB-30BA-44BC-9232-806CFC875321}"];
@@ -89,14 +81,9 @@ bind_interrupts!(struct Irqs {
     USBCTRL_IRQ => InterruptHandler<USB>;
 });
 
-
-
-
 #[embassy_executor::main]
 async fn main(_spawner: Spawner) {
     let p: embassy_rp::Peripherals = embassy_rp::init(Default::default());
-
-
 
     let ldacs = [
         Output::new(p.PIN_4, Level::Low),
@@ -111,7 +98,6 @@ async fn main(_spawner: Spawner) {
     dac_manager.init().await.unwrap();
     dac_manager.set_all_voltages([1200; 24]).await.unwrap();
     //dac_manager.set_all_voltages([2030; 24]).await.unwrap();
-
 
     //let (rx, tx, clk) = (p.PIN_20, p.PIN_19, p.PIN_18);
     //let spi_config = daq_fpga_spi_config();
@@ -138,8 +124,6 @@ async fn main(_spawner: Spawner) {
     //
     //daq.reset().unwrap();
 
-
-
     spawn_core1(
         p.CORE1,
         unsafe { &mut *core::ptr::addr_of_mut!(CORE1_STACK) },
@@ -148,17 +132,18 @@ async fn main(_spawner: Spawner) {
             executor1.run(|spawner| unwrap!(spawner.spawn(core1_task(p.USB))));
         },
     );
-    
-    let executor0 = EXECUTOR0.init(Executor::new());
-    executor0.run(|spawner| unwrap!(spawner.spawn(core0_task(dac_manager))));//, daq))));
 
+    let executor0 = EXECUTOR0.init(Executor::new());
+    executor0.run(|spawner| unwrap!(spawner.spawn(core0_task(dac_manager)))); //, daq))));
 }
 
-
-async fn make_usb(usb_pin:USB) ->
-    (embassy_usb::UsbDevice<'static, Driver<'static, USB>>,
+async fn make_usb(
+    usb_pin: USB,
+) -> (
+    embassy_usb::UsbDevice<'static, Driver<'static, USB>>,
     embassy_rp::usb::Endpoint<'static, USB, embassy_rp::usb::Out>,
-    embassy_rp::usb::Endpoint<'static, USB, embassy_rp::usb::In>,) {
+    embassy_rp::usb::Endpoint<'static, USB, embassy_rp::usb::In>,
+) {
     let driver = Driver::new(usb_pin, Irqs);
 
     // Create embassy-usb Config
@@ -169,10 +154,9 @@ async fn make_usb(usb_pin:USB) ->
     config.max_power = 100;
     config.max_packet_size_0 = 64;
 
-    
-    
     // call static buffers from earlier
-    let mut builder: Builder<'_, Driver<'_, USB>> = unsafe { Builder::new(
+    let mut builder: Builder<'_, Driver<'_, USB>> = unsafe {
+        Builder::new(
             driver,
             config,
             &mut config_descriptor,
@@ -200,8 +184,10 @@ async fn make_usb(usb_pin:USB) ->
     let mut function = builder.function(0xFF, 0, 0);
     let mut interface = function.interface();
     let mut alt = interface.alt_setting(0xFF, 0, 0, None);
-    let mut read_ep : embassy_rp::usb::Endpoint<'static, USB, embassy_rp::usb::Out> = alt.endpoint_bulk_out(64);
-    let mut write_ep: embassy_rp::usb::Endpoint<'static, USB, embassy_rp::usb::In> = alt.endpoint_bulk_in(64);
+    let mut read_ep: embassy_rp::usb::Endpoint<'static, USB, embassy_rp::usb::Out> =
+        alt.endpoint_bulk_out(64);
+    let mut write_ep: embassy_rp::usb::Endpoint<'static, USB, embassy_rp::usb::In> =
+        alt.endpoint_bulk_in(64);
     drop(function);
 
     // Build the builder.
@@ -209,10 +195,9 @@ async fn make_usb(usb_pin:USB) ->
     (usb, read_ep, write_ep)
 }
 
-
-
 #[embassy_executor::task]
-async fn core0_task(mut dac_manager:DacManager<'static>) {//, mut daq:DAQFpga<'static, embassy_rp::peripherals::SPI0>) {
+async fn core0_task(mut dac_manager: DacManager<'static>) {
+    //, mut daq:DAQFpga<'static, embassy_rp::peripherals::SPI0>) {
     info!("Hello from core 0");
     loop {
         let new_daq_sample = DAQSample {
@@ -225,14 +210,14 @@ async fn core0_task(mut dac_manager:DacManager<'static>) {//, mut daq:DAQFpga<'s
         DAQ_CHANNEL.send(new_daq_sample).await;
         //Timer::after_millis(500).await;
 
-
         let input_data = INPUT_CHANNEL.receive().await;
         println!("input received: {:?}", input_data);
 
         match input_data[0] {
             0xFF => {
-                handle_inputs::match_cli_values_to_functions(&input_data[1..64], &mut dac_manager).await;
-            },
+                handle_inputs::match_cli_values_to_functions(&input_data[1..64], &mut dac_manager)
+                    .await;
+            }
             _ => println!("invalid starting u8 of inputs is {}", input_data[0]),
         }
 
@@ -244,37 +229,36 @@ async fn core0_task(mut dac_manager:DacManager<'static>) {//, mut daq:DAQFpga<'s
 }
 
 async fn use_usb(
-    mut read_ep:&mut embassy_rp::usb::Endpoint<'static, USB, embassy_rp::usb::Out>,
-    mut write_ep:&mut embassy_rp::usb::Endpoint<'static, USB, embassy_rp::usb::In>
-    ) {
-        
-        let daqs = DAQ_CHANNEL.receive().await;
-        read_ep.wait_enabled().await;
-        info!("Connected");
-        loop {
-            let mut data = [0; 64];
-            let nbytes = read_ep.read(&mut data).await.expect("failed to read endpoint");
-            if nbytes < 64 {
-                INPUT_CHANNEL.send(data).await;
-            } else {
-                println!("error, too many bytes received {} > 64 bytes", nbytes);
-            }
-
-
-            let daq_sample = DAQ_CHANNEL.receive().await;
-            let output = to_vec::<DAQSample, {64 as usize}>(&daqs).unwrap();
-            //match write_ep.write(&output).await {
-            //    Ok(_) => {println!("wrote DAQSample successfully to computer")},
-            //    Err(err) => {println!("failed to send DAQSample due to {:?}", err)},
-            //}
-
+    mut read_ep: &mut embassy_rp::usb::Endpoint<'static, USB, embassy_rp::usb::Out>,
+    mut write_ep: &mut embassy_rp::usb::Endpoint<'static, USB, embassy_rp::usb::In>,
+) {
+    let daqs = DAQ_CHANNEL.receive().await;
+    read_ep.wait_enabled().await;
+    info!("Connected");
+    loop {
+        let mut data = [0; 64];
+        let nbytes = read_ep
+            .read(&mut data)
+            .await
+            .expect("failed to read endpoint");
+        if nbytes < 64 {
+            INPUT_CHANNEL.send(data).await;
+        } else {
+            println!("error, too many bytes received {} > 64 bytes", nbytes);
         }
-        info!("Disconnected");
-    }
 
+        let daq_sample = DAQ_CHANNEL.receive().await;
+        let output = to_vec::<DAQSample, { 64 as usize }>(&daqs).unwrap();
+        //match write_ep.write(&output).await {
+        //    Ok(_) => {println!("wrote DAQSample successfully to computer")},
+        //    Err(err) => {println!("failed to send DAQSample due to {:?}", err)},
+        //}
+    }
+    info!("Disconnected");
+}
 
 #[embassy_executor::task]
-async fn core1_task(usb_pin:USB) {
+async fn core1_task(usb_pin: USB) {
     let (mut usb, mut read_ep, mut write_ep) = make_usb(usb_pin).await;
 
     info!("Hello from core 1");
@@ -284,11 +268,10 @@ async fn core1_task(usb_pin:USB) {
 
     join(usb_fut, user).await;
 
-
     // DOES NOTHING at the moment, just for reference (as it does work, if the join() above is removed)
     loop {
         let daqs = DAQ_CHANNEL.receive().await;
-        let output = to_vec::<DAQSample, {64 as usize}>(&daqs).unwrap();
+        let output = to_vec::<DAQSample, { 64 as usize }>(&daqs).unwrap();
         let restruct = from_bytes::<DAQSample>(output.deref()).unwrap();
         //println!("core 1 received: {:?}", re);
         //println!("core 1 received from core 0: {:?}", re);

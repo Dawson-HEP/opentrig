@@ -153,13 +153,9 @@ impl<'a> DacManager<'a> {
             GainMode::TimesTwo => voltage,
         };
 
-<<<<<<< HEAD
-=======
         if input > 4096 {
             return Err(DacError::InputVoltageOutOfBounds(input));
         }
-
->>>>>>> origin/for_cli
         // Create the new data.
         let mut channel_state = self.read_channel(dac_id, channel).await.unwrap().clone();
         channel_state.value = input;
@@ -170,10 +166,7 @@ impl<'a> DacManager<'a> {
         // Write the data.
         dac.single_write(channel, mcp4728::OutputEnableMode::Update, &channel_state)
             .await
-<<<<<<< HEAD
-=======
             .map_err(|e| DacError::McpError(e))
->>>>>>> origin/for_cli
             .unwrap();
 
         info!("Voltage changed successfully.");
@@ -197,10 +190,7 @@ impl<'a> DacManager<'a> {
         // Write the data.
         dac.single_write(channel, mcp4728::OutputEnableMode::Update, &channel_state)
             .await
-<<<<<<< HEAD
-=======
             .map_err(|e| DacError::McpError(e))
->>>>>>> origin/for_cli
             .unwrap();
 
         info!("Vref mode changed successfully.");
@@ -224,10 +214,7 @@ impl<'a> DacManager<'a> {
         // Write the data.
         dac.single_write(channel, mcp4728::OutputEnableMode::Update, &channel_state)
             .await
-<<<<<<< HEAD
-=======
             .map_err(|e| DacError::McpError(e))
->>>>>>> origin/for_cli
             .unwrap();
 
         info!("Gain mode changed successfully.");
@@ -251,58 +238,12 @@ impl<'a> DacManager<'a> {
         // Write the data.
         dac.single_write(channel, mcp4728::OutputEnableMode::Update, &channel_state)
             .await
-<<<<<<< HEAD
             .unwrap();
 
         Ok(())
     }
 
-    /// Change the voltage on all 24 channels to the specified value in mv.
-    pub async fn set_all_voltages(&mut self, voltages: [u16; 24]) -> Result<(), DacError> {
-        // Loop through each DAC.
-        for i in 0..6 {
-            let j = i * 4;
-
-            // Read the gain mode of each channel.
-            let registers = self.dacs[i].read().await.unwrap();
-            let gains = [
-                registers.channel_a_input.channel_state.gain_mode,
-                registers.channel_b_input.channel_state.gain_mode,
-                registers.channel_c_input.channel_state.gain_mode,
-                registers.channel_d_input.channel_state.gain_mode,
-            ];
-
-            // Convert the the user input in mv, to the DAC register input.
-            let mut inputs: [u16; 4] = [0; 4];
-            for k in 0..4 {
-                inputs[k] = if gains[k] == GainMode::TimesOne {
-                    // Gain 1.
-                    voltages[j + k] * 2
-                } else {
-                    // Gain 2.
-                    voltages[j + k]
-                }
-            }
-
-            // Write values to the DAC.
-            self.dacs[i]
-                .fast_write(inputs[0], inputs[1], inputs[2], inputs[3])
-                .await
-                .map_err(|e| DacError::McpError(e))
-                .unwrap();
-        }
-=======
-            .map_err(|e| DacError::McpError(e))
-            .unwrap();
->>>>>>> origin/for_cli
-
-        info!("Power down mode changed successfully.");
-        Ok(())
-    }
-
-<<<<<<< HEAD
-=======
-    /// Change the voltage on all 24 channels to the specified value in mv.
+    /// Change the voltage on all 24 channels to the s0pecified value in mv.
     pub async fn set_all_voltages(&mut self, voltages: [u16; 24]) -> Result<(), DacError> {
         // Loop through each DAC.
         for i in 0..6 {
@@ -348,7 +289,6 @@ impl<'a> DacManager<'a> {
         Ok(())
     }
 
->>>>>>> origin/for_cli
     /// Change the voltage reference mode on all 24 channels.
     pub async fn set_all_vref_modes(
         &mut self,

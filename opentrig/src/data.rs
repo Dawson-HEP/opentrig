@@ -1,8 +1,8 @@
 use core::ops::Deref;
 use defmt::Format;
-use serde::{Serialize, Deserialize};
-use postcard::{from_bytes, to_vec};
 use heapless::Vec;
+use postcard::{from_bytes, to_vec};
+use serde::{Deserialize, Serialize};
 
 use defmt;
 
