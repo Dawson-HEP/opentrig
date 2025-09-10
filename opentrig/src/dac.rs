@@ -14,7 +14,7 @@ use embassy_rp::i2c::{self, I2c, InterruptHandler};
 use embassy_rp::peripherals::I2C0;
 use embassy_sync::blocking_mutex::raw::NoopRawMutex;
 use embassy_sync::mutex::Mutex;
-use mcp4728::{GainMode, MCP4728Async, PowerDownMode, Registers};
+pub use mcp4728::{GainMode, MCP4728Async, PowerDownMode, Registers};
 use static_cell::StaticCell;
 use {defmt_rtt as _, panic_probe as _};
 
@@ -46,8 +46,8 @@ fn init_i2c(
 
 /// Manager for 6 MCP4728 DACs.
 pub struct DacManager<'a> {
-    pub dacs: [MCP4728Async<I2cDevice<'a, NoopRawMutex, I2c<'static, I2C0, i2c::Async>>>; 6],
-    pub ldacs: [Output<'a>; 6],
+    dacs: [MCP4728Async<I2cDevice<'a, NoopRawMutex, I2c<'static, I2C0, i2c::Async>>>; 6],
+    ldacs: [Output<'a>; 6],
 }
 
 impl<'a> DacManager<'a> {

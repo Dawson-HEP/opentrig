@@ -1,0 +1,46 @@
+for all {
+    0 = error or unrecognised value
+}
+
+input 0 {
+    0xFF = required start value
+}
+
+input 1 {
+    1 = calls function set_voltage
+    2 = calls function set_vref_mode
+    3 = calls function set_gain_mode
+    4 = calls function set_power_down_mode
+    5 = calls function set_all_voltages
+    6 = calls function set_all_vref_modes
+    7 = calls function set_all_gain_modes
+    8 = calls function set_all_power_down_modes
+}
+
+input 2 {
+    10 = dac_id 0
+    20 = dac_id 1
+    30 = dac_id 2
+    40 = dac_id 3
+    50 = dac_id 4
+    60 = dac_id 5
+
+    11 = mcp channel A
+    21 = mcp channel B
+    31 = mcp channel C
+    41 = mcp channel D
+
+    12 = mcp voltage reference mode external
+    22 = mcp voltage reference mode internal
+
+    13 = mcp gain mode times one
+    23 = mcp gain mode times two
+
+    14 = mcp power down mode normal
+    24 = mcp power down mode one k
+    34 = mcp power down mode one hundred k
+    44 = mcp power down mode five hundred k
+
+    100 = set all identical
+    200 = set all individual
+}

@@ -1,0 +1,13 @@
+[package]
+name = "pico_cli"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+
+rusb = "0.9"
+clap = { version = "4.5.41", features = ["derive"] }
+
+serde = { version = "1.0", default-features = false, features = ["derive"] }
+postcard = "1.0.0"
+

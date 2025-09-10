@@ -21,19 +21,45 @@ embedded-io-async = "0.6.1"
 embedded-storage = "0.3.1"
 
 cortex-m-rt = "0.7.3"
+#cortex-m = { version = "0.7.6", features = ["inline-asm"] }
+cortex-m = { version = "0.7.6" }
+
+
 
 embassy-embedded-hal = { version = "0.3.0", features = ["defmt"] }
 embassy-executor = { version = "0.7", features = ["task-arena-size-2048", "arch-cortex-m", "executor-thread", "defmt", "executor-interrupt"] }
 embassy-sync = { version = "0.6" }
 embassy-time = { version = "0.4", features = ["defmt", "defmt-timestamp-uptime"] }
-cortex-m = { version = "0.7.6" }
+
+
+
+# opentrig uses embassy-rp 0.4, which seems to be incompatible with usb_raw_bulk as it is
 embassy-rp = { version = "0.4", features = ["defmt", "unstable-pac", "time-driver", "critical-section-impl", "rp2040"] }
+
+# usb_raw_bulk uses embassy-rp 0.6, which seems to be incompatible with opentrig as it is
+#embassy-rp = { version = "0.6", features = ["defmt", "unstable-pac", "time-driver", "critical-section-impl", "rp2040"] }
+
+
+
+embassy-usb = { version = "0.4.0", features = ["defmt"] }
+#embassy-usb = { version = "0.5.0", features = ["defmt"] }
+#embassy-usb = { version = "0.5.0" }
+embassy-futures = { version = "0.1.0" }
+
 
 portable-atomic = { version = "1.5", features = ["critical-section"] }
 critical-section = "1.1"
 heapless = "0.8"
 static_cell = "2.1.0"
 mcp4728 = { version = "0.2.0", features = ["async"] }
+
+serde = { version = "1.0", default-features = false, features = ["derive"] }
+#serde = { version = "1.0", default-features = false }
+postcard = "1.0.0"
+#rmp-serde = "1.3"
+#serde-pickle = { version = "1.1", default-features = false }
+#serde = { version = "1.0"}
+
 
 [profile.release]
 debug = 2
