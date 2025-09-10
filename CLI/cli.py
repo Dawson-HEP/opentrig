@@ -11,9 +11,9 @@ PRODUCT_ID = 0xCAFE
 INTERFACE_NUMBER = 0
 ENDPOINT_IN = 0x81
 ENDPOINT_OUT = 0x01
-PACKET_SIZE = 64 # Max packet size for full speed USB, is what we are limited to according to google
+PACKET_SIZE = 64 # Max packet s`ize for full speed USB, is what we are limited to according to google
 
-
+z
 # Setup class to translate commands
 
 async def read_loop(dev_handle, csv_writer):
