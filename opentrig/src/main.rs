@@ -91,6 +91,9 @@ static mut data_packet : [u8;64] = [0;64];
 static mut data_packet_idx : u8 = 0;
 
 
+static mut usb_connected : bool = false;
+
+
 
 // This is a randomly generated GUID to allow clients on Windows to find our device
 const DEVICE_INTERFACE_GUIDS: &[&str] = &["{AFB9A6FB-30BA-44BC-9232-806CFC875321}"];
@@ -199,7 +202,6 @@ async fn get_and_setup_daq(
 async fn main(_spawner: Spawner) {
     let p: embassy_rp::Peripherals = embassy_rp::init(Default::default());
 
-
     let ldacs = [
         Output::new(p.PIN_2, Level::Low),
         Output::new(p.PIN_3, Level::Low),
@@ -212,37 +214,11 @@ async fn main(_spawner: Spawner) {
     let mut dac_manager: DacManager<'_> = DacManager::new(p.I2C0, p.PIN_1, p.PIN_0, ldacs);
     dac_manager.init().await.unwrap();
     dac_manager.set_all_voltages([1200; 24]).await.unwrap();
-    //dac_manager.set_all_voltages([2030; 24]).await.unwrap();
 
-
-     let daq = get_and_setup_daq(
-         p.PIN_20, p.PIN_19, p.PIN_18, p.SPI0, p.DMA_CH0, p.DMA_CH1, p.PWM_SLICE5,
-         p.PIN_27, p.PIN_17, p.PIN_13, p.PIN_14, p.PIN_26, p.PIN_15, p.PIN_16).await;
-    // 
-    // // let (rx, tx, clk) = (p.PIN_20, p.PIN_19, p.PIN_18);
-    // // let spi_config = daq_fpga_spi_config();
-    // // let spi = Spi::new(p.SPI0, clk, tx, rx, p.DMA_CH0, p.DMA_CH1, spi_config);
-    // // 
-    // // let pwm_config = daq_fpga_clock_config();
-    // // let fpga_mcu_clk = Pwm::new_output_b(p.PWM_SLICE5, p.PIN_27, pwm_config);
-    // // 
-    // // let mut daq: DAQFpga<'_, SPI0> = DAQFpga::new(
-    // //     spi,
-    // //     p.PIN_17.degrade(),
-    // //     p.PIN_13.degrade(),
-    // //     p.PIN_14.degrade(),
-    // //     fpga_mcu_clk,
-    // //     p.PIN_26.degrade(),
-    // //     p.PIN_15.degrade(),
-    // //     p.PIN_16.degrade(),
-    // // );
-    // // 
-    // // daq.configure(include_bytes!("fpga/main.bin"))
-    // //     .await
-    // //     .unwrap();
-    // // daq.setup_clocks().await.unwrap();
-    // // 
-    // // daq.reset().unwrap();
+    let daq = get_and_setup_daq(
+        p.PIN_20, p.PIN_19, p.PIN_18, p.SPI0, p.DMA_CH0, p.DMA_CH1, p.PWM_SLICE5,
+        p.PIN_27, p.PIN_17, p.PIN_13, p.PIN_14, p.PIN_26, p.PIN_15, p.PIN_16
+    ).await;
 
     spawn_core1(
         p.CORE1,
@@ -331,6 +307,7 @@ async fn core0_task(mut dac_manager:DacManager<'static>,
         //Timer::after_millis(500).await;
 
 
+
         //let input_data = INPUT_CHANNEL.receive().await;
         //println!("input received: {:?}", input_data);
 //
@@ -372,7 +349,6 @@ async fn use_usb(
         //read_ep.wait_enabled().await;
         info!("Connected");
         loop {
-            let mut data = [0; 64];
             println!("loop works on usb side");
             //let nbytes = read_ep.read(&mut data).await.expect("failed to read endpoint");
             //println!("received external input");
@@ -395,9 +371,9 @@ async fn use_usb(
 //
 
             let daq_sample = DAQ_CHANNEL.receive().await;
-            //println!("hi, internal receive");
-            //let output = daq_sample.encode_as_u8();
-            //println!("m {:?}", output);
+            println!("hi, internal receive");
+            let output = daq_sample.encode_as_u8();
+            println!("m {:?}", output);
 
             // // Try and access Volume 0 (i.e. the first partition).
             // // The volume object holds information about the filesystem on that volume.
@@ -431,10 +407,20 @@ async fn use_usb(
 ////
             //println!("done");
 
-            //match write_ep.write(&output).await {
-            //    Ok(_) => {println!("wrote DAQSample successfully to computer")},
-            //    Err(err) => {println!("failed to send DAQSample due to {:?}", err)},
+            match write_ep.write(&output).await {
+                Ok(_) => {println!("wrote DAQSample successfully to computer")},
+                Err(err) => {println!("failed to send DAQSample due to {:?}", err)},
+            }
+
+            //unsafe {
+            //    if usb_connected {
+            //        match write_ep.write(&output).await {
+            //            Ok(_) => {println!("wrote DAQSample successfully to computer")},
+            //            Err(err) => {println!("failed to send DAQSample due to {:?}", err)},
+            //        }
+            //    }
             //}
+            //warn!("sent!(?)");
 
         }
         info!("Disconnected");

@@ -1,5 +1,5 @@
 use core::ops::Deref;
-use defmt::Format;
+use defmt::{println, Format};
 use heapless::Vec;
 
 use defmt;
@@ -61,7 +61,7 @@ fn num_from_bool(b:bool) -> u8 {
 
 impl DAQSample {
     pub fn encode_as_u8(&self) -> [u8; 16] {
-        let mut encoded = [0xFF];
+        let mut encoded = [0x7D];
         let a = u16_to_bytes(self.trigger_id);
         let b = u64_to_bytes(self.trigger_clk);
         let c = u32_to_bytes(self.trigger_data);
@@ -74,6 +74,19 @@ impl DAQSample {
         z = (1<<3) ^ z;
         z = (1<<2) ^ z;
         z = (1<<1) ^ z;
+        z = (1<<0) ^ z;
+
+        println!("z={}", z);
+
+        // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+        // [0] confirmation
+        // [1, 2] combine for trigger id
+        // [3, 4, 5, 6, 7, 8, 9, 10] combine for trigger clk
+        // [11, 12, 13, 14] combine for trigger data
+        // within [15] are 8 bits qwertyui
+        //      q is veto in
+        //      w is internal trigger
+        //      ertyui is end confirmation
         
         let mut encoded: [u8; 3] = concat_arrays(encoded, a);
         let mut encoded: [u8; 11] = concat_arrays(encoded, b);
