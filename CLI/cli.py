@@ -38,7 +38,7 @@ async def read_loop(dev_handle):
             data = await future
             for i in range(0, len(data), 16):
                 sample = data[i:i+16]
-                if len(sample) <= 16:
+                if len(sample) < 16:
                     continue
                                 #                 // [
                 # //  u8 for start (0xFF),
