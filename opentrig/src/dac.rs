@@ -156,6 +156,7 @@ impl<'a> DacManager<'a> {
         if input > 4096 {
             return Err(DacError::InputVoltageOutOfBounds(input));
         }
+
         // Create the new data.
         let mut channel_state = self.read_channel(dac_id, channel).await.unwrap().clone();
         channel_state.value = input;
@@ -238,12 +239,14 @@ impl<'a> DacManager<'a> {
         // Write the data.
         dac.single_write(channel, mcp4728::OutputEnableMode::Update, &channel_state)
             .await
+            .map_err(|e| DacError::McpError(e))
             .unwrap();
 
+        info!("Power down mode changed successfully.");
         Ok(())
     }
 
-    /// Change the voltage on all 24 channels to the s0pecified value in mv.
+    /// Change the voltage on all 24 channels to the specified value in mv.
     pub async fn set_all_voltages(&mut self, voltages: [u16; 24]) -> Result<(), DacError> {
         // Loop through each DAC.
         for i in 0..6 {
