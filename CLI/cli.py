@@ -38,7 +38,7 @@ async def read_loop(dev_handle):
             data = await future
             for i in range(0, len(data), 16):
                 sample = data[i:i+16]
-                if len(sample) < 16:
+                if len(sample) <= 16:
                     continue
                                 #                 // [
                 # //  u8 for start (0xFF),
@@ -50,9 +50,11 @@ async def read_loop(dev_handle):
                 # //  )
                 # //  ]
                 # Unpack: <H Q I BB (LSB first, switch the < for MSB first)
-                trigger_id, trigger_clk, trigger_data, veto_in, internal_trigger = struct.unpack("<HQIBB", sample)
-                for writer in list(active_writers):  # write to all active files
-                    writer.writerow([trigger_id, trigger_clk, trigger_data, veto_in, internal_trigger])
+                # trigger_id, trigger_clk, trigger_data, veto_in, internal_trigger = struct.unpack("<HQIBB", sample)
+                # for writer in list(active_writers):  # write to all active files
+                #     writer.writerow([trigger_id, trigger_clk, trigger_data, veto_in, internal_trigger])
+                for writer in list(active_writers):
+                    writer.writerow(sample)  # write to all active files
         except usb1.USBErrorTimeout:
             pass
 
@@ -85,7 +87,7 @@ async def write_loop(dev_handle):
                     writer.writerow([f"--- RECORD START: {fname} ({seconds}s) ---"])
 
             print(f"Recording into {fname} for {seconds} seconds")
-            
+
             async def stop_later():
                 await asyncio.sleep(seconds)
                 active_writers.remove(w)
