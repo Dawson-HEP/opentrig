@@ -52,7 +52,7 @@ async def read_loop(dev_handle):
                 # Unpack: <H Q I BB (LSB first, switch the < for MSB first)
                 trigger_id, trigger_clk, trigger_data, veto_in, internal_trigger = struct.unpack("<HQIBB", sample)
                 for writer in list(active_writers):  # write to all active files
-                    writer.writerow([trigger_id, trigger_clk, trigger_data, veto_in, internal_trigger, data])
+                    writer.writerow([trigger_id, trigger_clk, trigger_data, veto_in, internal_trigger])
 
         except usb1.USBErrorTimeout:
             pass
