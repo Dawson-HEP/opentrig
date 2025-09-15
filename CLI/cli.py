@@ -22,11 +22,11 @@ PACKET_SIZE = 64 # Max packet size for full speed USB, is what we are limited to
 filename = "pico_data.csv"
 tc = translate_commands.Translate()
 
-# ser = serial.Serial('COM8', 115200, timeout=1)
-# time.sleep(2)  # allow device to reset
+ser = serial.Serial('/dev/ttyUSB0', 115200, timeout=1)
+time.sleep(2)  # allow device to reset
 
-# ser.write(b"$X\r\n")
-# print(ser.readline().decode('utf-8').strip())
+ser.write(b"$X\r\n")
+print(ser.readline().decode('utf-8').strip())
 
 active_writers = set()
 async def read_loop(dev_handle):
@@ -51,8 +51,12 @@ async def read_loop(dev_handle):
                 # //  ]
                 # Unpack: <H Q I BB (LSB first, switch the < for MSB first)
                 trigger_id, trigger_clk, trigger_data, veto_in, internal_trigger = struct.unpack("<HQIBB", sample)
+                trigger_id = sample[1:2]
+                trigger_clk = sample[3:10] 
+                trigger_data = sample[11:14]
+                veto_internal_end_bits = sample[15]
                 for writer in list(active_writers):  # write to all active files
-                    writer.writerow([trigger_id, trigger_clk, trigger_data, veto_in, internal_trigger, data])
+                    writer.writerow([trigger_id, trigger_clk, trigger_data, veto_internal_end_bits, data])
 
         except usb1.USBErrorTimeout:
             pass
@@ -95,11 +99,11 @@ async def write_loop(dev_handle):
 
             asyncio.create_task(stop_later())
 
-        # elif "gcode:" in cmd: # Send gcode command to serial device
-        #     ser.write((cmd + '\r\n').encode('utf-8'))
-        #     response = ser.readline().decode('utf-8').strip()
-        #     print(f"Response: {response}")
-        #     # Change machine angle depending on GCODE here
+        elif "gcode:" in cmd: # Send gcode command to serial device
+            ser.write((cmd + '\r\n').encode('utf-8'))
+            response = ser.readline().decode('utf-8').strip()
+            print(f"Response: {response}")
+            # Change machine angle depending on GCODE here
         else:
             await loop.run_in_executor(None, lambda: dev_handle.bulkWrite(ENDPOINT_OUT, tc.translate(cmd), timeout=1000)) # Should encode as UTF-8 bytes, which should work for the pico?
             print("Sent:", cmd) # Confirmation because it is nice to have confirmation 
@@ -118,7 +122,7 @@ async def main():
         # Open master log
         master_file = open("pico_data.csv", "w", newline="")
         master_writer = csv.writer(master_file)
-        master_writer.writerow(["trigger_id", "trigger_clk", "trigger_data", "veto_in", "internal_trigger"])
+        master_writer.writerow(["trigger_id", "trigger_clk", "trigger_data", "veto_internal_end_bits", "data"])
         active_writers.add(master_writer)
 
         await asyncio.gather(
