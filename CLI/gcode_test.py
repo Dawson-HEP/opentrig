@@ -11,8 +11,6 @@ import serial
 ser = serial.Serial('COM8', 115200, timeout=1)
 time.sleep(2)  # allow device to reset
 
-ser.write(b"$X\r\n")
-print(ser.readline().decode('utf-8').strip())
 
 
 while True:

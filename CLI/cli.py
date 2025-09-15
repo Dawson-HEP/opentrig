@@ -28,22 +28,19 @@ time.sleep(2)  # allow device to reset
 ser.write(b"$X\r\n")
 print(ser.readline().decode('utf-8').strip())
 
-
-
-async def read_loop(dev_handle, csv_writer):
-    '''Reads data from the device and writes to CSV file, should be running continuously.'''
+active_writers = set()
+async def read_loop(dev_handle):
+    '''Reads data from the device and writes to all active CSV files.'''
     loop = asyncio.get_running_loop()
     while True:
-        future = loop.run_in_executor(None, lambda: dev_handle.bulkRead(ENDPOINT_IN, PACKET_SIZE, timeout=1000)) # Slight chance of missing the first data packet that comes first if timeout happens exactly at the time that packet arrives
+        future = loop.run_in_executor(None, lambda: dev_handle.bulkRead(ENDPOINT_IN, PACKET_SIZE, timeout=1000))
         try:
             data = await future
-            print("Read:", data)
-            # Process each DAQSample, according to Alex rust data struct (16 bytes)
             for i in range(0, len(data), 16):
                 sample = data[i:i+16]
                 if len(sample) < 16:
                     continue
-                #                 // [
+                                #                 // [
                 # //  u8 for start (0xFF),
                 # //  2 u8's for trigger_id (glue them together left to right),
                 # //  8 u8's for trigger_clk (glue them together left to right),
@@ -53,9 +50,10 @@ async def read_loop(dev_handle, csv_writer):
                 # //  )
                 # //  ]
                 # Unpack: <H Q I BB (LSB first, switch the < for MSB first)
-                trigger_id, trigger_clk, trigger_data, veto_in, internal_trigger = struct.unpack(" <HQIBB", sample)
-                csv_writer.writerow([trigger_id, trigger_clk, trigger_data, veto_in, internal_trigger]) # add 
-        except usb1.USBErrorTimeout: # If timeout happens, just ignore it :)
+                trigger_id, trigger_clk, trigger_data, veto_in, internal_trigger = struct.unpack("<HQIBB", sample)
+                for writer in list(active_writers):  # write to all active files
+                    writer.writerow([trigger_id, trigger_clk, trigger_data, veto_in, internal_trigger])
+        except usb1.USBErrorTimeout:
             pass
 
 async def write_loop(dev_handle):
@@ -69,9 +67,33 @@ async def write_loop(dev_handle):
         cmd = cmd.strip() # If need be add more filtering here 
         if cmd.lower() == "exit":
             break
-        elif "switch file to" in cmd: # Change filename manually
-            filename = cmd.split("switch filename to")[-1].strip()
-            print(f"Switching output file to: {filename}")
+
+        elif cmd.startswith("record "):
+            try:
+                _, fname, seconds = cmd.split()
+                seconds = int(seconds)
+            except ValueError:
+                print("Usage: record <filename> <seconds>")
+                continue
+
+            f = open(fname, "w", newline="")
+            w = csv.writer(f)
+            active_writers.add(w)
+            
+            for writer in list(active_writers):
+                if writer is not w:  # only to master (avoid polluting the new file)
+                    writer.writerow([f"--- RECORD START: {fname} ({seconds}s) ---"])
+
+            print(f"Recording into {fname} for {seconds} seconds")
+            
+            async def stop_later():
+                await asyncio.sleep(seconds)
+                active_writers.remove(w)
+                f.close()
+                print(f"Finished recording {fname}")
+
+            asyncio.create_task(stop_later())
+
         elif "gcode:" in cmd: # Send gcode command to serial device
             ser.write((cmd + '\r\n').encode('utf-8'))
             response = ser.readline().decode('utf-8').strip()
@@ -81,20 +103,26 @@ async def write_loop(dev_handle):
             await loop.run_in_executor(None, lambda: dev_handle.bulkWrite(ENDPOINT_OUT, tc.translate(cmd), timeout=1000)) # Should encode as UTF-8 bytes, which should work for the pico?
             print("Sent:", cmd) # Confirmation because it is nice to have confirmation 
 
+
 async def main():
-    with usb1.USBContext() as ctx, open("pico_data.csv", "w", newline="") as csvfile: # Each run will create a fresh file for now, did not fix that since its supposed to become Hdf5 anyways
+    with usb1.USBContext() as ctx:
         handle = ctx.openByVendorIDAndProductID(
             VENDOR_ID, PRODUCT_ID,
-            skip_on_error=True # Will return None if device is not found
+            skip_on_error=True
         )
         if handle is None:
             raise RuntimeError("Device not found")
-        handle.claimInterface(INTERFACE_NUMBER) # Claiming in main because if both read and write loops try to claim the interface, it will fail
-        csv_writer = csv.writer(csvfile)
-        csv_writer.writerow(["trigger_id", "trigger_clk", "trigger_data", "veto_in", "internal_trigger", "pitch_angle", "yaw_angle"])
+        handle.claimInterface(INTERFACE_NUMBER)
+
+        # Open master log
+        master_file = open("pico_data.csv", "w", newline="")
+        master_writer = csv.writer(master_file)
+        master_writer.writerow(["trigger_id", "trigger_clk", "trigger_data", "veto_in", "internal_trigger"])
+        active_writers.add(master_writer)
+
         await asyncio.gather(
-            read_loop(handle, csv_writer),
-            write_loop(handle) # Passing handle on should be no problem since they run concurrently and not in parallel (Sending the actual command is done through the executor thread)
+            read_loop(handle),
+            write_loop(handle)
         )
 
 if __name__ == "__main__":   
