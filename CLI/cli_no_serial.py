@@ -51,9 +51,9 @@ async def read_loop(dev_handle):
                 # //  ]
                 # Unpack: <H Q I BB (LSB first, switch the < for MSB first)
                 trigger_id, trigger_clk, trigger_data, veto_in, internal_trigger = struct.unpack("<HQIBB", sample)
-                trigger_id = sample[1:2]
-                trigger_clk = sample[3:10]
-                trigger_data = sample[11:14]
+                trigger_id = sample[1:3]
+                trigger_clk = sample[3:11]
+                trigger_data = sample[11:15]
                 veto_internal_end_bits = sample[15]
                 for writer in list(active_writers):  # write to all active files
                     writer.writerow([trigger_id, trigger_clk, trigger_data, veto_internal_end_bits, data])
