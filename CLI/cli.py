@@ -54,7 +54,7 @@ async def read_loop(dev_handle):
                 # for writer in list(active_writers):  # write to all active files
                 #     writer.writerow([trigger_id, trigger_clk, trigger_data, veto_in, internal_trigger])
                 for writer in list(active_writers):
-                    writer.writerow(sample)  # write to all active files
+                    writer.writerow([sample])  # write to all active files
         except usb1.USBErrorTimeout:
             pass
 
