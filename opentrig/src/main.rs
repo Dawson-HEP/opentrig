@@ -298,77 +298,24 @@ async fn core0_task(mut dac_manager:DacManager<'static>,
     let usb = usb.run();
 
     let core_0_loop = async {
-        //let new_daq_sample = DAQSample {
-        //    trigger_id: 1,
-        //    trigger_clk: u64::MAX,
-        //    trigger_data: 3,
-        //    veto_in: true,
-        //    internal_trigger: false,
-        //};
-        //DAQ_CHANNEL.send(new_daq_sample).await;
-        //Timer::after_millis(500).await;
+
+        loop {
+            info!("awaiting TLU");
+            daq.await_sample().await;
+            if let Ok(sample) = daq.read_sample() {
+                //DAQ_CHANNEL.send(*daq.last_sample_bytes()).await;
+                info!("received from TLU");
 
 
+                match write_ep.write(daq.last_sample_bytes()).await {
+                    Ok(_) => {println!("wrote DAQSample successfully to computer")},
+                    Err(err) => {println!("failed to send DAQSample due to {:?}", err)},
+                }
 
-        //let input_data = INPUT_CHANNEL.receive().await;
-        //println!("input received: {:?}", input_data);
-//
-        //match input_data[0] {
-        //    0xFF => {
-        //        handle_inputs::match_cli_values_to_functions(&input_data[1..64], &mut dac_manager).await;
-        //    },
-        //    _ => println!("invalid starting u8 of inputs is {}", input_data[0]),
-        //}
+                info!("sent to PC!");
 
-        info!("awaiting TLU");
-        daq.await_sample().await;
-        if let Ok(sample) = daq.read_sample() {
-            
-            //let trigger_id_buf = &sample[1..3];
-            //let trigger_clk_buf = &sample[3..11];
-            //let trigger_data_buf = &sample[11..15];
-            //
-            //let trigger_id = u16::from_be_bytes(trigger_id_buf.try_into().unwrap());
-            //let trigger_clk = u64::from_be_bytes(trigger_clk_buf.try_into().unwrap());
-            //let data_clk_buf = u32::from_be_bytes(trigger_data_buf.try_into().unwrap());
-            //let trigger_data = data_clk_buf & 0x00FF_FFFF;
-            //let veto_in = (data_clk_buf >> 31 & 1) != 0;
-            //let internal_trigger = (data_clk_buf >> 30 & 1) != 0;
-            //
-            //let daqsample = DAQSample {
-            //    trigger_id: trigger_id,
-            //    trigger_clk: trigger_clk,
-            //    trigger_data: trigger_data,
-            //    veto_in: veto_in,
-            //    internal_trigger: internal_trigger,
-            //};
-//
-            let d = sample.trigger_data;
-
-
-            info!(
-                "trigger_id {}, trigger_clk {}, trigger_data [0b{:08b} 0b{:08b} 0b{:08b} 0b{:08b}], veto_in {}, internal_trigger {}",
-                sample.trigger_id,
-                sample.trigger_clk,
-                (d >> 24) & 0xFF,
-                (d >> 16) & 0xFF,
-                (d >> 8) & 0xFF,
-                d & 0xFF,
-                sample.veto_in,
-                sample.internal_trigger,
-            );
-
-
-            //DAQ_CHANNEL.send(*daq.last_sample_bytes()).await;
-            info!("received from TLU");
-
-
-            match write_ep.write(daq.last_sample_bytes()).await {
-                Ok(_) => {println!("wrote DAQSample successfully to computer")},
-                Err(err) => {println!("failed to send DAQSample due to {:?}", err)},
-            }
-
-        } else {info!("invalid DAQSample")}
+            } else {warn!("invalid DAQSample")}
+        }
     };
 
     join(usb, core_0_loop).await;
