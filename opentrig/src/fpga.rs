@@ -147,6 +147,10 @@ where
         self.interrupt.wait_for_falling_edge().await;
     }
 
+    pub fn last_sample_bytes(& self) -> &[u8; 16] {
+        &self.read_buffer
+    }
+
     pub fn read_sample(&mut self) -> Result<DAQSample, ()> {
         self.cs.set_low();
         self.spi
