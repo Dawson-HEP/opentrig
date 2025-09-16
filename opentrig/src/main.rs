@@ -93,12 +93,12 @@ async fn main(_spawner: Spawner) {
     let usb_fut = usb.run();
 
     let ldacs = [
+        Output::new(p.PIN_2, Level::Low),
+        Output::new(p.PIN_3, Level::Low),
         Output::new(p.PIN_4, Level::Low),
         Output::new(p.PIN_5, Level::Low),
         Output::new(p.PIN_6, Level::Low),
         Output::new(p.PIN_7, Level::Low),
-        Output::new(p.PIN_8, Level::Low),
-        Output::new(p.PIN_9, Level::Low),
     ];
 
     let mut dac_manager = dac::DacManager::new(p.I2C0, p.PIN_1, p.PIN_0, ldacs);
