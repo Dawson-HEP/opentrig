@@ -147,7 +147,8 @@ where
         self.interrupt.wait_for_falling_edge().await;
     }
 
-    pub fn read_sample(&mut self) -> Result<DAQSample, ()> {
+    //pub fn read_sample(&mut self) -> Result<DAQSample, ()> {
+    pub fn read_sample(&mut self) -> Result<[u8;16], ()> {
         self.cs.set_low();
         self.spi
             .blocking_read(&mut self.read_buffer)
@@ -164,23 +165,30 @@ where
             return Err(());
         }
 
-        let trigger_id_buf = &self.read_buffer[1..3];
-        let trigger_clk_buf = &self.read_buffer[3..11];
-        let trigger_data_buf = &self.read_buffer[11..15];
 
-        let trigger_id = u16::from_be_bytes(trigger_id_buf.try_into().unwrap());
-        let trigger_clk = u64::from_be_bytes(trigger_clk_buf.try_into().unwrap());
-        let data_clk_buf = u32::from_be_bytes(trigger_data_buf.try_into().unwrap());
-        let trigger_data = data_clk_buf & 0x00FF_FFFF;
-        let veto_in = (data_clk_buf >> 31 & 1) != 0;
-        let internal_trigger = (data_clk_buf >> 30 & 1) != 0;
+        // just send self.read_buffer
 
-        Ok(DAQSample {
-            trigger_id: trigger_id,
-            trigger_clk: trigger_clk,
-            trigger_data: trigger_data,
-            veto_in: veto_in,
-            internal_trigger: internal_trigger,
-        })
+        Ok(self.read_buffer)
+
+
+
+        //let trigger_id_buf = &self.read_buffer[1..3];
+        //let trigger_clk_buf = &self.read_buffer[3..11];
+        //let trigger_data_buf = &self.read_buffer[11..15];
+        //
+        //let trigger_id = u16::from_be_bytes(trigger_id_buf.try_into().unwrap());
+        //let trigger_clk = u64::from_be_bytes(trigger_clk_buf.try_into().unwrap());
+        //let data_clk_buf = u32::from_be_bytes(trigger_data_buf.try_into().unwrap());
+        //let trigger_data = data_clk_buf & 0x00FF_FFFF;
+        //let veto_in = (data_clk_buf >> 31 & 1) != 0;
+        //let internal_trigger = (data_clk_buf >> 30 & 1) != 0;
+        //
+        //Ok(DAQSample {
+        //    trigger_id: trigger_id,
+        //    trigger_clk: trigger_clk,
+        //    trigger_data: trigger_data,
+        //    veto_in: veto_in,
+        //    internal_trigger: internal_trigger,
+        //})
     }
 }

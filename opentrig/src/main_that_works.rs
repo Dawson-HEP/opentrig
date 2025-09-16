@@ -74,8 +74,7 @@ use heapless::Vec;
 static mut CORE1_STACK: Stack<4096> = Stack::new();
 static EXECUTOR0: StaticCell<Executor> = StaticCell::new();
 static EXECUTOR1: StaticCell<Executor> = StaticCell::new();
-//static DAQ_CHANNEL: Channel<CriticalSectionRawMutex, DAQSample, 1> = Channel::new();
-static DAQ_CHANNEL: Channel<CriticalSectionRawMutex, [u8;16], 1> = Channel::new();
+static DAQ_CHANNEL: Channel<CriticalSectionRawMutex, DAQSample, 1> = Channel::new();
 static INPUT_CHANNEL: Channel<CriticalSectionRawMutex, [u8;64], 1> = Channel::new();
 
 
@@ -372,19 +371,18 @@ async fn use_usb(
 //
 
             let daq_sample = DAQ_CHANNEL.receive().await;
-            //println!("hi, internal receive");
-            //let output = daq_sample.encode_as_u8();
-            //println!("m {:?}", output);
+            println!("hi, internal receive");
+            let output = daq_sample.encode_as_u8();
+            println!("m {:?}", output);
 
-            //  // Try and access Volume 0 (i.e. the first partition).
-            //  // The volume object holds information about the filesystem on that volume.
-            //  let mut sd_volume0= volume_manager.open_volume(embedded_sdmmc::VolumeIdx(0)).unwrap();
-            //  info!("Volume 0: {:?}", defmt::Debug2Format(&sd_volume0));
-            //  // Open the root directory (mutably borrows from the volume).
-            //  let mut sd_root_dir: Result<embedded_sdmmc::Directory<'_, SdCard<ExclusiveDevice<Spi<'static, SPI1, spi::Blocking>, DummyCsPin, embedded_hal_bus::spi::NoDelay>, Output<'static>, embassy_time::Delay>, DummyTimesource, 4, 4, 1>, embedded_sdmmc::Error<embedded_sdmmc::SdCardError>> = sd_volume0.open_root_dir();
-            //// Open a file called "MY_FILE.TXT" in the root directory
+            // // Try and access Volume 0 (i.e. the first partition).
+            // // The volume object holds information about the filesystem on that volume.
+            // let mut sd_volume0= volume_manager.open_volume(embedded_sdmmc::VolumeIdx(0)).unwrap();
+            // info!("Volume 0: {:?}", defmt::Debug2Format(&sd_volume0));
+            // // Open the root directory (mutably borrows from the volume).
+            // let mut sd_root_dir = sd_volume0.open_root_dir();
+                // Open a file called "MY_FILE.TXT" in the root directory
             // This mutably borrows the directory.
-
             //let mut my_file = sd_root_dir
             //    .open_file_in_dir("SDTEST.TXT", embedded_sdmmc::Mode::ReadOnly)
             //    .unwrap();
@@ -398,8 +396,6 @@ async fn use_usb(
             //    } else {info!("nope")}
             //} else {info!("double nope")}
 
-            println!("done");
-
             //let mut file = sd_root_dir.open_file_in_dir("SDTEST.TXT", embedded_sdmmc::Mode::ReadOnly).expect("failed to create file on sd card");
             //info!("midpoint");
             //file.write(&output).expect("failed to write to file");
@@ -411,8 +407,7 @@ async fn use_usb(
 ////
             //println!("done");
 
-            //match write_ep.write(&output).await {
-            match write_ep.write(&daq_sample).await {
+            match write_ep.write(&output).await {
                 Ok(_) => {println!("wrote DAQSample successfully to computer")},
                 Err(err) => {println!("failed to send DAQSample due to {:?}", err)},
             }

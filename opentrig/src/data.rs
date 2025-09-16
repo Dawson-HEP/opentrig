@@ -30,7 +30,10 @@ pub fn u64_to_bytes(u:u64) -> [u8; 8] {
     for i in 0..8 {
         bytes[i] = (((u <<  i*8) >> nbits-8) as u8);
     };
+
     bytes
+
+    //  u.to_le_bytes()  Alex says use this
 }
 pub fn u32_to_bytes(u:u32) -> [u8; 4] {
     let nbits = 32;
@@ -108,3 +111,6 @@ impl DAQSample {
 //        write!(f, "DAQSample {}, {}, {}, {}, {}", self.trigger_id, self.trigger_clk, self.trigger_data, self.veto_in, self.internal_trigger)
 //    }
 //}
+
+
+// (last bit of encoded) & 01000000
