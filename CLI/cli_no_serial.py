@@ -94,7 +94,7 @@ async def write_loop(dev_handle, run_dir):
         if cmd.lower() == "exit":
             break
 
-        elif cmd.startswith("record_time"):
+        elif cmd.startswith("rt"):
             try:
                 _, fname, seconds = cmd.split()
                 seconds = int(seconds)
@@ -123,7 +123,7 @@ async def write_loop(dev_handle, run_dir):
 
             asyncio.create_task(stop_later())
         
-        elif cmd.startswith("record_n_hits"):
+        elif cmd.startswith("rc"):
             try:
                 _, fname, n_hits = cmd.split()
                 n_hits = int(n_hits)
@@ -148,7 +148,6 @@ async def write_loop(dev_handle, run_dir):
             def hit_filter(row):
                 nonlocal hit_count
                 hit_count += 1
-                #w.writerow(row)
                 if hit_count >= n_hits:
                     try:
                         active_writers.remove(w)
