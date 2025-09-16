@@ -300,19 +300,19 @@ async fn core0_task(mut dac_manager:DacManager<'static>,
     let core_0_loop = async {
 
         loop {
-            info!("awaiting TLU");
+            //info!("awaiting TLU");
             daq.await_sample().await;
             if let Ok(sample) = daq.read_sample() {
                 //DAQ_CHANNEL.send(*daq.last_sample_bytes()).await;
-                info!("received from TLU");
+                //info!("received from TLU");
 
 
                 match write_ep.write(daq.last_sample_bytes()).await {
-                    Ok(_) => {println!("wrote DAQSample successfully to computer")},
-                    Err(err) => {println!("failed to send DAQSample due to {:?}", err)},
+                    Ok(_) => {},//println!("wrote DAQSample successfully to computer")},
+                    Err(err) => {},//println!("failed to send DAQSample due to {:?}", err)},
                 }
 
-                info!("sent to PC!");
+                //info!("sent to PC!");
 
             } else {warn!("invalid DAQSample")}
         }
