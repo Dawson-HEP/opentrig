@@ -124,19 +124,19 @@ async fn main(_spawner: Spawner) {
                 daq.await_sample().await;
 
                 if let Ok(sample) = daq.read_sample() {
-                    let d = sample.trigger_data;
+                    // let d = sample.trigger_data;
 
-                    info!(
-                        "trigger_id {}, trigger_clk {}, trigger_data [0b{:08b} 0b{:08b} 0b{:08b} 0b{:08b}], veto_in {}, internal_trigger {}",
-                        sample.trigger_id,
-                        sample.trigger_clk,
-                        (d >> 24) & 0xFF,
-                        (d >> 16) & 0xFF,
-                        (d >> 8) & 0xFF,
-                        d & 0xFF,
-                        sample.veto_in,
-                        sample.internal_trigger,
-                    );
+                    // info!(
+                    //     "trigger_id {}, trigger_clk {}, trigger_data [0b{:08b} 0b{:08b} 0b{:08b} 0b{:08b}], veto_in {}, internal_trigger {}",
+                    //     sample.trigger_id,
+                    //     sample.trigger_clk,
+                    //     (d >> 24) & 0xFF,
+                    //     (d >> 16) & 0xFF,
+                    //     (d >> 8) & 0xFF,
+                    //     d & 0xFF,
+                    //     sample.veto_in,
+                    //     sample.internal_trigger,
+                    // );
 
                     write_ep.write(daq.last_sample_bytes()).await.ok();
                 }
