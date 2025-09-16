@@ -215,17 +215,17 @@ async fn main(_spawner: Spawner) {
         p.PIN_27, p.PIN_17, p.PIN_13, p.PIN_14, p.PIN_26, p.PIN_15, p.PIN_16
     ).await;
 
-    spawn_core1(
-        p.CORE1,
-        unsafe { &mut *core::ptr::addr_of_mut!(CORE1_STACK) },
-        move || {
-            let executor1 = EXECUTOR1.init(Executor::new());
-            executor1.run(|spawner| unwrap!(spawner.spawn(core1_task(p.USB, p.SPI1, p.PIN_10, p.PIN_11, p.PIN_12, p.PIN_8)))); // , p.SPI1, p.PIN_10, p.PIN_11, p.PIN_12, p.PIN_16
-        },
-    );
+    //spawn_core1(
+    //    p.CORE1,
+    //    unsafe { &mut *core::ptr::addr_of_mut!(CORE1_STACK) },
+    //    move || {
+    //        let executor1 = EXECUTOR1.init(Executor::new());
+    //        executor1.run(|spawner| unwrap!(spawner.spawn(core1_task(p.USB, p.SPI1, p.PIN_10, p.PIN_11, p.PIN_12, p.PIN_8)))); // , p.SPI1, p.PIN_10, p.PIN_11, p.PIN_12, p.PIN_16
+    //    },
+    //);
     
     let executor0 = EXECUTOR0.init(Executor::new());
-    executor0.run(|spawner| unwrap!(spawner.spawn(core0_task(dac_manager, daq))));
+    executor0.run(|spawner| unwrap!(spawner.spawn(core0_task(dac_manager, daq, p.USB))));
 
 }
 
@@ -288,9 +288,16 @@ async fn make_usb(usb_pin:USB) ->
 
 #[embassy_executor::task]
 async fn core0_task(mut dac_manager:DacManager<'static>,
-                    mut daq:DAQFpga<'static, embassy_rp::peripherals::SPI0>) {
+                    mut daq:DAQFpga<'static, embassy_rp::peripherals::SPI0>,
+                    usb_pin:USB
+                ) {
     info!("Hello from core 0");
-    loop {
+
+    let (mut usb, mut read_ep, mut write_ep) = make_usb(usb_pin).await;
+
+    let usb = usb.run();
+
+    let core_0_loop = async {
         //let new_daq_sample = DAQSample {
         //    trigger_id: 1,
         //    trigger_clk: u64::MAX,
@@ -317,45 +324,55 @@ async fn core0_task(mut dac_manager:DacManager<'static>,
         daq.await_sample().await;
         if let Ok(sample) = daq.read_sample() {
             
-            let trigger_id_buf = &sample[1..3];
-            let trigger_clk_buf = &sample[3..11];
-            let trigger_data_buf = &sample[11..15];
-            
-            let trigger_id = u16::from_be_bytes(trigger_id_buf.try_into().unwrap());
-            let trigger_clk = u64::from_be_bytes(trigger_clk_buf.try_into().unwrap());
-            let data_clk_buf = u32::from_be_bytes(trigger_data_buf.try_into().unwrap());
-            let trigger_data = data_clk_buf & 0x00FF_FFFF;
-            let veto_in = (data_clk_buf >> 31 & 1) != 0;
-            let internal_trigger = (data_clk_buf >> 30 & 1) != 0;
-            
-            let daqsample = DAQSample {
-                trigger_id: trigger_id,
-                trigger_clk: trigger_clk,
-                trigger_data: trigger_data,
-                veto_in: veto_in,
-                internal_trigger: internal_trigger,
-            };
-
-            let d = daqsample.trigger_data;
+            //let trigger_id_buf = &sample[1..3];
+            //let trigger_clk_buf = &sample[3..11];
+            //let trigger_data_buf = &sample[11..15];
+            //
+            //let trigger_id = u16::from_be_bytes(trigger_id_buf.try_into().unwrap());
+            //let trigger_clk = u64::from_be_bytes(trigger_clk_buf.try_into().unwrap());
+            //let data_clk_buf = u32::from_be_bytes(trigger_data_buf.try_into().unwrap());
+            //let trigger_data = data_clk_buf & 0x00FF_FFFF;
+            //let veto_in = (data_clk_buf >> 31 & 1) != 0;
+            //let internal_trigger = (data_clk_buf >> 30 & 1) != 0;
+            //
+            //let daqsample = DAQSample {
+            //    trigger_id: trigger_id,
+            //    trigger_clk: trigger_clk,
+            //    trigger_data: trigger_data,
+            //    veto_in: veto_in,
+            //    internal_trigger: internal_trigger,
+            //};
+//
+            let d = sample.trigger_data;
 
 
             info!(
                 "trigger_id {}, trigger_clk {}, trigger_data [0b{:08b} 0b{:08b} 0b{:08b} 0b{:08b}], veto_in {}, internal_trigger {}",
-                daqsample.trigger_id,
-                daqsample.trigger_clk,
+                sample.trigger_id,
+                sample.trigger_clk,
                 (d >> 24) & 0xFF,
                 (d >> 16) & 0xFF,
                 (d >> 8) & 0xFF,
                 d & 0xFF,
-                daqsample.veto_in,
-                daqsample.internal_trigger,
+                sample.veto_in,
+                sample.internal_trigger,
             );
 
 
-            DAQ_CHANNEL.send(sample).await;
+            //DAQ_CHANNEL.send(*daq.last_sample_bytes()).await;
             info!("received from TLU");
+
+
+            match write_ep.write(daq.last_sample_bytes()).await {
+                Ok(_) => {println!("wrote DAQSample successfully to computer")},
+                Err(err) => {println!("failed to send DAQSample due to {:?}", err)},
+            }
+
         } else {info!("invalid DAQSample")}
-    }
+    };
+
+    join(usb, core_0_loop).await;
+
 }
 
 async fn use_usb(

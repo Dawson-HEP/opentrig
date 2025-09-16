@@ -43,7 +43,7 @@ use embassy_usb::driver::{Endpoint, EndpointIn, EndpointOut};
 use embassy_usb::msos::{self, windows_version};
 use embassy_usb::{Builder, Config};
 
-use core::{fmt::Debug, str};
+use core::{fmt::Debug, ops::DerefMut, str};
 
 use embedded_hal_bus::spi::ExclusiveDevice;
 use embedded_sdmmc::{filesystem, sdcard::{DummyCsPin, SdCard}};
@@ -385,9 +385,9 @@ async fn sd_saving(
               println!("ggvbhnj");
 
 
-            let my_file = sd_manager.open_file_in_dir(root_dir.to_raw_directory(), "SDTEST", embedded_sdmmc::Mode::ReadOnly).unwrap();
+            //let my_file = sd_manager.open_file_in_dir(root_dir.to_raw_directory(), "SDTEST", embedded_sdmmc::Mode::ReadOnly).unwrap();
 
-            let my_file = my_file.to_file(sd_manager);
+            //let my_file = my_file.to_file(sd_manager);
 
           //// Print the contents of the file
           if true {
@@ -397,7 +397,13 @@ async fn sd_saving(
               } else {}
           } else {}
 
-          sd_manager.close_file(my_file.to_raw_file());
+          let a = my_file.to_raw_file();
+
+          //my_file.
+
+          //volume0.deref_mut();
+          sd_manager.close_file(a);
+
 
 
         
