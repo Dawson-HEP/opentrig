@@ -8,13 +8,17 @@
 use crate::fpga::{DAQFpga, daq_fpga_clock_config, daq_fpga_spi_config};
 use defmt::*;
 use embassy_executor::Spawner;
-use embassy_rp::{gpio::{Output, Pin, Level}, pwm::Pwm, spi::Spi};
+use embassy_rp::{
+    gpio::{Level, Output, Pin},
+    pwm::Pwm,
+    spi::Spi,
+};
 
 use {defmt_rtt as _, panic_probe as _};
 
 use embassy_futures::join::join;
 use embassy_rp::bind_interrupts;
-use embassy_usb::driver::{Endpoint, EndpointIn, EndpointOut};
+use embassy_usb::driver::{Endpoint, EndpointIn};
 
 use embassy_rp::peripherals::USB;
 use embassy_rp::usb::{Driver, InterruptHandler};
@@ -29,9 +33,9 @@ bind_interrupts!(struct Irqs {
     USBCTRL_IRQ => InterruptHandler<USB>;
 });
 
+mod dac;
 mod data;
 mod fpga;
-mod dac;
 
 #[embassy_executor::main]
 async fn main(_spawner: Spawner) {
@@ -131,32 +135,14 @@ async fn main(_spawner: Spawner) {
     daq.reset().unwrap();
 
     let main_loop = async {
+        read_ep.wait_enabled().await;
+        info!("usb connected");
         loop {
-            read_ep.wait_enabled().await;
-            info!("usb connected");
-            loop {
-                daq.await_sample().await;
-
-                if let Ok(sample) = daq.read_sample() {
-                    // let d = sample.trigger_data;
-
-                    // info!(
-                    //     "trigger_id {}, trigger_clk {}, trigger_data [0b{:08b} 0b{:08b} 0b{:08b} 0b{:08b}], veto_in {}, internal_trigger {}",
-                    //     sample.trigger_id,
-                    //     sample.trigger_clk,
-                    //     (d >> 24) & 0xFF,
-                    //     (d >> 16) & 0xFF,
-                    //     (d >> 8) & 0xFF,
-                    //     d & 0xFF,
-                    //     sample.veto_in,
-                    //     sample.internal_trigger,
-                    // );
-
-                    write_ep.write(daq.last_sample_bytes()).await.ok();
-                }
-            }
+            daq.await_sample().await;
+            daq.read_sample();
+            write_ep.write(daq.last_sample_bytes()).await.ok();
         }
     };
 
-    join(usb_fut,main_loop).await;
+    join(usb_fut, main_loop).await;
 }
