@@ -54,7 +54,7 @@ async def read_loop(dev_handle):
                 if sample[0] != 0x7e:
                     print("Warning: Invalid start byte:", sample[0])
                     continue
-                if sample[15] & 0b111111 != 0x7d:
+                if sample[15] != 0x7d:
                     print("Warning: Invalid end confirmation bits:", sample[15] & 0b111111)
                     continue
 
