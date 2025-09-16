@@ -50,13 +50,27 @@ async def read_loop(dev_handle):
                 # //  )
                 # //  ]
                 # Unpack: <H Q I BB (LSB first, switch the < for MSB first)
-                trigger_id, trigger_clk, trigger_data, veto_in, internal_trigger = struct.unpack("<HQIBB", sample)
-                trigger_id = sample[1:3]
-                trigger_clk = sample[3:11]
-                trigger_data = sample[11:15]
-                veto_internal_end_bits = sample[15]
+        
+                if sample[0] != 0x7d:
+                    print("Warning: Invalid start byte:", sample[0])
+                    continue
+                if sample[15] & 0b111111 != 0b111111:
+                    print("Warning: Invalid end confirmation bits:", sample[15] & 0b111111)
+                    continue
+
+                trigger_id_buf = sample[1:3]
+                trigger_clk_buf = sample[3:11]
+                trigger_data_buf = sample[11:15]
+
+                trigger_id = struct.unpack(">H", trigger_id_buf)[0]
+                trigger_clk = struct.unpack(">Q", trigger_clk_buf)[0]
+                data_clk_buf = struct.unpack(">I", trigger_data_buf)[0]  # Big-endian
+                trigger_data = data_clk_buf & 0x00FF_FFFF
+                veto_in = (data_clk_buf >> 31 & 1) != 0
+                internal_trigger = (data_clk_buf >> 30 & 1) != 0
+
                 for writer in list(active_writers):  # write to all active files
-                    writer.writerow([trigger_id, trigger_clk, trigger_data, veto_internal_end_bits, data])
+                    writer.writerow([trigger_id, trigger_clk, trigger_data, veto_in, internal_trigger])
                 
 
         except usb1.USBErrorTimeout:
@@ -94,10 +108,11 @@ async def write_loop(dev_handle):
 
             async def stop_later():
                 await asyncio.sleep(seconds)
-                writer.writerow([f"--- RECORD END: {fname} ({seconds}s) ---"])
                 active_writers.remove(w)
                 f.close()
                 print(f"Finished recording {fname}")
+                for writer in list(active_writers):
+                    writer.writerow([f"--- RECORD END: {fname} ({seconds}s) ---"])
 
             asyncio.create_task(stop_later())
 
