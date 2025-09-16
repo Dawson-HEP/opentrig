@@ -17,7 +17,7 @@ use {defmt_rtt as _, panic_probe as _};
 use embassy_rp::gpio::{Level, Output};
 use embassy_rp::multicore::{spawn_core1, Stack};
 use embassy_sync::channel::Channel;
-use embassy_time::{Timer, WithTimeout};
+use embassy_time::Timer;
 
 use defmt::info;
 use embassy_executor::Executor;
@@ -30,7 +30,7 @@ use static_cell::StaticCell;
 
 
 
-use embassy_futures::join::join;
+use embassy_futures::join::{join, join3};
 
 use embassy_rp::bind_interrupts;
 //use embassy_rp::peripherals::USB;
@@ -43,15 +43,12 @@ use embassy_usb::driver::{Endpoint, EndpointIn, EndpointOut};
 use embassy_usb::msos::{self, windows_version};
 use embassy_usb::{Builder, Config};
 
-use core::str;
+use core::{fmt::Debug, str};
 
 use embedded_hal_bus::spi::ExclusiveDevice;
-use embedded_sdmmc::sdcard::{DummyCsPin, SdCard};
+use embedded_sdmmc::{filesystem, sdcard::{DummyCsPin, SdCard}};
 use embedded_sdmmc::Mode;
 
-
-
-use crate::{dac::DacError, fpga::{daq_fpga_clock_config, daq_fpga_spi_config}};
 
 
 mod data;
@@ -59,9 +56,10 @@ mod fpga;
 mod dac;
 mod handle_inputs;
 
+//use dac::{DacManager, DacError};
 use dac::DacManager;
 use data::DAQSample;
-use fpga::DAQFpga;
+use fpga::{DAQFpga, daq_fpga_clock_config, daq_fpga_spi_config};
 
 
 use core::{fmt, ops::Deref, u64};
@@ -72,7 +70,6 @@ use heapless::Vec;
 static mut CORE1_STACK: Stack<4096> = Stack::new();
 static EXECUTOR0: StaticCell<Executor> = StaticCell::new();
 static EXECUTOR1: StaticCell<Executor> = StaticCell::new();
-//static DAQ_CHANNEL: Channel<CriticalSectionRawMutex, DAQSample, 1> = Channel::new();
 static DAQ_CHANNEL: Channel<CriticalSectionRawMutex, [u8;16], 1> = Channel::new();
 static INPUT_CHANNEL: Channel<CriticalSectionRawMutex, [u8;64], 1> = Channel::new();
 
@@ -84,6 +81,8 @@ static mut config_descriptor : [u8;256] = [0; 256];
 static mut bos_descriptor : [u8;256]  = [0; 256];
 static mut msos_descriptor : [u8;256]  = [0; 256];
 static mut control_buf : [u8;64]  = [0; 64];
+
+
 
 
 static mut usb_connected : bool = false;
@@ -210,10 +209,10 @@ async fn main(_spawner: Spawner) {
     dac_manager.init().await.unwrap();
     dac_manager.set_all_voltages([1200; 24]).await.unwrap();
 
-    let daq = get_and_setup_daq(
-        p.PIN_20, p.PIN_19, p.PIN_18, p.SPI0, p.DMA_CH0, p.DMA_CH1, p.PWM_SLICE5,
-        p.PIN_27, p.PIN_17, p.PIN_13, p.PIN_14, p.PIN_26, p.PIN_15, p.PIN_16
-    ).await;
+    //let daq = get_and_setup_daq(
+    //    p.PIN_20, p.PIN_19, p.PIN_18, p.SPI0, p.DMA_CH0, p.DMA_CH1, p.PWM_SLICE5,
+    //    p.PIN_27, p.PIN_17, p.PIN_13, p.PIN_14, p.PIN_26, p.PIN_15, p.PIN_16
+    //).await;
 
     spawn_core1(
         p.CORE1,
@@ -225,7 +224,7 @@ async fn main(_spawner: Spawner) {
     );
     
     let executor0 = EXECUTOR0.init(Executor::new());
-    executor0.run(|spawner| unwrap!(spawner.spawn(core0_task(dac_manager, daq))));
+    executor0.run(|spawner| unwrap!(spawner.spawn(core0_task(dac_manager))));//, daq))));
 
 }
 
@@ -285,190 +284,180 @@ async fn make_usb(usb_pin:USB) ->
 }
 
 
+async fn daq_sender_from_tlu(
+    //mut daq:&mut DAQFpga<'static, embassy_rp::peripherals::SPI0>
+) {
+    // loop {
+    //     //let new_daq_sample = DAQSample {
+    //     //    trigger_id: 1,
+    //     //    trigger_clk: u64::MAX,
+    //     //    trigger_data: 3,
+    //     //    veto_in: true,
+    //     //    internal_trigger: false,
+    //     //};
+    //     //DAQ_CHANNEL.send(new_daq_sample).await;
 
-#[embassy_executor::task]
-async fn core0_task(mut dac_manager:DacManager<'static>,
-                    mut daq:DAQFpga<'static, embassy_rp::peripherals::SPI0>) {
-    info!("Hello from core 0");
-    loop {
-        //let new_daq_sample = DAQSample {
-        //    trigger_id: 1,
-        //    trigger_clk: u64::MAX,
-        //    trigger_data: 3,
-        //    veto_in: true,
-        //    internal_trigger: false,
-        //};
-        //DAQ_CHANNEL.send(new_daq_sample).await;
-        //Timer::after_millis(500).await;
+    DAQ_CHANNEL.send([126, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 125]).await;
+    info!("sent daq sample");
 
+    //info!("awaiting TLU");
+    //daq.await_sample().await;
+    //if let Ok(sample) = daq.read_sample() {
+    //    DAQ_CHANNEL.send(sample).await;
+    //    info!("received from TLU");
+    //} else {info!("invalid DAQSample")}
+}
 
+async fn handle_inputs_from_core_1(mut dac_manager:&mut DacManager<'static>) {
+    let input_data = INPUT_CHANNEL.receive().await;
+    println!("input received: {:?}", input_data);
 
-        //let input_data = INPUT_CHANNEL.receive().await;
-        //println!("input received: {:?}", input_data);
-//
-        //match input_data[0] {
-        //    0xFF => {
-        //        handle_inputs::match_cli_values_to_functions(&input_data[1..64], &mut dac_manager).await;
-        //    },
-        //    _ => println!("invalid starting u8 of inputs is {}", input_data[0]),
-        //}
-
-        info!("awaiting TLU");
-        daq.await_sample().await;
-        if let Ok(sample) = daq.read_sample() {
-            
-            let trigger_id_buf = &sample[1..3];
-            let trigger_clk_buf = &sample[3..11];
-            let trigger_data_buf = &sample[11..15];
-            
-            let trigger_id = u16::from_be_bytes(trigger_id_buf.try_into().unwrap());
-            let trigger_clk = u64::from_be_bytes(trigger_clk_buf.try_into().unwrap());
-            let data_clk_buf = u32::from_be_bytes(trigger_data_buf.try_into().unwrap());
-            let trigger_data = data_clk_buf & 0x00FF_FFFF;
-            let veto_in = (data_clk_buf >> 31 & 1) != 0;
-            let internal_trigger = (data_clk_buf >> 30 & 1) != 0;
-            
-            let daqsample = DAQSample {
-                trigger_id: trigger_id,
-                trigger_clk: trigger_clk,
-                trigger_data: trigger_data,
-                veto_in: veto_in,
-                internal_trigger: internal_trigger,
-            };
-
-            let d = daqsample.trigger_data;
-
-
-            info!(
-                "trigger_id {}, trigger_clk {}, trigger_data [0b{:08b} 0b{:08b} 0b{:08b} 0b{:08b}], veto_in {}, internal_trigger {}",
-                daqsample.trigger_id,
-                daqsample.trigger_clk,
-                (d >> 24) & 0xFF,
-                (d >> 16) & 0xFF,
-                (d >> 8) & 0xFF,
-                d & 0xFF,
-                daqsample.veto_in,
-                daqsample.internal_trigger,
-            );
-
-
-            DAQ_CHANNEL.send(sample).await;
-            info!("received from TLU");
-        } else {info!("invalid DAQSample")}
+    match input_data[0] {
+        0xFF => {
+            handle_inputs::match_cli_values_to_functions(&input_data[1..64], &mut dac_manager).await;
+        },
+        _ => println!("invalid starting u8 of inputs is {}", input_data[0]),
     }
 }
 
-async fn use_usb(
-    mut read_ep:&mut embassy_rp::usb::Endpoint<'static, USB, embassy_rp::usb::Out>,
-    mut write_ep:&mut embassy_rp::usb::Endpoint<'static, USB, embassy_rp::usb::In>,
-    //mut volume_manager:embedded_sdmmc::VolumeManager<SdCard<ExclusiveDevice<Spi<'static, SPI1, spi::Blocking>, DummyCsPin, embedded_hal_bus::spi::NoDelay>, Output<'static>, embassy_time::Delay>, DummyTimesource>
-    ) {
-        
-        //let daqs = DAQ_CHANNEL.receive().await;
-        //let output = to_vec::<DAQSample, {64 as usize}>(&daqs).unwrap();
-        //let output = daqs.encode_as_u8();
-        //println!("k {}", core::mem::size_of_val(&output));
 
-        //let mut sd_volume0 = &mut volume_manager.open_volume(embedded_sdmmc::VolumeIdx(0)).unwrap();
-        //info!("Volume 0: {:?}", defmt::Debug2Format(&sd_volume0));
-        ////// Open the root directory (mutably borrows from the volume).
-        //let mut sd_root_dir = sd_volume0.open_root_dir().unwrap();
+#[embassy_executor::task]
+async fn core0_task(mut dac_manager:DacManager<'static>,
+                    //mut daq:DAQFpga<'static, embassy_rp::peripherals::SPI0>
+                ) {
+    info!("Hello from core 0");
 
+    loop {
+        println!("n");
+        let daqs_from_tlu = daq_sender_from_tlu().await;//&mut daq).await;
+        println!("o");
+        //let input_handler = handle_inputs_from_core_1(&mut dac_manager);
+        //println!("p");
 
-        //read_ep.wait_enabled().await;
-        info!("Connected");
-        loop {
-            println!("loop works on usb side");
-            //let nbytes = read_ep.read(&mut data).await.expect("failed to read endpoint");
-            //println!("received external input");
-            //if nbytes < 64 {
-            //    INPUT_CHANNEL.send(data).await;
-            //    
-            //    let daq_sample = DAQ_CHANNEL.receive().await;
-            //    println!("hi, internal receive");
-            //    let output = daq_sample.encode_as_u8();
-            //    println!("m {:?}", output);
-//
-            //    match write_ep.write(&output).await {
-            //        Ok(_) => {println!("wrote DAQSample successfully to computer")},
-            //        Err(err) => {println!("failed to send DAQSample due to {:?}", err)},
-            //    }
-//
-            //} else {
-            //    println!("error, too many bytes received {} > 64 bytes", nbytes);
-            //}
-//
+        //join(daqs_from_tlu, input_handler).await;
+    }
 
-            //let daq_sample = DAQ_CHANNEL.receive().await;
-            //println!("hi, internal receive");
-            //let output = daq_sample.encode_as_u8();
-            //println!("m {:?}", daq_sample);
-
-            // // Try and access Volume 0 (i.e. the first partition).
-            // // The volume object holds information about the filesystem on that volume.
-            // let mut sd_volume0= volume_manager.open_volume(embedded_sdmmc::VolumeIdx(0)).unwrap();
-            // info!("Volume 0: {:?}", defmt::Debug2Format(&sd_volume0));
-            // // Open the root directory (mutably borrows from the volume).
-            // let mut sd_root_dir = sd_volume0.open_root_dir();
-                // Open a file called "MY_FILE.TXT" in the root directory
-            // This mutably borrows the directory.
-            //let mut my_file = sd_root_dir
-            //    .open_file_in_dir("SDTEST.TXT", embedded_sdmmc::Mode::ReadOnly)
-            //    .unwrap();
-//
-            //    println!("ggvbhnj");
-            //// Print the contents of the file
-            //if !my_file.is_eof() {
-            //    let mut buf = [0u8; 32];
-            //    if let Ok(n) = my_file.read(&mut buf) {
-            //        info!("{:a}", buf[..n]);
-            //    } else {info!("nope")}
-            //} else {info!("double nope")}
-
-            //let mut file = sd_root_dir.open_file_in_dir("SDTEST.TXT", embedded_sdmmc::Mode::ReadOnly).expect("failed to create file on sd card");
-            //info!("midpoint");
-            //file.write(&output).expect("failed to write to file");
+}
 
 
-            //let mut file = sd_root_dir.open_file_in_dir("sd_test.txt", embedded_sdmmc::Mode::ReadWriteCreateOrAppend).expect("failed to create file on sd card");
-            //println!("midpoint");
-            //file.write(&output).expect("failed to write to file");
+
+async fn receive_user_inputs(mut read_ep:&mut embassy_rp::usb::Endpoint<'static, USB, embassy_rp::usb::Out>) {
+    loop {
+        println!("l");
+        let mut data : [u8;64] = [0;64];
+        let nbytes = read_ep.read(&mut data).await.expect("failed to read endpoint");
+        println!("received external input");
+        if nbytes < 64 { INPUT_CHANNEL.send(data).await } else {
+            println!("error, too many bytes received {} > 64 bytes", nbytes);
+        }
+        println!("m");
+    }
+}
+
+async fn sd_saving(
+    sample:&[u8],
+    mut sd_manager:&mut embedded_sdmmc::VolumeManager<SdCard<ExclusiveDevice<Spi<'static, SPI1, spi::Blocking>, DummyCsPin, embedded_hal_bus::spi::NoDelay>, Output<'static>, embassy_time::Delay>, DummyTimesource>
+) {
+
+    // Try and access Volume 0 (i.e. the first partition).
+    // The volume object holds information about the filesystem on that volume.
+    let mut volume0 = &mut sd_manager.open_volume(embedded_sdmmc::VolumeIdx(0)).unwrap();
+    info!("Volume 0: {:?}", defmt::Debug2Format(&volume0));
+
+    // Open the root directory (mutably borrows from the volume).
+    let mut root_dir = volume0.open_root_dir().unwrap();
+
+
+    println!("k");
+    loop {
+        println!("hello sd");
+
+        //let a: Result<filesystem::DirEntry, embedded_sdmmc::Error<embedded_sdmmc::SdCardError>> = root_dir.find_directory_entry("SDTEST.TXT");
+        //println!("{:?}", a.unwrap().name.base_name());
+
+          // Open a file called "MY_FILE.TXT" in the root directory
+          // This mutably borrows the directory.
+          let mut my_file = root_dir
+              .open_file_in_dir("SDTEST", embedded_sdmmc::Mode::ReadWriteCreateOrAppend)
+              //.open_file_in_dir("SDTEST", embedded_sdmmc::Mode::ReadOnly)
+              .expect("err");
 ////
-            //println!("done");
+              println!("ggvbhnj");
 
-            println!("");
+
+            let my_file = sd_manager.open_file_in_dir(root_dir.to_raw_directory(), "SDTEST", embedded_sdmmc::Mode::ReadOnly).unwrap();
+
+            let my_file = my_file.to_file(sd_manager);
+
+          //// Print the contents of the file
+          if true {
+              let mut buf = [0u8; 32];
+              if let Ok(n) = my_file.read(&mut buf) {
+                  info!("in file is : {:a}", buf[..n]);
+              } else {}
+          } else {}
+
+          sd_manager.close_file(my_file.to_raw_file());
+
+
+        
+        //let mut file = root_dir.open_file_in_dir("newfile", embedded_sdmmc::Mode::ReadWriteCreateOrAppend).expect("failed to create file on sd card");
+        //info!("midpoint");
+        //file.write(sample).expect("failed to write to file");
+
+
+
+        warn!("done sd per turn!");
+    }
+}
+
+async fn daq_sender_over_usb(
+    mut write_ep:&mut embassy_rp::usb::Endpoint<'static, USB, embassy_rp::usb::In>,
+    sample:&[u8],
+) {
+        println!("i");
+    match write_ep.write(sample).await {
+        Ok(_) => {println!("wrote DAQSample successfully to computer")},
+        Err(err) => {println!("failed to send DAQSample due to {:?}", err)},
+    }
+        println!("j");
+}
+
+
+async fn handle_tlu_daqs(
+    mut write_ep:&mut embassy_rp::usb::Endpoint<'static, USB, embassy_rp::usb::In>,
+    mut sd_manager:embedded_sdmmc::VolumeManager<SdCard<ExclusiveDevice<Spi<'static, SPI1, spi::Blocking>, DummyCsPin, embedded_hal_bus::spi::NoDelay>, Output<'static>, embassy_time::Delay>, DummyTimesource>
+) {
+
+        println!("4");
+    loop {
+
+            warn!("");
             println!("");
             println!("");
             println!("");
             println!("");
 
-            let daq_sample = DAQ_CHANNEL.receive().await;
-            println!("m, {:?}", daq_sample);
-            match write_ep.write(&daq_sample).await {
+
+            let mut data: [u8; 64] = [0;64];
+            let mut data_idx: usize = 0;
+            for i in 0..4 {
+                let daq_sample = DAQ_CHANNEL.receive().await;
+                println!("d, {:?}", daq_sample);
+                for j in 0..16 {
+                    data[data_idx] = daq_sample[j];
+                    data_idx += 1;
+                }
+            }
+
+            println!("m, {:?}", data);
+
+            match write_ep.write(&data).await {
                 Ok(_) => {println!("wrote DAQSample successfully to computer")},
                 Err(err) => {println!("failed to send DAQSample due to {:?}", err)},
             }
 
-
-
-
-            //let mut data: [u8; 64] = [0;64];
-            //let mut data_idx: usize = 0;
-            //for i in 0..4 {
-            //    let daq_sample = DAQ_CHANNEL.receive().await;
-            //    println!("d, {:?}", daq_sample);
-            //    for j in 0..16 {
-            //        data[data_idx] = daq_sample[j];
-            //        data_idx += 1;
-            //    }
-            //}
-//
-            //println!("m, {:?}", data);
-//
-            //match write_ep.write(&data).await {
-            //    Ok(_) => {println!("wrote DAQSample successfully to computer")},
-            //    Err(err) => {println!("failed to send DAQSample due to {:?}", err)},
-            //}
+            warn!("yello!");
 
             println!("");
             println!("");
@@ -477,46 +466,67 @@ async fn use_usb(
             println!("");
 
 
+        println!("f");
+        let daq_sender = daq_sender_over_usb(&mut write_ep, &data);
+        println!("g");
+        let sd_manager = sd_saving(&data, &mut sd_manager);
+        println!("h");
 
-            //match write_ep.write(&daq_sample).await {
-            //    Ok(_) => {println!("wrote DAQSample successfully to computer")},
-            //    Err(err) => {println!("failed to send DAQSample due to {:?}", err)},
-            //}
+        join(daq_sender, sd_manager).await;
 
-            //unsafe {
-            //    if usb_connected {
-            //        match write_ep.write(&output).await {
-            //            Ok(_) => {println!("wrote DAQSample successfully to computer")},
-            //            Err(err) => {println!("failed to send DAQSample due to {:?}", err)},
-            //        }
-            //    }
-            //}
-            //warn!("sent!(?)");
-
-        }
-        info!("Disconnected");
     }
+
+}
+
+//async fn reader_writer(
+//    mut read_ep:&mut embassy_rp::usb::Endpoint<'static, USB, embassy_rp::usb::Out>,
+//    mut write_ep:&mut embassy_rp::usb::Endpoint<'static, USB, embassy_rp::usb::In>,
+//) {
+//    
+//    info!("connected");
+//        println!("3");
+//    loop {
+//        println!("c");
+//        let input_receiver = receive_user_inputs(&mut read_ep);
+//        println!("d");
+//        let daq_handler = handle_tlu_daqs(&mut write_ep);
+//        println!("e");
+//        join(input_receiver, daq_handler).await;
+//    }
+//}
+
+
+
 
 
 #[embassy_executor::task]
 async fn core1_task(usb_pin:USB, pin_spi1:SPI1, pin_10:PIN_10, pin_11:PIN_11, pin_12:PIN_12, pin_8:PIN_8) {
 
-    //let mut sd_volume_manager: embedded_sdmmc::VolumeManager<SdCard<ExclusiveDevice<Spi<'static, SPI1, spi::Blocking>, DummyCsPin, embedded_hal_bus::spi::NoDelay>, Output<'static>, embassy_time::Delay>, DummyTimesource> = get_sd_root_dir(pin_spi1, pin_10, pin_11, pin_12, pin_8).await;
-
-    // Try and access Volume 0 (i.e. the first partition).
-    // The volume object holds information about the filesystem on that volume.
-    //let mut sd_volume0: &mut embedded_sdmmc::Volume<'static, SdCard<ExclusiveDevice<Spi<'static, SPI1, spi::Blocking>, DummyCsPin, embedded_hal_bus::spi::NoDelay>, Output<'static>, embassy_time::Delay>, DummyTimesource, 4, 4, 1> = &mut sd_volume_manager.open_volume(embedded_sdmmc::VolumeIdx(0)).unwrap();
-    //info!("Volume 0: {:?}", defmt::Debug2Format(&sd_volume0));
-//
-    //// Open the root directory (mutably borrows from the volume).
-    //let mut sd_root_dir: embedded_sdmmc::Directory<'_, SdCard<ExclusiveDevice<Spi<'static, SPI1, spi::Blocking>, DummyCsPin, embedded_hal_bus::spi::NoDelay>, Output<'static>, embassy_time::Delay>, DummyTimesource, 4, 4, 1> = sd_volume0.open_root_dir().unwrap();
+    let mut sd_volume_manager: embedded_sdmmc::VolumeManager<SdCard<ExclusiveDevice<Spi<'static, SPI1, spi::Blocking>, DummyCsPin, embedded_hal_bus::spi::NoDelay>, Output<'static>, embassy_time::Delay>, DummyTimesource> = get_sd_root_dir(pin_spi1, pin_10, pin_11, pin_12, pin_8).await;
 
     let (mut usb, mut read_ep, mut write_ep) = make_usb(usb_pin).await;
 
     info!("Hello from core 1");
 
-    let usb_fut = usb.run();
-    let user = use_usb(&mut read_ep, &mut write_ep);//, sd_volume_manager);
+    //read_ep.wait_enabled().await;
 
-    join(usb_fut, user).await;
+    println!("ab");
+    let usb_runner = usb.run();
+    println!("a");
+    //let reader_writer = reader_writer(&mut read_ep, &mut write_ep);
+    println!("b");
+
+    //let input_receiver = receive_user_inputs(&mut read_ep);
+    println!("d");
+    let daq_handler = handle_tlu_daqs(&mut write_ep, sd_volume_manager);
+
+
+    join(usb_runner, daq_handler).await;
+
+    //join3(usb_runner, input_receiver, daq_handler).await;
+    //join(usb_runner, reader_writer).await;
+
+    //let usb_fut = usb.run();
+    //let user = use_usb(&mut read_ep, &mut write_ep);//, sd_volume_manager);
+    //join(usb_fut, user).await;
 }

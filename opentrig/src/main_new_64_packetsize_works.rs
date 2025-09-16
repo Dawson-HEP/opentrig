@@ -442,24 +442,33 @@ async fn use_usb(
             println!("");
             println!("");
 
-
-            let mut data: [u8; 64] = [0;64];
-            let mut data_idx: usize = 0;
-            for i in 0..4 {
-                let daq_sample = DAQ_CHANNEL.receive().await;
-                println!("d, {:?}", daq_sample);
-                for j in 0..16 {
-                    data[data_idx] = daq_sample[j];
-                    data_idx += 1;
-                }
-            }
-
-            println!("m, {:?}", data);
-
+            let daq_sample = DAQ_CHANNEL.receive().await;
+            println!("m, {:?}", daq_sample);
             match write_ep.write(&data).await {
                 Ok(_) => {println!("wrote DAQSample successfully to computer")},
                 Err(err) => {println!("failed to send DAQSample due to {:?}", err)},
             }
+
+
+
+
+            //let mut data: [u8; 64] = [0;64];
+            //let mut data_idx: usize = 0;
+            //for i in 0..4 {
+            //    let daq_sample = DAQ_CHANNEL.receive().await;
+            //    println!("d, {:?}", daq_sample);
+            //    for j in 0..16 {
+            //        data[data_idx] = daq_sample[j];
+            //        data_idx += 1;
+            //    }
+            //}
+//
+            //println!("m, {:?}", data);
+//
+            //match write_ep.write(&data).await {
+            //    Ok(_) => {println!("wrote DAQSample successfully to computer")},
+            //    Err(err) => {println!("failed to send DAQSample due to {:?}", err)},
+            //}
 
             println!("");
             println!("");
