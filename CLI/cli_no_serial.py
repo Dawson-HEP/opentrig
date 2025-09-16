@@ -157,9 +157,10 @@ async def write_loop(dev_handle, run_dir):
                     n.close()
                     print(f"Finished recording {fname} after {n_hits} hits")
                     for writer in list(active_writers):
-                        writer.writerow([f"--- RECORD END: {fname} ({n_hits} hits) ---"])
+                        if not isinstance(writer, tuple):
+                            writer.writerow([f"--- RECORD END: {fname} ({n_hits} hits) ---"])
                     return False  # stop writing
-                return True  # continue writing
+                return True  # continue writing1
 
             # Store the writer as a tuple with a filter
             active_writers.append((w, hit_filter))
