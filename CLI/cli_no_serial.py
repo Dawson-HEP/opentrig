@@ -94,7 +94,7 @@ async def write_loop(dev_handle, run_dir):
         if cmd.lower() == "exit":
             break
 
-        elif cmd.startswith("record_time"):
+        elif cmd.startswith("rt"):
             try:
                 _, fname, seconds = cmd.split()
                 seconds = int(seconds)
@@ -123,7 +123,7 @@ async def write_loop(dev_handle, run_dir):
 
             asyncio.create_task(stop_later())
         
-        elif cmd.startswith("record_n_hits"):
+        elif cmd.startswith("rc"):
             try:
                 _, fname, n_hits = cmd.split()
                 n_hits = int(n_hits)
@@ -133,7 +133,7 @@ async def write_loop(dev_handle, run_dir):
 
             file_path = os.path.join(run_dir, fname)
             n = open(file_path, "w", newline="")
-            w = csv.writer(n)
+            w = csv.writer(n) 
             active_writers.append(w)
 
             # Notify master log and others
@@ -148,7 +148,6 @@ async def write_loop(dev_handle, run_dir):
             def hit_filter(row):
                 nonlocal hit_count
                 hit_count += 1
-                w.writerow(row)
                 if hit_count >= n_hits:
                     try:
                         active_writers.remove(w)
@@ -157,9 +156,10 @@ async def write_loop(dev_handle, run_dir):
                     n.close()
                     print(f"Finished recording {fname} after {n_hits} hits")
                     for writer in list(active_writers):
-                        writer.writerow([f"--- RECORD END: {fname} ({n_hits} hits) ---"])
+                        if not isinstance(writer, tuple):
+                            writer.writerow([f"--- RECORD END: {fname} ({n_hits} hits) ---"])
                     return False  # stop writing
-                return True  # continue writing
+                return True  # continue writing1
 
             # Store the writer as a tuple with a filter
             active_writers.append((w, hit_filter))
