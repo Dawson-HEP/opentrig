@@ -133,7 +133,7 @@ async def write_loop(dev_handle, run_dir):
 
             file_path = os.path.join(run_dir, fname)
             n = open(file_path, "w", newline="")
-            w = csv.writer(n)
+            w = csv.writer(n) 
             active_writers.append(w)
 
             # Notify master log and others
@@ -148,7 +148,7 @@ async def write_loop(dev_handle, run_dir):
             def hit_filter(row):
                 nonlocal hit_count
                 hit_count += 1
-                w.writerow(row)
+                #w.writerow(row)
                 if hit_count >= n_hits:
                     try:
                         active_writers.remove(w)
