@@ -5,7 +5,6 @@
 //! Functions like MCP4728Async.fast_write() are not cloned in this module, users
 //! should access the MCP4728Async instances whithin the DacManager.dacs field.
 
-use cortex_m::register;
 use defmt::*;
 use embassy_embedded_hal::shared_bus::{I2cDeviceError, asynch::i2c::I2cDevice};
 use embassy_rp::bind_interrupts;
