@@ -22,7 +22,7 @@ PACKET_SIZE = 64  # Max packet size for full speed USB, is what we are limited t
 filename = "pico_data.csv"
 tc = translate_commands.Translate()
 
-ser = serial.Serial('/dev/ttyUSB1', 115200, timeout=1)
+ser = serial.Serial('/dev/ttyUSB0', 115200, timeout=1)
 time.sleep(2)  # allow device to reset
 
 ser.write(b"$X\r\n")
