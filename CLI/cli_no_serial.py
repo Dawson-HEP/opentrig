@@ -22,11 +22,11 @@ PACKET_SIZE = 64  # Max packet size for full speed USB, is what we are limited t
 filename = "pico_data.csv"
 tc = translate_commands.Translate()
 
-#ser = serial.Serial('/dev/ttyUSB0', 115200, timeout=1)
-#time.sleep(2)  # allow device to reset
+ser = serial.Serial('/dev/ttyUSB0', 115200, timeout=1)
+time.sleep(2)  # allow device to reset
 
-#ser.write(b"$X\r\n")
-#print(ser.readline().decode('utf-8').strip())
+ser.write(b"$X\r\n")
+print(ser.readline().decode('utf-8').strip())
 
 active_writers = []
 async def read_loop(dev_handle):
@@ -166,10 +166,10 @@ async def write_loop(dev_handle, run_dir):
 
 
         elif "gcode:" in cmd: # Send gcode command to serial device
-             #ser.write((cmd + '\r\n').encode('utf-8'))
-             #response = ser.readline().decode('utf-8').strip()
-             #print(f"Response: {response}")
-             # Change machine angle depending on GCODE here
+             ser.write((cmd + '\r\n').encode('utf-8'))
+             response = ser.readline().decode('utf-8').strip()
+             print(f"Response: {response}")
+            #  Change machine angle depending on GCODE here
              ...
         else:
             await loop.run_in_executor(None, lambda: dev_handle.bulkWrite(ENDPOINT_OUT, tc.translate(*cmd.split()), timeout=1000)) # Should encode as UTF-8 bytes, which should work for the pico?
