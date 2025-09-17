@@ -209,10 +209,10 @@ async fn main(_spawner: Spawner) {
     dac_manager.init().await.unwrap();
     dac_manager.set_all_voltages([1200; 24]).await.unwrap();
 
-    let daq = get_and_setup_daq(
-        p.PIN_20, p.PIN_19, p.PIN_18, p.SPI0, p.DMA_CH0, p.DMA_CH1, p.PWM_SLICE5,
-        p.PIN_27, p.PIN_17, p.PIN_13, p.PIN_14, p.PIN_26, p.PIN_15, p.PIN_16
-    ).await;
+    //let daq = get_and_setup_daq(
+    //    p.PIN_20, p.PIN_19, p.PIN_18, p.SPI0, p.DMA_CH0, p.DMA_CH1, p.PWM_SLICE5,
+    //    p.PIN_27, p.PIN_17, p.PIN_13, p.PIN_14, p.PIN_26, p.PIN_15, p.PIN_16
+    //).await;
 
     spawn_core1(
         p.CORE1,
@@ -224,7 +224,7 @@ async fn main(_spawner: Spawner) {
     );
     
     let executor0 = EXECUTOR0.init(Executor::new());
-    executor0.run(|spawner| unwrap!(spawner.spawn(core0_task(dac_manager, daq))));
+    executor0.run(|spawner| unwrap!(spawner.spawn(core0_task(dac_manager))));//, daq))));
 
 }
 
@@ -284,31 +284,38 @@ async fn make_usb(usb_pin:USB) ->
 }
 
 
-async fn daq_sender_from_tlu(mut daq:&mut DAQFpga<'static, embassy_rp::peripherals::SPI0>) {
+async fn daq_sender_from_tlu(
+    //mut daq:&mut DAQFpga<'static, embassy_rp::peripherals::SPI0>
+    ) {
     // loop {
-    //     //let new_daq_sample = DAQSample {
-    //     //    trigger_id: 1,
-    //     //    trigger_clk: u64::MAX,
-    //     //    trigger_data: 3,
-    //     //    veto_in: true,
-    //     //    internal_trigger: false,
-    //     //};
-    //     //DAQ_CHANNEL.send(new_daq_sample).await;
+    let new_daq_sample = DAQSample {
+        trigger_id: 1,
+        trigger_clk: u64::MAX,
+        trigger_data: 3,
+        veto_in: true,
+        internal_trigger: false,
+    };
+    let daq_sample = [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7];
+    println!("made daq sample");
+    DAQ_CHANNEL.send(daq_sample).await;
+    println!("sent daq sample");
 
-    info!("awaiting TLU");
-    daq.await_sample().await;
-    if let Ok(sample) = daq.read_sample() {
-        //DAQ_CHANNEL.send(sample).await;
-        info!("received from TLU");
-    } else {info!("invalid DAQSample")}
+    //info!("awaiting TLU");
+    //daq.await_sample().await;
+    //if let Ok(sample) = daq.read_sample() {
+    //    //DAQ_CHANNEL.send(sample).await;
+    //    info!("received from TLU");
+    //} else {info!("invalid DAQSample")}
 }
 
 async fn handle_inputs_from_core_1(mut dac_manager:&mut DacManager<'static>) {
+    println!("awaiting core 1 inputs");
     let input_data = INPUT_CHANNEL.receive().await;
     println!("input received: {:?}", input_data);
 
     match input_data[0] {
         0xFF => {
+            println!("input being handled");
             handle_inputs::match_cli_values_to_functions(&input_data[1..64], &mut dac_manager).await;
         },
         _ => println!("invalid starting u8 of inputs is {}", input_data[0]),
@@ -318,41 +325,44 @@ async fn handle_inputs_from_core_1(mut dac_manager:&mut DacManager<'static>) {
 
 #[embassy_executor::task]
 async fn core0_task(mut dac_manager:DacManager<'static>,
-                    mut daq:DAQFpga<'static, embassy_rp::peripherals::SPI0>) {
+                    //mut daq:DAQFpga<'static, embassy_rp::peripherals::SPI0>
+                ) {
     info!("Hello from core 0");
 
     loop {
-        println!("n");
-        let daqs_from_tlu = daq_sender_from_tlu(&mut daq);
-        println!("o");
+        println!("begin core 0 loop");
+        let daqs_from_tlu = daq_sender_from_tlu();//&mut daq);
+        println!("midpoint core 0 loop");
         let input_handler = handle_inputs_from_core_1(&mut dac_manager);
-        println!("p");
+        println!("set functions core 0 loop");
 
         join(daqs_from_tlu, input_handler).await;
-        embassy_futures::join::Join::with_deadline(self, at)
+        println!("finish core 0 loop");
     }
-
 }
 
 
 
 async fn receive_user_inputs(mut read_ep:&mut embassy_rp::usb::Endpoint<'static, USB, embassy_rp::usb::Out>) {
+    
+    read_ep.wait_enabled().await;
+    
     loop {
-        println!("l");
+        println!("waiting for user inputs");
         let mut data : [u8;64] = [0;64];
         let nbytes = read_ep.read(&mut data).await.expect("failed to read endpoint");
         println!("received external input");
         if nbytes < 64 { INPUT_CHANNEL.send(data).await } else {
             println!("error, too many bytes received {} > 64 bytes", nbytes);
         }
-        println!("m");
+        println!("finished handle of user inputs");
     }
 }
 
 async fn sd_manager(sample:&[u8]) {
     println!("k");
     loop {
-        
+
     }
 }
 
@@ -360,12 +370,12 @@ async fn daq_sender_over_usb(
     mut write_ep:&mut embassy_rp::usb::Endpoint<'static, USB, embassy_rp::usb::In>,
     sample:&[u8],
 ) {
-        println!("i");
+    println!("wait for sending daq over usb");
     match write_ep.write(sample).await {
         Ok(_) => {println!("wrote DAQSample successfully to computer")},
         Err(err) => {println!("failed to send DAQSample due to {:?}", err)},
     }
-        println!("j");
+    println!("sent daq over usb");
 }
 
 
@@ -382,17 +392,21 @@ async fn handle_tlu_daqs(
             println!("");
             println!("");
 
+            println!("waiting for receive cross channel daq");
 
-            let mut data: [u8; 64] = [0;64];
-            let mut data_idx: usize = 0;
-            for i in 0..4 {
-                let daq_sample = DAQ_CHANNEL.receive().await;
-                println!("d, {:?}", daq_sample);
-                for j in 0..16 {
-                    data[data_idx] = daq_sample[j];
-                    data_idx += 1;
-                }
-            }
+
+            let data = DAQ_CHANNEL.receive().await;
+
+            //let mut data: [u8; 64] = [0;64];
+            //let mut data_idx: usize = 0;
+            //for i in 0..4 {
+            //    let daq_sample = DAQ_CHANNEL.receive().await;
+            //    println!("d, {:?}", daq_sample);
+            //    for j in 0..16 {
+            //        data[data_idx] = daq_sample[j];
+            //        data_idx += 1;
+            //    }
+            //}
 
             println!("m, {:?}", data);
 
@@ -414,7 +428,13 @@ async fn handle_tlu_daqs(
         let sd_manager = sd_manager(&data);
         println!("h");
 
+        println!("waiting for tlu handle finish");    
+        
+        //embassy_futures::select::select(a, b)
         join(daq_sender, sd_manager).await;
+
+        println!("tlu handle finished");    
+
 
     }
 
@@ -450,7 +470,6 @@ async fn core1_task(usb_pin:USB, pin_spi1:SPI1, pin_10:PIN_10, pin_11:PIN_11, pi
 
     info!("Hello from core 1");
 
-    //read_ep.wait_enabled().await;
 
     let usb_runner = usb.run();
     println!("a");
@@ -461,7 +480,10 @@ async fn core1_task(usb_pin:USB, pin_spi1:SPI1, pin_10:PIN_10, pin_11:PIN_11, pi
     println!("d");
     let daq_handler = handle_tlu_daqs(&mut write_ep);
 
-    join3(usb_runner, input_receiver, input_handler).await;
+    //join3(usb_runner, input_receiver, input_handler).await;
+    //join(usb_runner, daq_handler).await;
+    join3(usb_runner, input_receiver, daq_handler).await;
+
     //join(usb_runner, reader_writer).await;
 
     //let usb_fut = usb.run();
