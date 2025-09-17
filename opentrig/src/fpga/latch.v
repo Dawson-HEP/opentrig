@@ -11,7 +11,7 @@ module latch (
     output reg [23:0] out
 );
     // store n cycles worth of data
-    localparam latch_length = 16;
+    localparam latch_length = 32;
     localparam latch_length_minus_one = latch_length - 1;
 
     // longitudinal buffer over latch_length cycles
