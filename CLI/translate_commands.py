@@ -74,3 +74,4 @@ class Translate:
                 encoded_args.append(mapped)
 
         return [0xFF, fn_id] + encoded_args
+    

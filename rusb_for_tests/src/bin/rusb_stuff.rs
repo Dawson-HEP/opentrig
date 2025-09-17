@@ -181,5 +181,5 @@ pub fn rusb_demo(data:&[u8]) {
 
 fn main() {
     _list_devices();
-    //rusb_demo();
+    rusb_demo("a".as_bytes());
 }

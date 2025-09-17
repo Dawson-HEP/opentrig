@@ -295,28 +295,28 @@ async fn make_usb(usb_pin:USB) ->
 
 
 async fn call_dac_stuff(mut dac_manager:DacManager<'static>,) {
-    println!("ready for dac stuff");
+  //  println!("ready for dac stuff");
     loop {
-        println!("start dac stuff loop");
+      //  println!("start dac stuff loop");
         let input_data = INPUT_CHANNEL.receive().await;
         
-        println!("received external input");
+      //  println!("received external input");
         match input_data[0] {
             0xFF => {
                 handle_inputs::match_cli_values_to_functions(&input_data[1..64], &mut dac_manager).await;
             },
             _ => println!("invalid starting u8 of inputs is {}", input_data[0]),
         }
-        println!("end dac stuff loop");
+      //  println!("end dac stuff loop");
     }
 }
 
 async fn tlu_emulator() {
-    println!("start emulating");
+  //  println!("start emulating");
     loop {
-        println!("daq prepared");
+      //  println!("daq prepared");
         DAQ_CHANNEL.send([126, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 125]).await;
-        println!("daq sent");
+      //  println!("daq sent");
     }
 }
 
@@ -346,7 +346,7 @@ async fn core0_task(
 //
     //    let input_data = INPUT_CHANNEL.receive().await;
     //    
-    //    println!("received external input");
+    //  //  println!("received external input");
     //    match input_data[0] {
     //        0xFF => {
     //            handle_inputs::match_cli_values_to_functions(&input_data[1..64], &mut dac_manager).await;
@@ -386,16 +386,16 @@ async fn use_usb(
         //read_ep.wait_enabled().await;
         info!("Connected");
         loop {
-            println!("loop works on usb side");
+          //  println!("loop works on usb side");
             //let nbytes = read_ep.read(&mut data).await.expect("failed to read endpoint");
             //println!("received external input");
             //if nbytes < 64 {
             //    INPUT_CHANNEL.send(data).await;
             //    
             //    let daq_sample = DAQ_CHANNEL.receive().await;
-            //    println!("hi, internal receive");
+            //  //  println!("hi, internal receive");
             //    let output = daq_sample.encode_as_u8();
-            //    println!("m {:?}", output);
+            //  //  println!("m {:?}", output);
 //
             //    match write_ep.write(&output).await {
             //        Ok(_) => {println!("wrote DAQSample successfully to computer")},
@@ -403,14 +403,14 @@ async fn use_usb(
             //    }
 //
             //} else {
-            //    println!("error, too many bytes received {} > 64 bytes", nbytes);
+            //  //  println!("error, too many bytes received {} > 64 bytes", nbytes);
             //}
 //
 
             let daq_sample = DAQ_CHANNEL.receive().await;
             //println!("hi, internal receive");
             //let output = daq_sample.encode_as_u8();
-            println!("m {:?}", daq_sample);
+          //  println!("m {:?}", daq_sample);
 
             // // Try and access Volume 0 (i.e. the first partition).
             // // The volume object holds information about the filesystem on that volume.
@@ -424,7 +424,7 @@ async fn use_usb(
             //    .open_file_in_dir("SDTEST.TXT", embedded_sdmmc::Mode::ReadOnly)
             //    .unwrap();
 //
-            //    println!("ggvbhnj");
+            //  //  println!("ggvbhnj");
             //// Print the contents of the file
             //if !my_file.is_eof() {
             //    let mut buf = [0u8; 32];
@@ -467,39 +467,41 @@ async fn use_usb(
 async fn handle_user_inputs(
     mut read_ep:&mut embassy_rp::usb::Endpoint<'static, USB, embassy_rp::usb::Out>,
 ) {
-    println!("start handle user input");
+  //  println!("start handle user input");
     read_ep.wait_enabled().await;
-    println!("ready handle user input loop");
+  //  println!("ready handle user input loop");
     loop {
-        println!("start handle user loop");
+      //  println!("start handle user loop");
         let mut input_data = [0;64];
         let nbytes = read_ep.read(&mut input_data).await.expect("failed to read endpoint");
         
         if nbytes < 64 {
             INPUT_CHANNEL.send(input_data).await;
         } else {
-            println!("error, too many bytes received {} > 64 bytes", nbytes);
+          //  println!("error, too many bytes received {} > 64 bytes", nbytes);
         }
-        println!("end handle user loop");
+      //  println!("end handle user loop");
     }
 }
 
 async fn handle_tlu_daqs(
         mut write_ep:&mut embassy_rp::usb::Endpoint<'static, USB, embassy_rp::usb::In>,
 ) {
-    println!("ready handle tlu daq");
+  //  println!("ready handle tlu daq");
     loop {
-        println!("start handle tlu daq loop");
+      //  println!("start handle tlu daq loop");
         let daq_sample = DAQ_CHANNEL.receive().await;
-        println!("m {:?}", daq_sample);
+      //  println!("m {:?}", daq_sample);
 
         if true {
             match write_ep.write(&daq_sample).await {
-                Ok(_) => {println!("wrote DAQSample successfully to computer")},
+                Ok(_) => {
+                    //println!("wrote DAQSample successfully to computer")
+                },
                 Err(err) => {println!("failed to send DAQSample due to {:?}", err)},
             }
         }
-        println!("end handle tlu daq loop");
+      //  println!("end handle tlu daq loop");
     }
 }
 

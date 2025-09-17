@@ -172,7 +172,7 @@ async def write_loop(dev_handle, run_dir):
              # Change machine angle depending on GCODE here
              ...
         else:
-            await loop.run_in_executor(None, lambda: dev_handle.bulkWrite(ENDPOINT_OUT, tc.translate(cmd), timeout=1000)) # Should encode as UTF-8 bytes, which should work for the pico?
+            await loop.run_in_executor(None, lambda: dev_handle.bulkWrite(ENDPOINT_OUT, tc.translate(*cmd.split()), timeout=1000)) # Should encode as UTF-8 bytes, which should work for the pico?
             print("Sent:", cmd) # Confirmation because it is nice to have confirmation 
 
 def create_run_directory(base="runs"):
