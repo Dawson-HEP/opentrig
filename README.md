@@ -1,5 +1,7 @@
 # opentrig
 
+> ***open***-source ***trig***ger system
+
 An open-source, integrated, particle physics data acquisition system (DAQ).
 
 Designed to interface with timing systems controlled by the [AIDA-2020 TLU](https://gitlab.com/ohwr/project/fmc-mtlu).
@@ -20,20 +22,23 @@ Up to 24 digital trigger channels with variable-gain threshold setting.
 
 ## Hardware Overview
 
-Front panel IO:
+[**Schematics can be found here.**](hardware/digital.pdf)
+
+Front panel IO (left)
 - Input clock signal (<40 MHz square wave)
 - Output clock signal (120 MHz square wave, 3.3V TTL, <0.5% jitter, phase-locked)
 - Input/output trigger (3.3V TTL)
 - Input/output veto (3.3V TTL)
 - Extra 50R impedance-matched inputs
 
-Back panel:
+Back panel (right)
 - 24 channel digital inputs, with variable trigger thresholds (1.024 mV steps):
     - 0.000V-2.000V (1x gain)
     - 0.000V-4.000V (2x gain)
 
 Internal components
 - Low drift 5.000V reference (TI REF5050AIR)
+- 12 high-speed thresholding comparators (TI TLV3502)
 - 120 MHz MCU (RP2040)
 - FPGA (Lattice ICE40 HX4K)
 
