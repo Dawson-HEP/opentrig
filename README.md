@@ -113,6 +113,10 @@ Flashing:
 ![Frontend](docs/res/side_back.jpg)
 
 
+## License
+
+This project is open-source under the Eclipse Public License - v 2.0.
+
 ## Authors
 
 - [Tian Yi, Xia](https://github.com/ThatAquarel), xtxiatianyi@gmail.com
