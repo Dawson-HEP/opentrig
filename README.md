@@ -106,6 +106,13 @@ Flashing:
 - SWD debug port on the PCB
 - USB flashing via data port
 
+## DESY Test Beam
+
+The interfacing with the AIDA-2020 TLU functionality has been verified at the [DESY II Test Beam facility](https://desy.de/index_eng.html) in September of 2025, as part of the [Beamline for Schools](https://beamlineforschools.cern/) Competition. 
+
+*Testbeam Area 21, Translation Stage*
+![Testbeam](docs/res/testbeam_desy.jpg)
+
 ## Gallery
 
 ![Frontend](docs/res/ortho_back.jpg)
