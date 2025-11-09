@@ -111,6 +111,7 @@ Flashing:
 ![Frontend](docs/res/ortho_back.jpg)
 ![Frontend](docs/res/frontend.jpg)
 ![Frontend](docs/res/side_back.jpg)
+![Bare PCB](docs/res/bare_pcb.jpg)
 
 
 ## License
