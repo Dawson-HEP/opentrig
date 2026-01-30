@@ -95,7 +95,7 @@ module trigger_internal (
 );  
     // rising edge detection for all inputs    
     reg [23:0] sync_0, sync_1;
-    wire [23:0] rising = sync_0 & ~sync_1 & 24'h00_00_0F;
+    wire [23:0] rising = sync_0 & ~sync_1 & 24'h00_00_03;
 
     // any inputs are rising
     wire any_rising = |rising;
@@ -131,6 +131,49 @@ module trigger_internal (
             if (any_rising) begin
                 count <= 0;
                 counting <= 1;
+            end
+        end
+    end
+endmodule
+
+/*
+* COINCIDENCE TRIGGER
+*  
+* Triggers a pulse of adjustable
+* duration upon coincidence of
+* the two inpu channels. 
+*/
+module coincidence_trigger(
+    input wire [1,0] inputs_async,
+    input wire clk,
+    output reg trigger
+);
+    reg[1,0] sync_0 sync_1;
+    
+    localparam pulse_time = 120;
+    reg counting;
+    reg [7,0] count;
+
+    always @(posedge clk) begin
+        sync_0 <= inputs_async;
+        sync_1 <= sync_0;
+
+        if (counting) begin
+            count <= count + 1;
+
+            // Stop pulse after n clock cycles.
+            if (count == pulse_time) begin
+                counting <= 0;
+                trigger <= 0;
+
+                count <= 0;
+            end
+        end else begin
+
+            // Begin pulse on coincidence.
+            if(&sync1) begin
+                counting <= 1;
+                trigger <= 1;
             end
         end
     end

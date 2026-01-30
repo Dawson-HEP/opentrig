@@ -105,41 +105,47 @@ module main(
     //       8  0x00 LSB data
     //          0x7D end byte
 
-    // INTERNAL TRIGGER
-    wire sample_interrupt;      
-    // synchronous, active-high sampling event aligned to pll_clk
-    reg trig_in_internal;
-    // internal trigger
-    trigger_internal trigger_internal_inst (
-        .inputs_async(c_input),
-        .sampling_clk(pll_clk),
-        .trigger(trig_in_internal),
-    );
-    // set internal trigger bit
-    always @(posedge pll_clk) begin
-        if (sample_interrupt && trig_in) begin
-            data_reg[38] <= 0; // external trigger on sample
-        end else if (sample_interrupt && trig_in_internal) begin
-            data_reg[38] <= 1; // internal trigger on sample
-        end
-    end
+    // // INTERNAL TRIGGER
+    // wire sample_interrupt;      
+    // // synchronous, active-high sampling event aligned to pll_clk
+    // reg trig_in_internal;
+    // // internal trigger
+    // trigger_internal trigger_internal_inst (
+    //     .inputs_async(c_input),
+    //     .sampling_clk(pll_clk),
+    //     .trigger(trig_in_internal),
+    // );
+    // // set internal trigger bit
+    // always @(posedge pll_clk) begin
+    //     if (sample_interrupt && trig_in) begin
+    //         data_reg[38] <= 0; // external trigger on sample
+    //     end else if (sample_interrupt && trig_in_internal) begin
+    //         data_reg[38] <= 1; // internal trigger on sample
+    //     end
+    // end
 
     // combine internal and external trigger
     // trig_in -> higher priority (veto_out will be valid before trig_in_internal)
-    wire trig_in_combined = (trig_in_internal & ~veto_out) || trig_in;
+    // wire trig_in_combined = (trig_in_internal & ~veto_out) || trig_in;
 
-    // EXTERNAL TRIGGER
-    trigger trigger_inst (
-        .sampling_clk(pll_clk),
-        .trig_in_async(trig_in_combined),
-        .trig_id_async(trig_id),
-        .clk_in_async(clk_in),
-        .reset_async(reset),
-        .sample_interrupt(sample_interrupt),
-        .interrupt(interrupt),
-        .trigger_id(data_reg[119:104]),
-        .trigger_cycle(data_reg[87:40])
-    );
+    // // EXTERNAL TRIGGER
+    // trigger trigger_inst (
+    //     .sampling_clk(pll_clk),
+    //     .trig_in_async(trig_in_combined),
+    //     .trig_id_async(trig_id),
+    //     .clk_in_async(clk_in),
+    //     .reset_async(reset),
+    //     .sample_interrupt(sample_interrupt),
+    //     .interrupt(interrupt),
+    //     .trigger_id(data_reg[119:104]),
+    //     .trigger_cycle(data_reg[87:40])
+    // );
+
+    coincidence_trigger coincidence_trigger_inst(
+        .inputs_async(data_reg[9:8]),
+        .clk(pll_clk),
+        .out(trig_out)
+    )
 
     // INPUT LATCHES
     latch latch_inst(
