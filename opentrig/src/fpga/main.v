@@ -144,8 +144,8 @@ module main(
     coincidence_trigger coincidence_trigger_inst(
         .inputs_async(data_reg[9:8]),
         .clk(pll_clk),
-        .out(trig_out)
-    )
+        .trigger(trig_out)
+    );
 
     // INPUT LATCHES
     latch latch_inst(

@@ -144,15 +144,15 @@ endmodule
 * the two inpu channels. 
 */
 module coincidence_trigger(
-    input wire [1,0] inputs_async,
+    input wire [1:0] inputs_async,
     input wire clk,
-    output reg trigger
+    output reg trigger,
 );
-    reg[1,0] sync_0 sync_1;
+    reg[1:0] sync_0, sync_1;
     
     localparam pulse_time = 120;
     reg counting;
-    reg [7,0] count;
+    reg [7:0] count;
 
     always @(posedge clk) begin
         sync_0 <= inputs_async;
