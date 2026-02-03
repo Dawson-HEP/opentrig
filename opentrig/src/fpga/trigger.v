@@ -146,17 +146,25 @@ endmodule
 module coincidence_trigger(
     input wire [1:0] inputs_async,
     input wire clk,
-    output reg trigger,
+    output reg trigger
 );
-    reg[1:0] sync_0, sync_1;
+
+    localparam latch_length = 32;
+    reg [latch_length:0] sr[1:0];
+    reg [1:0] current;
     
     localparam pulse_time = 120;
     reg counting;
     reg [7:0] count;
 
     always @(posedge clk) begin
-        sync_0 <= inputs_async;
-        sync_1 <= sync_0;
+        for (i = 0; i < 2; i = i + 1;) begin
+            // shift new channel levels
+            sr[i] <= {sr[i][latch_length - 1:0], inputs_async[i]};
+
+            // OR-gate reduction of every SR -> longitudinal trigger
+            current[i] <= |sr[i];
+        end
 
         if (counting) begin
             count <= count + 1;
@@ -171,7 +179,7 @@ module coincidence_trigger(
         end else begin
 
             // Begin pulse on coincidence.
-            if(&sync1) begin
+            if(&current) begin
                 counting <= 1;
                 trigger <= 1;
             end

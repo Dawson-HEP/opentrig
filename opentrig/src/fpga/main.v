@@ -142,7 +142,7 @@ module main(
     // );
 
     coincidence_trigger coincidence_trigger_inst(
-        .inputs_async(data_reg[9:8]),
+        .inputs_async(c_input[1:0])
         .clk(pll_clk),
         .trigger(trig_out)
     );
