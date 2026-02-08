@@ -23,7 +23,9 @@ use embassy_usb::driver::{Endpoint, EndpointIn};
 use embassy_rp::peripherals::USB;
 use embassy_rp::usb::{Driver, InterruptHandler};
 use embassy_usb::msos::{self, windows_version};
-use embassy_usb::{Builder, Config};
+use embassy_usb::{Builder, Config, Handler};
+use embassy_usb::control::{InResponse, OutResponse, Recipient, Request, RequestType};
+use embassy_usb::types::InterfaceNumber;
 use {defmt_rtt as _, panic_probe as _};
 
 // This is a randomly generated GUID to allow clients on Windows to find our device
@@ -59,6 +61,10 @@ async fn main(_spawner: Spawner) {
     let mut msos_descriptor = [0; 256];
     let mut control_buf = [0; 64];
 
+    let mut handler = ControlHandler {
+        if_num: InterfaceNumber(0),
+    };
+
     let mut builder = Builder::new(
         driver,
         config,
@@ -86,8 +92,8 @@ async fn main(_spawner: Spawner) {
     let mut function = builder.function(0xFF, 0, 0);
     let mut interface = function.interface();
     let mut alt = interface.alt_setting(0xFF, 0, 0, None);
-    let mut read_ep = alt.endpoint_bulk_out(64);
     let mut write_ep = alt.endpoint_bulk_in(64);
+    handler.if_num = interface.interface_number(); 
     drop(function);
 
     // Build the builder.
@@ -145,4 +151,45 @@ async fn main(_spawner: Spawner) {
     };
 
     join(usb_fut, main_loop).await;
+}
+
+/// Handle CONTROL endpoint requests and responses. For many simple requests and responses
+/// you can get away with only using the control endpoint.
+struct ControlHandler {
+    if_num: InterfaceNumber,
+}
+
+impl Handler for ControlHandler {
+    /// Respond to HostToDevice control messages, where the host sends us a command and
+    /// optionally some data, and we can only acknowledge or reject it.
+    fn control_out<'a>(&'a mut self, req: Request, buf: &'a [u8]) -> Option<OutResponse> {
+        // Log the request before filtering to help with debugging.
+        info!("Got control_out, request={}, buf={:a}", req, buf);
+
+        // Only handle Vendor request types to an Interface.
+        if req.request_type != RequestType::Vendor || req.recipient != Recipient::Interface {
+            return None;
+        }
+
+        // // Ignore requests to other interfaces.
+        // if req.index != self.if_num.0 as u16 {
+        //     return None;
+        // }
+
+        // Accept request 100, value 200, reject others.
+        if req.request == 100 {
+            info!("Recieved command 100");
+            Some(OutResponse::Accepted)
+        } else {
+            warn!("Wrong command");
+            Some(OutResponse::Rejected)
+        }
+    }
+
+    /// Respond to DeviceToHost control messages, where the host requests some data from us.
+    fn control_in<'a>(&'a mut self, req: Request, buf: &'a mut [u8]) -> Option<InResponse<'a>> {
+        info!("Got control_in, request={}", req);
+        warn!("Wrong direction");
+        return None
+    }
 }
