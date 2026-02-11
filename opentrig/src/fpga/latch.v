@@ -36,7 +36,7 @@ module latch (
         // if sample event is called, shift the active channels
         // into out
         if (sample_interrupt) begin
-            out <= current;
+            out <= current & 24'h00_00_03;
         end
     end
 endmodule
