@@ -95,7 +95,7 @@ module trigger_internal (
 );  
     // rising edge detection for all inputs    
     reg [23:0] sync_0, sync_1;
-    wire [23:0] rising = sync_0 & ~sync_1;
+    wire [23:0] rising = sync_0 & ~sync_1 & 24'h00_00_03;
 
     // any inputs are rising
     wire any_rising = |rising;
