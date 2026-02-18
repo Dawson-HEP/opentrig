@@ -1,6 +1,6 @@
 set_io mcu_clk 37       # GPIO27
-set_io ext_clk 38
-        #set_io ext_clk 44
+#set_io ext_clk 38               # External clock
+        set_io ext_clk 44        # Internal clock from SIM PICO
 
 set_io pll_clk 39
 set_io pll_lock 41      # GPIO26
