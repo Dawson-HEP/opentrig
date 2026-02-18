@@ -87,6 +87,8 @@ endmodule
  * Internal trigger event handler
  * with delay
  */
+`include "settings/settings.v"
+
 module trigger_internal (
     input wire [23:0] inputs_async,
     input wire sampling_clk,
@@ -95,7 +97,7 @@ module trigger_internal (
 );  
     // rising edge detection for all inputs    
     reg [23:0] sync_0, sync_1;
-    wire [23:0] rising = sync_0 & ~sync_1;
+    wire [23:0] rising = sync_0 & ~sync_1 & `INPUT_MASK;
 
     // any inputs are rising
     wire any_rising = |rising;

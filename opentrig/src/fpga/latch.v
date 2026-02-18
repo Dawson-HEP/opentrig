@@ -4,6 +4,8 @@
  * Fast input latching, and longitudinal,
  * synchronous sampling with respect to clock
  */
+`include "settings/settings.v"
+
 module latch (
     input wire sampling_clk,
     input wire sample_interrupt,
@@ -36,7 +38,7 @@ module latch (
         // if sample event is called, shift the active channels
         // into out
         if (sample_interrupt) begin
-            out <= current;
+            out <= current & `INPUT_MASK;
         end
     end
 endmodule
