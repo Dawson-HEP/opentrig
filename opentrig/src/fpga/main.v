@@ -141,6 +141,13 @@ module main(
         .trigger_cycle(data_reg[87:40])
     );
 
+    // COINCIDENCE TRIGGER
+    trigger_coincidence trigger_coincidence_inst (
+        .inputs_async(c_input[23:0]),
+        .clk(pll_clk),
+        .trigger(trig_out)
+    );
+
     // INPUT LATCHES
     latch latch_inst(
         .sampling_clk(pll_clk),
