@@ -106,7 +106,7 @@ module trigger_internal (
 
     // internal trigger occurs n cycles after input rise.
     // ensure latch.v has a long enough buffer.
-    localparam trig_in_rise_clk = 15;
+    localparam trig_in_rise_clk = 31;
     localparam trig_in_fall_clk = trig_in_rise_clk + 3;
 
     always @(posedge sampling_clk) begin
