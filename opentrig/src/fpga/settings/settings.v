@@ -44,7 +44,9 @@
 // measured in number of full PLL clock cycles
 `define COINCIDENCE_OUT_N_CYCLES 120
 
-
+// Duration of coincidence input sampling window
+// measured in number of full PLL clock cycles
+`define COINCIDENCE_WINDOW_N_CYCLES 4
 
 
 
