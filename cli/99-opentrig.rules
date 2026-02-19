@@ -1,0 +1,2 @@
+SUBSYSTEM=="usb", ATTRS{idVendor}=="2e8a", MODE="0666"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="c0de", ATTRS{idProduct}=="cafe", MODE="0666",GROUP="users"
