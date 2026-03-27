@@ -1,7 +1,7 @@
 verilog-src := `find . -maxdepth 5 -name '*.v' ! -name 'pll*' -print | sort | xargs`
 
 pcf := "src/fpga/main.pcf"
-pcf-dev := "src/fpga/main.pcf"
+pcf-dev := "src/fpga/main_dev.pcf"
 
 pll-src := "src/fpga/pll/pll_40mhz.v"
 
@@ -37,7 +37,7 @@ synth:
 route:
 	nextpnr-ice40 --hx4k --package tq144 --json {{synth}} --pcf {{pcf}} --asc {{route}} --freq 120
 route-dev:
-	nextpnr-ice40 --hx4k --package tq144 --json {{synth}} --pcf {{pcf}} --asc {{route}} --freq 120
+	nextpnr-ice40 --hx4k --package tq144 --json {{synth}} --pcf {{pcf-dev}} --asc {{route}} --freq 120
 
 
 pack:
